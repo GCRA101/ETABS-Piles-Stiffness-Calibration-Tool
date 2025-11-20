@@ -106,9 +106,6 @@ Automatically generated tables and charts for iteration outputs.
 ### ETABS & PDisp Models
 Saved per iteration for full traceability.
 
-![Iteration Models](docs/images/iteration_models.png)  
-*Figure 11: Output Models and JSON Files per Iteration*
-
 ---
 
 ## 📊 Workflow Example
@@ -123,17 +120,4 @@ Saved per iteration for full traceability.
 
 ## 📜 License
 
-© 1976 – 2024 Buro Happold. All rights reserved.  
-Issued in commercial confidence.  
-
 ---
-
-## 🤝 Contributing
-
-Contributions are welcome! Please fork the repo, create a feature branch, and submit a pull request.  
-
----
-
-## 📧 Contact
-
-For questions or support, please reach out to **Buro Happold Engineering**

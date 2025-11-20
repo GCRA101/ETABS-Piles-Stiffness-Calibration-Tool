@@ -1,9 +1,9 @@
 # 📐 Piles Stiffness Calibration Tool
 
-![Splashscreen](docs/images/splashscreen.png)  
-*A CSI ETABS Plugin developed by Buro Happold*
+<p align="center">
+  <img src="docs/images/uml_classes_diagram.png" alt="UML Classes Diagram" width="800"/>
+</p>
 
----
 
 ## 📖 Description
 
@@ -15,7 +15,9 @@ It runs **parallel analyses** in:
 
 The process continues until convergence criteria are met, and outputs are automatically documented for engineers.
 
-![Algorithm Overview](docs/images/algorithm_overview.png)  
+<p align="center">
+  <img src="docs/images/algorithm_overview.png" alt="Algorithm Overview" width="800"/>
+</p>
 *Figure 1: Overview of the tool’s algorithm steps*
 
 ---

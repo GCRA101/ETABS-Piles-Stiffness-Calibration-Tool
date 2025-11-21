@@ -1,10 +1,5 @@
 # 📐 Piles Stiffness Calibration Tool
 
-<p align="center">
-  <img src="docs/images/uml_classes_diagram.png" alt="UML Classes Diagram" width="800"/>
-</p>
-
-
 ## 📖 Description
 
 The **Piles Stiffness Calibration Tool** is a CSI ETABS Plugin developed by **Buro Happold** to assist structural and geotechnical engineers in automating the calibration of pile stiffnesses under existing and proposed loads.  
@@ -19,6 +14,14 @@ The process continues until convergence criteria are met, and outputs are automa
   <img src="docs/images/algorithm_overview.png" alt="Algorithm Overview" width="800"/>
 </p>
 *Figure 1: Overview of the tool’s algorithm steps*
+
+---
+
+## 🧩 UML Classes Diagram
+
+<p align="center">
+  <img src="docs/images/uml_classes_diagram.png" alt="UML Classes Diagram" width="800"/>
+</p>
 
 ---
 

@@ -484,9 +484,19 @@ Public Class PSC_Model
 
         'UPDATE PDISP LOADS
 
+        'Set up Pullers for each type of load
         Dim rectLoadsPuller As LoadsPuller(Of PDispRectLoad) = New LoadsPuller(Of PDispRectLoad)(pDispModel)
-        Dim loadsPusher As LoadsPusher(Of PDispRectLoad) = New LoadsPusher(Of PDispRectLoad)(pDispModel)
+        Dim circLoadsPuller As LoadsPuller(Of PDispCircLoad) = New LoadsPuller(Of PDispCircLoad)(pDispModel)
+        Dim polyLoadsPuller As LoadsPuller(Of PDispPolyLoad) = New LoadsPuller(Of PDispPolyLoad)(pDispModel)
+        'Set up Pushers for each type of load
+        Dim rectloadsPusher As LoadsPusher(Of PDispRectLoad) = New LoadsPusher(Of PDispRectLoad)(pDispModel)
+        Dim circloadsPusher As LoadsPusher(Of PDispCircLoad) = New LoadsPusher(Of PDispCircLoad)(pDispModel)
+        Dim polyloadsPusher As LoadsPusher(Of PDispPolyLoad) = New LoadsPusher(Of PDispPolyLoad)(pDispModel)
+
+        'Extract all pdispLoads depending on type
         Dim pDispRectLoads As List(Of PDispRectLoad) = rectLoadsPuller.pull()
+        Dim pDispCircLoads As List(Of PDispCircLoad) = circLoadsPuller.pull()
+        Dim pDispPolyLoads As List(Of PDispPolyLoad) = polyLoadsPuller.pull()
 
         'Update RectLoads based on new loads from ETABS
         pDispRectLoads.ForEach(Function(pDispRectLoad)
@@ -502,9 +512,48 @@ Public Class PSC_Model
                                        pDispRectLoad.setLoad(rectLoad)
                                    End If
                                End Function)
+        'Update CircLoads based on new loads from ETABS
+        pDispCircLoads.ForEach(Function(pDispCircLoad)
+                                   Dim ppLoad As Double
+                                   ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispCircLoad.getLoad().Name).
+                                                                 Select(Function(plObj) plObj.getLoads().getF3()).
+                                                                 FirstOrDefault()
+                                   If ppLoad <> 0 Then
+                                       ppLoad = ppLoad / (Math.PI * (Math.Pow(pDispCircLoad.getLoad().Width, 2) / 4))
+                                       Dim circLoad As CircLoad
+                                       circLoad = pDispCircLoad.getLoad()
+                                       circLoad.Normal = ppLoad
+                                       pDispCircLoad.setLoad(circLoad)
+                                   End If
+                               End Function)
+        'Update PolyLoads based on new loads from ETABS
+        pDispPolyLoads.ForEach(Function(pDispPolyLoad)
+                                   Dim ppLoad As Double
+                                   ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispPolyLoad.getLoad().Name).
+                                                                 Select(Function(plObj) plObj.getLoads().getF3()).
+                                                                 FirstOrDefault()
+                                   If ppLoad <> 0 Then
+                                       ' Calculate polygon area using Shoelace formula
+                                       Dim polyLoad As PolyLoad
+                                       polyLoad = pDispPolyLoad.getLoad()
+                                       Dim nPts As Integer = polyLoad.nRectangles
+                                       Dim area As Double = 0.0
+                                       For j As Integer = 0 To nPts - 1
+                                           Dim curr As Point2D = CType(polyLoad.Coor.GetValue(j), Point2D)
+                                           Dim nxt As Point2D = CType(polyLoad.Coor.GetValue((j + 1) Mod nPts), Point2D)
+                                           area += curr.X * nxt.Y - nxt.X * curr.Y
+                                       Next
+                                       area = Math.Abs(area) / 2.0
+                                       ppLoad = ppLoad / area
+                                       polyLoad.Normal = ppLoad
+                                       pDispPolyLoad.setLoad(polyLoad)
+                                   End If
+                               End Function)
 
-        'Push updated RectLoads back in PDisp
-        loadsPusher.push(pDispRectLoads, True)
+        'Push updated PdispLoads back in PDisp
+        rectloadsPusher.push(pDispRectLoads, True)
+        circloadsPusher.push(pDispCircLoads, True)
+        polyloadsPusher.push(pDispPolyLoads, True)
 
     End Sub
 

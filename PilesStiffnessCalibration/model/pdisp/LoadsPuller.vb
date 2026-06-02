@@ -18,13 +18,19 @@
         Select Case typeOfT
             Case GetType(PDispRectLoad)
                 Dim pullBehaviour As PullRectLoads = New PullRectLoads(pDispModel)
-                Return pullBehaviour.pull().Cast(Of T)
+                Dim results = pullBehaviour.pull()
+                If results Is Nothing OrElse results.Count = 0 Then Return New List(Of T)
+                Return results.Cast(Of T).ToList()
             Case GetType(PDispCircLoad)
                 Dim pullBehaviour As PullCircLoads = New PullCircLoads(pDispModel)
-                Return pullBehaviour.pull().Cast(Of T)
+                Dim results = pullBehaviour.pull()
+                If results Is Nothing OrElse results.Count = 0 Then Return New List(Of T)
+                Return results.Cast(Of T).ToList()
             Case GetType(PDispPolyLoad)
                 Dim pullBehaviour As PullPolyLoads = New PullPolyLoads(pDispModel)
-                Return pullBehaviour.pull().Cast(Of T)
+                Dim results = pullBehaviour.pull()
+                If results Is Nothing OrElse results.Count = 0 Then Return New List(Of T)
+                Return results.Cast(Of T).ToList()
         End Select
 
         Return Nothing

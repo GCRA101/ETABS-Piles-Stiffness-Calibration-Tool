@@ -15,8 +15,8 @@ Public Class PullCircLoads
         Dim numLoads As Short
         ret = Me.pDispModel.getPDispApp().NumCircLoads(numLoads)
 
-        '2. Get RectLoads
-        Dim circLoads As List(Of PDispCircLoad)
+        '2. Get CircLoads
+        Dim circLoads As List(Of PDispCircLoad) = New List(Of PDispCircLoad)
         For i As Integer = 0 To numLoads - 1 Step 1
             Dim circLoad As CircLoad
             Me.pDispModel.getPDispApp().GetCircLoad(i + 1, circLoad)

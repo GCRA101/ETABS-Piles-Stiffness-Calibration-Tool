@@ -24,15 +24,15 @@ Public Class PushCircLoads
     Public Sub push(overwrite As Boolean) Implements PushData.push
 
         With Me.pDispModel.getPDispApp()
-            '1. DELETE EXISTING RECTLOADS IF overwrite=True
+            '1. DELETE EXISTING CIRCLOADS IF overwrite=True
             If (overwrite) Then
                 Dim numCircLoads As Short
-                .NumCircLoads(numCircLoads)
-                For i As Integer = 0 To (numCircLoads - 1) Step 1
-                    Me.pDispModel.getPDispApp().DeleteCircLoad(i + 1)
-                Next
+                Do
+                    .DeleteCircLoad(1)
+                    .NumCircLoads(numCircLoads)
+                Loop Until numCircLoads = 0
             End If
-            '2. ADD NEW RECTLOADS
+            '2. ADD NEW CIRCLOADS
             Me.circLoads.ForEach(Sub(circLd) .AddCircLoad(circLd.getLoad()))
 
         End With

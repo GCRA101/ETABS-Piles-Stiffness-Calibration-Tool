@@ -12,6 +12,10 @@
 
     'METHODS
     Public Sub push(pDispLoads As List(Of T), overwrite As Boolean)
+
+        'Check that pDispLoads is not null or empty
+        If pDispLoads Is Nothing OrElse pDispLoads.Count = 0 Then Return
+
         'Initialize corresponding push behaviour class
         Dim typeOfT As Type = GetType(T)
 

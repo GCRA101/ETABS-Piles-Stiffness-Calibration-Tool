@@ -22,15 +22,15 @@
     Public Sub push(overwrite As Boolean) Implements PushData.push
 
         With Me.pDispModel.getPDispApp()
-            '1. DELETE EXISTING RECTLOADS IF overwrite=True
+            '1. DELETE EXISTING POLYLOADS IF overwrite=True
             If (overwrite) Then
                 Dim numPolyLoads As Short
-                .NumPolyLoads(numPolyLoads)
-                For i As Integer = 0 To (numPolyLoads - 1) Step 1
-                    Me.pDispModel.getPDispApp().DeletePolyLoad(i + 1)
-                Next
+                Do
+                    .DeletePolyLoad(1)
+                    .NumPolyLoads(numPolyLoads)
+                Loop Until numPolyLoads = 0
             End If
-            '2. ADD NEW RECTLOADS
+            '2. ADD NEW POLYLOADS
             Me.polyLoads.ForEach(Sub(polyLd) .AddPolyLoad(polyLd.getLoad()))
         End With
 

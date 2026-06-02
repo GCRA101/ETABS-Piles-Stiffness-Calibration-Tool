@@ -28,12 +28,9 @@ Public Class PushRectLoads
             If (overwrite) Then
                 Dim numRectLoads As Short
                 Do
-                    Me.pDispModel.getPDispApp().DeleteRectLoad(1)
+                    .DeleteRectLoad(1)
                     .NumRectLoads(numRectLoads)
                 Loop Until numRectLoads = 0
-                'For i As Integer = 0 To (numRectLoads - 1) Step 1
-                '    Me.pDispModel.getPDispApp().DeleteRectLoad(i + 1)
-                'Next
             End If
             '2. ADD NEW RECTLOADS
             Me.rectLoads.ForEach(Sub(rectLd) .AddRectLoad(rectLd.getLoad()))

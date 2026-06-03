@@ -5,7 +5,7 @@ Public Class PushRectLoads
     Implements PushData
 
     'ATTRIBUTES
-    Private rectLoads As List(Of PDispRectLoad)
+    Private rectLoads As New List(Of PDispRectLoad)
 
     'CONSTRUCTORS
     Public Sub New(pDispModel As PDispModel)

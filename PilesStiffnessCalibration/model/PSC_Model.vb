@@ -282,38 +282,50 @@ Public Class PSC_Model
 
     Public Sub runIterationStep(iter As Integer) 'T(n)
 
-        'UNLOCK THE ETABS MODEL
-        sapModel.SetModelIsLocked(False)
+        Try
+            'UNLOCK THE ETABS MODEL
+            sapModel.SetModelIsLocked(False)
 
-        'ACTIVATE ALL LOAD CASES FOR RUNNING THE ANALYSIS
-        ret = sapModel.Analyze.SetRunCaseFlag(Me.etabsLoadCaseNames(0), True, All:=True)
+            'ACTIVATE ALL LOAD CASES FOR RUNNING THE ANALYSIS
+            ret = sapModel.Analyze.SetRunCaseFlag(Me.etabsLoadCaseNames(0), True, All:=True)
 
-        'RUN THE ANALYSIS
-        ret = sapModel.Analyze.RunAnalysis()   'θ(n)
+            'RUN THE ANALYSIS
+            ret = sapModel.Analyze.RunAnalysis()   'θ(n)
 
-        'ACTIVATE ONLY LOAD COMBO SELECTED BY THE USER
-        sapModel.Results.Setup.DeselectAllCasesAndCombosForOutput()
-        sapModel.Results.Setup.SetComboSelectedForOutput(Me.selEtabsLoadComboName)
+            'ACTIVATE ONLY LOAD COMBO SELECTED BY THE USER
+            sapModel.Results.Setup.DeselectAllCasesAndCombosForOutput()
+            sapModel.Results.Setup.SetComboSelectedForOutput(Me.selEtabsLoadComboName)
 
-        '1. Initialize/Reset List of PileObject Records for current iteration step
-        Me.pileObjs = New List(Of PileObject)
-        '2. Read Point Reactions from ETABS and assign them to PileObjects
-        readPileObjsForces(Me.pileObjs)
-        '3. Update PDisp Loads based on ETABS reactions
-        updatePDispLoads(Me.pileObjs)
-        '4. Perform Analysis
-        pDispModel.analyse()
-        '5. Read Point Displacements from PDisp and assign them to PileObjects
-        readPileObjsDisplacements(Me.pileObjs)
-        '6 Update the Piles Status based on the 
-        updatePileObjsStatus(Me.pileObjs, Me.pileObjsInit)
-        '7. Compute Point Stiffnesses and assign them to PileObjects
-        computePileObjsStiffness(Me.pileObjs)
-        '8. Add current list of PileObjects to Queue data structure
-        pileObjsQueue.Enqueue(Me.pileObjs)
-        '9. Update Etabs Point Springs
-        updatePointSprings(Me.pileObjs)
+            '1. Initialize/Reset List of PileObject Records for current iteration step
+            Me.pileObjs = New List(Of PileObject)
+            '2. Read Point Reactions from ETABS and assign them to PileObjects
+            readPileObjsForces(Me.pileObjs)
+            '3. Update PDisp Loads based on ETABS reactions
+            updatePDispLoads(Me.pileObjs)
+            '4. Perform Analysis
+            pDispModel.analyse()
+            '5. Read Point Displacements from PDisp and assign them to PileObjects
+            readPileObjsDisplacements(Me.pileObjs)
+            '6 Update the Piles Status based on the 
+            updatePileObjsStatus(Me.pileObjs, Me.pileObjsInit)
+            '7. Compute Point Stiffnesses and assign them to PileObjects
+            computePileObjsStiffness(Me.pileObjs)
+            '8. Add current list of PileObjects to Queue data structure
+            pileObjsQueue.Enqueue(Me.pileObjs)
+            '9. Update Etabs Point Springs
+            updatePointSprings(Me.pileObjs)
 
+        Catch ex As System.Runtime.InteropServices.COMException
+            ' COM interop failure (e.g. ETABS/PDisp API error)
+            System.Diagnostics.Debug.WriteLine(
+                $"runIterationStep failed (COM, HRESULT=0x{ex.HResult:X8}) at iteration {iter}: {ex.Message}")
+            Throw
+        Catch ex As Exception
+            ' Any other unexpected error during the iteration step
+            System.Diagnostics.Debug.WriteLine(
+                $"runIterationStep failed at iteration {iter}: {ex.Message}")
+            Throw
+        End Try
 
     End Sub
 

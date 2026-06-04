@@ -545,19 +545,38 @@ Public Class PSC_Model
                                                                  Select(Function(plObj) plObj.getLoads().getF3()).
                                                                  FirstOrDefault()
                                    If ppLoad <> 0 Then
-                                       ' Calculate polygon area using Shoelace formula
+                                       ' Calculate polygon area using Shoelace formula.
+                                       ' IMPORTANT: use the actual number of vertices in Coor,
+                                       ' NOT polyLoad.nRectangles (that field is the integration
+                                       ' sub-rectangles count and is typically 0 by default,
+                                       ' which would make area = 0 and Normal = Infinity, which
+                                       ' in turn crashes PDisp's Analyse() routine with an
+                                       ' "abnormal situation" dialog.
                                        Dim polyLoad As PolyLoad
                                        polyLoad = pDispPolyLoad.getLoad()
-                                       Dim nPts As Integer = polyLoad.nRectangles
+
+                                       If polyLoad.Coor Is Nothing Then Return Nothing
+                                       Dim nPts As Integer = polyLoad.Coor.Length
+                                       If nPts < 3 Then Return Nothing
+
                                        Dim area As Double = 0.0
                                        For j As Integer = 0 To nPts - 1
-                                           Dim curr As Point2D = CType(polyLoad.Coor.GetValue(j), Point2D)
-                                           Dim nxt As Point2D = CType(polyLoad.Coor.GetValue((j + 1) Mod nPts), Point2D)
+                                           Dim curr As pdispauto_20_1.Point2D =
+                                               CType(polyLoad.Coor.GetValue(j), pdispauto_20_1.Point2D)
+                                           Dim nxt As pdispauto_20_1.Point2D =
+                                               CType(polyLoad.Coor.GetValue((j + 1) Mod nPts), pdispauto_20_1.Point2D)
                                            area += curr.X * nxt.Y - nxt.X * curr.Y
                                        Next
                                        area = Math.Abs(area) / 2.0
-                                       ppLoad = ppLoad / area
-                                       polyLoad.Normal = ppLoad
+
+                                       ' Guard against degenerate polygons / numerical garbage,
+                                       ' so we never hand PDisp a Normal of 0, NaN or Infinity.
+                                       If area <= 0.000001 Then Return Nothing
+
+                                       Dim normal As Double = ppLoad / area
+                                       If Double.IsNaN(normal) OrElse Double.IsInfinity(normal) Then Return Nothing
+
+                                       polyLoad.Normal = normal
                                        pDispPolyLoad.setLoad(polyLoad)
                                    End If
                                End Function)

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -93,7 +93,7 @@
     <Compile Include="controller\ControllerFileManager.vb" />
     <Compile Include="controller\ExceptionHandler.vb" />
     <Compile Include="controller\ExceptionHandlerInterface.vb" />
-    <Compile Include="controller\ExcessiveΔKHandler.vb" />
+    <Compile Include="controller\Excessive?KHandler.vb" />
     <Compile Include="controller\FilePathRetriever.vb" />
     <Compile Include="controller\MissingInputsHandler.vb" />
     <Compile Include="controller\VisualEffects.vb" />
@@ -101,7 +101,7 @@
     <Compile Include="model\ExcelChartFactory.vb" />
     <Compile Include="model\ExcelDataManager.vb" />
     <Compile Include="model\ExcelRangeType.vb" />
-    <Compile Include="model\ExcessiveΔKException.vb" />
+    <Compile Include="model\Excessive?KException.vb" />
     <Compile Include="model\FileManager.vb" />
     <Compile Include="controller\PSC_Controller.vb" />
     <Compile Include="controller\Sound.vb" />
@@ -232,6 +232,9 @@
     <None Include="model\packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Icons\PluginIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <COMReference Include="pdispauto_20_1">
       <Guid>{C901EC99-B5AB-497E-8D34-79B338ECD5FD}</Guid>
       <VersionMajor>20</VersionMajor>
@@ -239,13 +242,9 @@
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Icons\PluginIcon.ico" />
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="sounds\CHECKBOX.wav" />
     <EmbeddedResource Include="sounds\ENDITERATION.wav" />

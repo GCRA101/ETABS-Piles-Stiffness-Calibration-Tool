@@ -31,5 +31,6 @@ LIMITATIONS:
 - Only Pile Point Objects get iteratively assigned updated spring stiffnesses.
   All the other point objects in the model remain untouched and their assigned restraints
   might impact the results of the stiffness calibration
-- Only PDisp Rectangular Loads are suppported - i.e. Circular and Polygonal Loads have to
-  be avoided as their API definition is currently affected by bugs.
+- PDisp Polygonal Loads are not suppported - i.e. only Rectangular and/or Circular Loads
+  can be set up in the PDisp model. Limitations in Oasys PDisp API are the reason for not
+  supporting polygonal loads.

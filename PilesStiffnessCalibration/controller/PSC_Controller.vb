@@ -100,7 +100,7 @@ Public Class PSC_Controller
 
 		'Get the type of Non Linear Option selected by the user in the UI
 		Dim selNonLinearOption As String
-		selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedText
+		selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedItem
 
 
 		'2. Initialize the Model

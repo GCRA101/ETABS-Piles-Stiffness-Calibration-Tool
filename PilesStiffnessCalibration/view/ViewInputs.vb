@@ -54,6 +54,46 @@ Public Class ViewInputs
         InitializeComponent()
     End Sub
 
+    Private Sub lblLoadCombos_Click(sender As Object, e As EventArgs) Handles lblLoadCombos.Click
+
+    End Sub
+
+    Private Sub gbETABSInputs_Enter(sender As Object, e As EventArgs) Handles gbETABSInputs.Enter
+
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblNonLinearOption.Click
+
+    End Sub
+
+    Private Sub rbImportFromFile_CheckedChanged(sender As Object, e As EventArgs) Handles rbImportFromFile.CheckedChanged
+
+    End Sub
+
+    Private Sub btnOpenJSONFile_Click(sender As Object, e As EventArgs) Handles btnOpenJSONFile.Click
+
+    End Sub
+
+    Private Sub tbStiffness_TextChanged(sender As Object, e As EventArgs) Handles tbStiffness.TextChanged
+
+    End Sub
+
+    Private Sub rbSpring_CheckedChanged(sender As Object, e As EventArgs) Handles rbSpring.CheckedChanged
+
+    End Sub
+
+    Private Sub rbRigid_CheckedChanged(sender As Object, e As EventArgs) Handles rbRigid.CheckedChanged
+
+    End Sub
+
+    Private Sub lblInitialStiffness_Click(sender As Object, e As EventArgs) Handles lblInitialStiffness.Click
+
+    End Sub
+
+    Private Sub cbNonLinearOptions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbNonLinearOptions.SelectedIndexChanged
+
+    End Sub
+
 
 
     ' METHODS *******************************************************************************************
@@ -62,6 +102,8 @@ Public Class ViewInputs
         'Clear the CheckedListBoxes
         Me.cklbGroups.Items.Clear()
         Me.cklbLoadCombos.Items.Clear()
+        'Set Linear Option as the default one
+        Me.cbNonLinearOptions.SelectedIndex = 0
         'Set Rigid Piles Option as the default one
         Me.rbRigid.Checked = True
         'Set first item of each combobox as the default one

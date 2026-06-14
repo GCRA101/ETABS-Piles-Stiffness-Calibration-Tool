@@ -1,10 +1,11 @@
 ﻿
-Imports ETABSv1
-Imports Newtonsoft.Json
-
-
-Imports pdispauto_20_1
+Imports System.Drawing.Drawing2D
 Imports System.IO
+Imports System.Runtime.CompilerServices
+Imports ETABSv1
+Imports Microsoft.Office.Core
+Imports Newtonsoft.Json
+Imports pdispauto_20_1
 
 ''' <summary>
 ''' 
@@ -49,6 +50,7 @@ Public Class PSC_Model
     Private etabsPointNames As List(Of String)      'TO BE REPLACED WITH ETABS WRAPPING CLASSES !!!
     Private selEtabsGroupName As String
     Private selEtabsLoadComboName As String
+    Private selNonLinearOption As String
     Private iterNumMax As Integer
     Private convergenceFactor As Double
     Private pileObjs As List(Of PileObject)
@@ -100,7 +102,7 @@ Public Class PSC_Model
 
 
     Public Sub initialize(sapModel As ETABSv1.cSapModel, pDispFilePath As String, selEtabsLoadComboName As String,
-                          selEtabsGroupName As String, iterNumMax As Integer, convergenceFactor As Double)
+                          selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer, convergenceFactor As Double)
         'Check validity of inputs
         Me.checkInputsData(sapModel, pDispFilePath, selEtabsLoadComboName, selEtabsGroupName, iterNumMax, convergenceFactor)
         'Assign Model attributes
@@ -108,6 +110,7 @@ Public Class PSC_Model
         Me.pDispModel = New PDispModel(pDispFilePath)
         Me.selEtabsLoadComboName = selEtabsLoadComboName
         Me.selEtabsGroupName = selEtabsGroupName
+        Me.selNonLinearOption = selNonLinearOption
         Me.iterNumMax = iterNumMax
         Me.convergenceFactor = convergenceFactor
         Me.sapModelInitialPath = Me.sapModel.GetModelFilename(True)
@@ -595,14 +598,45 @@ Public Class PSC_Model
         ' ASSIGN COMPUTED STIFFNESSES TO ETABS BASE POINTS
         Me.sapModel.SetModelIsLocked(False)
 
+        ' Link Properties Initialization
+        Dim linkName As String
+        Dim dof(5), fixed(5), nonLinear(5) As Boolean
+        Dim ke(5), ce(5), dis(5) As Double
+        Dim numLinks As Integer = 1
+        Dim linkNames(0) As String
+        Dim linkAxialDirs(0) As Integer
+        Dim linkAngles(0) As Double
+        dof(2) = True
+        dis(2) = 0
+        linkAngles(0) = 0
+
         For Each pileObj In pileObjs
             ' Delete existing restraints and springs from point object
             ret = Me.sapModel.PointObj.DeleteRestraint(pileObj.getLocation.getName())
             ret = Me.sapModel.PointObj.DeleteSpring(pileObj.getLocation.getName())
             ' Compute new stiffness array
             Dim stiffnessArray() As Double = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(), pileObj.getStiffness().getU3(), 0, 0, 0}
+
             ' Generate/Update point spring property with computed stiffness array
             ret = Me.sapModel.PropPointSpring.SetPointSpringProp(pileObj.getLocation.getName(), 1, stiffnessArray)
+
+            Select Case Me.selNonLinearOption
+                Case "Tension Only"
+                    ' If the Spring Property is Tension Only, create a Hook Link Object and assign it to the Point Spring Property
+                    linkName = "tol_Link_" + pileObj.getLocation.getName()
+                    linkNames(0) = linkName
+                    linkAxialDirs(0) = 3
+                    ret = Me.sapModel.PropLink.SetHook(linkName, dof, fixed, nonLinear, ke, ce, stiffnessArray, dis, 0, 0)
+                    ret = Me.sapModel.PropPointSpring.SetLinks(pileObj.getLocation.getName(), numLinks, linkNames, linkAxialDirs, linkAngles)
+                Case "Compression Only"
+                    ' If the Spring Property is Compression Only, create a Gap Link Object and assign it to the Point Spring Property
+                    linkName = "col_Link_" + pileObj.getLocation.getName()
+                    linkNames(0) = linkName
+                    linkAxialDirs(0) = -3
+                    ret = Me.sapModel.PropLink.SetGap(linkName, dof, fixed, nonLinear, ke, ce, stiffnessArray, dis, 0, 0)
+                    ret = Me.sapModel.PropPointSpring.SetLinks(pileObj.getLocation.getName(), numLinks, linkNames, linkAxialDirs, linkAngles)
+            End Select
+
             ' Assign created/updated point spring property to point object
             ret = Me.sapModel.PointObj.SetSpringAssignment(pileObj.getLocation.getName(), pileObj.getLocation.getName())
         Next

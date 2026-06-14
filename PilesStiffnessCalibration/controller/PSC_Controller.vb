@@ -98,9 +98,13 @@ Public Class PSC_Controller
 			selGroup = ""
 		End If
 
+		'Get the type of Non Linear Option selected by the user in the UI
+		Dim selNonLinearOption As String
+		selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedText
+
 
 		'2. Initialize the Model
-		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup,
+		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption,
 							CInt(Me.view.getViewInputs().cbIterations.Items(Me.view.getViewInputs().cbIterations.SelectedIndex)),
 							CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbDispVariation.
 							Items(Me.view.getViewInputs().cbDispVariation.SelectedIndex)), "%")(0)) / 100.0)

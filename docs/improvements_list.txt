@@ -1,0 +1,5 @@
+IMPROVEMENTS LIST
+
+- Add support for pdisp rectangular loads (once Oasys has fixed the bug affecting their API!!)
+- Add convergence criteria based on reactions.
+- Prevent fixed restraints in UX and UY from being removed automatically by the tool when re-assigning the new spring to point objects.

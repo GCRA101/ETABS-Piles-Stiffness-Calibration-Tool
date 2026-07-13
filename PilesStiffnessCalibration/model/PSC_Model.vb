@@ -607,6 +607,7 @@ Public Class PSC_Model
         Dim linkAxialDirs(0) As Integer
         Dim linkAngles(0) As Double
         dof(2) = True
+        nonLinear(2) = True
         dis(2) = 0
         linkAngles(0) = 0
 

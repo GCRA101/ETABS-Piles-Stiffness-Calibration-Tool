@@ -116,10 +116,10 @@
     <Compile Include="model\MissingInputsException.vb" />
     <Compile Include="model\pdisp\OutOfLicensesException.vb" />
     <Compile Include="model\physical\PileStatus.vb" />
-    <Compile Include="model\PSC_Model.vb" />
     <Compile Include="model\Observable.vb" />
     <Compile Include="model\Observer.vb" />
     <Compile Include="model\pdisp\PDispAnalysisMethod.vb" />
+    <Compile Include="model\PSC_Model.vb" />
     <Compile Include="Plugin\cPlugin.vb" />
     <Compile Include="model\physical\PileObject.vb" />
     <Compile Include="model\physical\PointDisplacements.vb" />

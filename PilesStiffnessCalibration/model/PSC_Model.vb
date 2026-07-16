@@ -598,6 +598,9 @@ Public Class PSC_Model
         ' ASSIGN COMPUTED STIFFNESSES TO ETABS BASE POINTS
         Me.sapModel.SetModelIsLocked(False)
 
+        ' Restraint/Stiffness Arrays Initialization
+        Dim restraintsArray(5) As Boolean
+        Dim stiffnessArray(5) As Double
         ' Link Properties Initialization
         Dim linkName As String
         Dim dof(5), fixed(5), nonLinear(5) As Boolean
@@ -612,11 +615,15 @@ Public Class PSC_Model
         linkAngles(0) = 0
 
         For Each pileObj In pileObjs
-            ' Delete existing restraints and springs from point object
-            ret = Me.sapModel.PointObj.DeleteRestraint(pileObj.getLocation.getName())
+            ' Delete the vertical restraint from point object while keeping all the other ones defined by the user
+            ret = Me.sapModel.PointObj.GetRestraint(pileObj.getLocation.getName(), restraintsArray)
+            restraintsArray(2) = False
+            ret = Me.sapModel.PointObj.SetRestraint(pileObj.getLocation.getName(), restraintsArray)
+            ' Delete all spring assignments from the point object
             ret = Me.sapModel.PointObj.DeleteSpring(pileObj.getLocation.getName())
+
             ' Compute new stiffness array
-            Dim stiffnessArray() As Double = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(), pileObj.getStiffness().getU3(), 0, 0, 0}
+            stiffnessArray = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(), pileObj.getStiffness().getU3(), 0, 0, 0}
 
             ' Generate/Update point spring property with computed stiffness array
             ret = Me.sapModel.PropPointSpring.SetPointSpringProp(pileObj.getLocation.getName(), 1, stiffnessArray)

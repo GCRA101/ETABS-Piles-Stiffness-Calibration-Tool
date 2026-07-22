@@ -95,6 +95,7 @@
     <Compile Include="controller\ExceptionHandlerInterface.vb" />
     <Compile Include="controller\Excessive?KHandler.vb" />
     <Compile Include="controller\FilePathRetriever.vb" />
+    <Compile Include="controller\InvalidInputsHandler.vb" />
     <Compile Include="controller\MissingInputsHandler.vb" />
     <Compile Include="controller\VisualEffects.vb" />
     <Compile Include="model\ExcelChartFactoryInterface.vb" />
@@ -110,6 +111,7 @@
     <Compile Include="model\IncludePrivateResolver.vb" />
     <Compile Include="model\InvalidFilePathException.vb" />
     <Compile Include="model\JSONSerializer.vb" />
+    <Compile Include="model\InvalidInputsException.vb" />
     <Compile Include="model\pdisp\InvalidPDispFilePathException.vb" />
     <Compile Include="model\pdisp\LoadsPuller.vb" />
     <Compile Include="model\pdisp\LoadsPusher.vb" />

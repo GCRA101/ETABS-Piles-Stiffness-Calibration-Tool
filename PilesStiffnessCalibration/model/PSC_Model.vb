@@ -164,23 +164,36 @@ Public Class PSC_Model
     End Sub
 
     Public Sub extractEtabsModelData()
+
+        Dim errorMessage As String = ""
+
         '1. Extract Etabs Model's GROUP NAMES
         Dim groupNumNames As Integer, groupNames As String()
         Me.sapModel.GroupDef.GetNameList(groupNumNames, groupNames)
-        Me.etabsGroupNames = groupNames.ToList()
+        If (groupNumNames = 0) Then errorMessage += "No Groups are defined in the ETABS Model." & vbNewLine
         '2. Extract Etabs Model's LOAD CASES
         Dim loadCasesNum As Integer, loadCasesNames As String()
         Me.sapModel.LoadCases.GetNameList(loadCasesNum, loadCasesNames)
-        Me.etabsLoadCaseNames = loadCasesNames.ToList()
+        If (loadCasesNum = 0) Then errorMessage += "No Load Cases are defined in the ETABS Model." & vbNewLine
         '3. Extract Etabs Model's LOAD COMBO NAMES
         Dim lCombosNum As Integer, lComboNames As String()
         Me.sapModel.RespCombo.GetNameList(lCombosNum, lComboNames)
-        Me.etabsLoadComboNames = lComboNames.ToList()
+        If (lCombosNum = 0) Then errorMessage += "No Load Combos are defined in the ETABS Model." & vbNewLine
         '4. Extract Etabs Model's POINT NAMES
         Dim pointNumNames As Integer, pointNames As String()
         Me.sapModel.PointObj.GetNameList(pointNumNames, pointNames)
+        If (pointNumNames = 0) Then errorMessage += "No Point Objects are defined in the ETABS Model."
+
+        '5. Check Encountered Errors and if any, throw MissingInputsException
+        If (errorMessage <> "") Then Throw New MissingInputsException(errorMessage)
+
+        '6. Assign the extracted data to the Model's attributes
+        Me.etabsGroupNames = groupNames.ToList()
+        Me.etabsLoadCaseNames = loadCasesNames.ToList()
+        Me.etabsLoadComboNames = lComboNames.ToList()
         Me.etabsPointNames = pointNames.ToList()
-        '5. Notify Observers
+
+        '7. Notify Observers
         Me.notifyObservers()
     End Sub
 

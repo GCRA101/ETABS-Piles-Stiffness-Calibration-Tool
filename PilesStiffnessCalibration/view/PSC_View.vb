@@ -58,13 +58,22 @@ Public Class PSC_View
 		Me.aboutBox.Show()
 	End Sub
 	Public Sub createViewInputs()
-		Me.viewInputs = New ViewInputs(model, controller)
-		Me.viewInputs.initialize()
-		Me.model.removeObserver(Me.aboutBox)
-		Me.model.registerObserver(Me.viewInputs)
-		Me.controller.extractEtabsModelData()
-		Me.viewInputs.Show()
-		Me.aboutBox.Close()
+		Try
+			Me.viewInputs = New ViewInputs(model, controller)
+			Me.viewInputs.initialize()
+			Me.model.removeObserver(Me.aboutBox)
+			Me.model.registerObserver(Me.viewInputs)
+			Me.controller.extractEtabsModelData()
+			Me.viewInputs.Show()
+			Me.aboutBox.Close()
+		Catch ex1 As MissingInputsException
+			Me.controller.getMissingInputsHandler().execute(ex1)
+		Catch ex As Exception
+			' Any other unexpected error
+			MsgBox(ex.Message, vbOKOnly + vbCritical, "WARNING - ERROR")
+			Throw
+		End Try
+
 	End Sub
 
 	'SETTERS and GETTERS

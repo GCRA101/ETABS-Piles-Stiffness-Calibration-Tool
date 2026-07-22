@@ -101,14 +101,28 @@ Public Class PSC_Controller
 
 		'Get the type of Non Linear Option selected by the user in the UI
 		Dim selNonLinearOption As String
-		selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedItem
+        selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedItem
 
+		'Get the Maximum Number of Iterations selected by the user in the UI
+		Dim iterNumMax As Integer
+		Try
+			iterNumMax = CInt(Me.view.getViewInputs().cbIterations.Items(Me.view.getViewInputs().cbIterations.SelectedIndex))
+			If (iterNumMax < 2) Then Throw New InvalidInputsException("Max number of Analysis Iterations must be bigger than 1.")
+		Catch ex1 As Exception
+			MsgBox("The Input Max Number of Analysis Iterations must be an integer.", vbOKOnly + vbCritical, "WARNING - INVALID INPUTS")
+			Throw
+		Catch ex2 As InvalidInputsException
+			Me.getInvalidInputsHandler().execute(ex2)
+		End Try
+
+		'Get the Maximum Displacement Variation selected by the user in the UI
+		Dim convergenceFactor As Double
+		convergenceFactor = CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbDispVariation.
+							Items(Me.view.getViewInputs().cbDispVariation.SelectedIndex)), "%")(0)) / 100.0
 
 		'2. Initialize the Model
-		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption,
-							CInt(Me.view.getViewInputs().cbIterations.Items(Me.view.getViewInputs().cbIterations.SelectedIndex)),
-							CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbDispVariation.
-							Items(Me.view.getViewInputs().cbDispVariation.SelectedIndex)), "%")(0)) / 100.0)
+		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax, convergenceFactor)
+
 		'Retain only points belonging to selected Group
 		Me.model.filterPointsByGroup()
 

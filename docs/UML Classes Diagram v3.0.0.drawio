@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="3456" dy="6425" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="9551" dy="10050" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -321,16 +321,16 @@
           <mxGeometry height="50" width="170" x="-1940" y="-5040" as="geometry" />
         </mxCell>
         <mxCell id="9fbSNvIKam-mQGXg7FVn-1" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;fontSize=15;" value="PSC_Controller" vertex="1">
-          <mxGeometry height="680" width="311" x="-1000" y="-1410" as="geometry" />
+          <mxGeometry height="730" width="311" x="-1000" y="-1410" as="geometry" />
         </mxCell>
-        <mxCell id="9fbSNvIKam-mQGXg7FVn-2" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(#) model: PSC_Model&#xa;(#) view: PSC_View&#xa;(#) SapModel: ETABSv1.cSapModel&#xa;(#) ISapPlugin: ETABSv1.cPluginCallback&#xa;(-) missingInputsHandler: MissingInputsHandler&#xa;(-) excessiveΔKHandler: ExcessiveΔKHandler&#xa;(-) eventsListener: EventsListener&#xa;(-) soundManager: SoundManager&#xa;(-) jsonFilePath: String&#xa;(-) pDispFilePath: String&#xa;" vertex="1">
-          <mxGeometry height="170" width="311" y="40" as="geometry" />
+        <mxCell id="9fbSNvIKam-mQGXg7FVn-2" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(#) model: PSC_Model&#xa;(#) view: PSC_View&#xa;(#) SapModel: ETABSv1.cSapModel&#xa;(#) ISapPlugin: ETABSv1.cPluginCallback&#xa;(-) invalidInputsHandler: InvalidInputsHandler&#xa;(-) missingInputsHandler: MissingInputsHandler&#xa;(-) excessiveΔKHandler: ExcessiveΔKHandler&#xa;(-) eventsListener: EventsListener&#xa;(-) soundManager: SoundManager&#xa;(-) jsonFilePath: String&#xa;(-) pDispFilePath: String&#xa;" vertex="1">
+          <mxGeometry height="190" width="311" y="40" as="geometry" />
         </mxCell>
         <mxCell id="9fbSNvIKam-mQGXg7FVn-3" parent="9fbSNvIKam-mQGXg7FVn-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="311" y="210" as="geometry" />
+          <mxGeometry height="8" width="311" y="230" as="geometry" />
         </mxCell>
-        <mxCell id="9fbSNvIKam-mQGXg7FVn-4" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) PSC_Contoller(SapModel: ETABSv1.cSapModel, ISapPlugin: ETABSv1.cPluginCallback)&#xa;(+) initialize(): void&#xa;(+) createExceptionHandlers(): void&#xa;(+) processInputData(): void&#xa;(+) extractEtabsModelData(): void&#xa;(+) runIteration(): void&#xa;(+) terminate(): void&#xa;(+) serialize(): void&#xa;(+) deserialize(): void&#xa;(+) setSapModel(sapModel: cSapModel): void&#xa;(+) setISapPlugIn(iSapPlugIn: cPluginCallback): void&#xa;(+) setSoundManager(soundManager: &#xa;SoundManager): void&#xa;(+) setEventsListener(eventsListener: &#xa;EventsListener): void&#xa;(+) setMissingInputsHandrler(missingInputsHandler: MissingInputsHandler): void&#xa;(+) setExcessiveΔKHandler(excessiveΔKHandler: ExcessiveΔKHandler): void&#xa;(+) setJsonFilePath(jsonFilePath: String): void&#xa;(+) setPDispFilePath(pDispFilePath: String): void&#xa;(+) getSapModel(): cSapModel&#xa;(+) getISapPlugIn(): cPluginCallback&#xa;(+) getSoundManager(): SoundManager&#xa;(+) getEventsListener(): EventsListener&#xa;(+) getMissingInputsHandrler(): MissingInputsHandler&#xa;(+) getExcessiveΔKHandler(): ExcessiveΔKHandler&#xa;(+) getJsonFilePath(): String&#xa;(+) getPDispFilePath(): String" vertex="1">
-          <mxGeometry height="462" width="311" y="218" as="geometry" />
+        <mxCell id="9fbSNvIKam-mQGXg7FVn-4" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) PSC_Contoller(SapModel: ETABSv1.cSapModel, ISapPlugin: ETABSv1.cPluginCallback)&#xa;(+) initialize(): void&#xa;(+) createExceptionHandlers(): void&#xa;(+) processInputData(): void&#xa;(+) extractEtabsModelData(): void&#xa;(+) runIteration(): void&#xa;(+) terminate(): void&#xa;(+) serialize(): void&#xa;(+) deserialize(): void&#xa;(+) setSapModel(sapModel: cSapModel): void&#xa;(+) setISapPlugIn(iSapPlugIn: cPluginCallback): void&#xa;(+) setSoundManager(soundManager: &#xa;SoundManager): void&#xa;(+) setEventsListener(eventsListener: &#xa;EventsListener): void&#xa;(+) setInvalidInputsHandrler(invalidInputsHandler: InvalidInputsHandler): void&#xa;(+) setMissingInputsHandrler(missingInputsHandler: MissingInputsHandler): void&#xa;(+) setExcessiveΔKHandler(excessiveΔKHandler: ExcessiveΔKHandler): void&#xa;(+) setJsonFilePath(jsonFilePath: String): void&#xa;(+) setPDispFilePath(pDispFilePath: String): void&#xa;(+) getSapModel(): cSapModel&#xa;(+) getISapPlugIn(): cPluginCallback&#xa;(+) getSoundManager(): SoundManager&#xa;(+) getEventsListener(): EventsListener&#xa;(+) getInvalidInputsHandler(): InvalidInputsHandler&#xa;(+) getMissingInputsHandler(): MissingInputsHandler&#xa;(+) getExcessiveΔKHandler(): ExcessiveΔKHandler&#xa;(+) getJsonFilePath(): String&#xa;(+) getPDispFilePath(): String" vertex="1">
+          <mxGeometry height="492" width="311" y="238" as="geometry" />
         </mxCell>
         <mxCell id="9fbSNvIKam-mQGXg7FVn-5" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFE3FD;strokeColor=#36393d;" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ControllerInterface&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) initialize(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) runIteration(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) serialize(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) deserialize(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) createExceptionHandlers(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) terminate(): void&lt;br&gt;&lt;/p&gt;" vertex="1">
           <mxGeometry height="140" width="260" x="-974.5" y="-1690" as="geometry" />
@@ -435,7 +435,7 @@
           <mxGeometry relative="1" width="160" as="geometry">
             <Array as="points">
               <mxPoint x="-610" y="-1230" />
-              <mxPoint x="-610" y="-1285" />
+              <mxPoint x="-610" y="-1275" />
             </Array>
             <mxPoint x="-1220" y="-1269" as="sourcePoint" />
             <mxPoint x="-1120" y="-1341" as="targetPoint" />
@@ -1775,15 +1775,6 @@
         <mxCell id="1aEds5gZWEgiE7dHQm3D-5" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
           <mxGeometry height="372.33" width="325" x="-1620" y="-2320" as="geometry" />
         </mxCell>
-        <mxCell id="1aEds5gZWEgiE7dHQm3D-14" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;html=1;" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;&amp;lt;static&amp;gt;&amp;gt;&lt;/span&gt;&lt;br&gt;VisualEffects" vertex="1">
-          <mxGeometry height="48" width="142" x="520.0000000000006" y="-590.5" as="geometry" />
-        </mxCell>
-        <mxCell id="1aEds5gZWEgiE7dHQm3D-15" parent="1aEds5gZWEgiE7dHQm3D-14" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="142" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="1aEds5gZWEgiE7dHQm3D-16" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;gradientColor=none;fillColor=none;strokeColor=#FF0000;strokeWidth=6;" value="" vertex="1">
-          <mxGeometry height="282.5" width="282.5" x="449.75" y="-720" as="geometry" />
-        </mxCell>
         <mxCell id="1aEds5gZWEgiE7dHQm3D-19" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
           <mxGeometry height="293" width="263.7" x="2430" y="-2320" as="geometry" />
         </mxCell>
@@ -1870,6 +1861,15 @@
         </mxCell>
         <mxCell id="uQL8i8UM-rYcg9ZWUqrd-14" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
           <mxGeometry height="261.98" width="425" x="-2045" y="-1480" as="geometry" />
+        </mxCell>
+        <mxCell id="uQL8i8UM-rYcg9ZWUqrd-15" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="101.98" width="430" x="-1090" y="-1346.98" as="geometry" />
+        </mxCell>
+        <mxCell id="uQL8i8UM-rYcg9ZWUqrd-16" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="101.98" width="430" x="-1070" y="-980" as="geometry" />
+        </mxCell>
+        <mxCell id="uQL8i8UM-rYcg9ZWUqrd-17" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="101.98" width="430" x="-1070" y="-810" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -41,6 +41,8 @@ Partial Class ViewInputs
         Me.pbPDispInputs = New System.Windows.Forms.PictureBox()
         Me.gbPDispInputs = New System.Windows.Forms.GroupBox()
         Me.gbETABSInputs = New System.Windows.Forms.GroupBox()
+        Me.cbNonLinearOptions = New System.Windows.Forms.ComboBox()
+        Me.lblNonLinearOption = New System.Windows.Forms.Label()
         Me.tbStiffness = New System.Windows.Forms.TextBox()
         Me.btnOpenJSONFile = New System.Windows.Forms.Button()
         Me.lblInitialStiffness = New System.Windows.Forms.Label()
@@ -48,8 +50,6 @@ Partial Class ViewInputs
         Me.rbSpring = New System.Windows.Forms.RadioButton()
         Me.rbRigid = New System.Windows.Forms.RadioButton()
         Me.ofdJsonFile = New System.Windows.Forms.OpenFileDialog()
-        Me.lblNonLinearOption = New System.Windows.Forms.Label()
-        Me.cbNonLinearOptions = New System.Windows.Forms.ComboBox()
         CType(Me.pbETABSInputs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbPDispInputs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbPDispInputs.SuspendLayout()
@@ -89,7 +89,7 @@ Partial Class ViewInputs
         Me.cbIterations.FormattingEnabled = True
         Me.cbIterations.Items.AddRange(New Object() {"2", "3", "4", "5", "10", "20", "50", "100"})
         Me.cbIterations.Location = New System.Drawing.Point(154, 93)
-        Me.cbIterations.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cbIterations.Margin = New System.Windows.Forms.Padding(2)
         Me.cbIterations.Name = "cbIterations"
         Me.cbIterations.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cbIterations.Size = New System.Drawing.Size(94, 20)
@@ -109,11 +109,12 @@ Partial Class ViewInputs
         '
         'cbDispVariation
         '
+        Me.cbDispVariation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbDispVariation.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbDispVariation.FormattingEnabled = True
         Me.cbDispVariation.Items.AddRange(New Object() {"5%", "10%", "15%", "20%"})
         Me.cbDispVariation.Location = New System.Drawing.Point(154, 65)
-        Me.cbDispVariation.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cbDispVariation.Margin = New System.Windows.Forms.Padding(2)
         Me.cbDispVariation.Name = "cbDispVariation"
         Me.cbDispVariation.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cbDispVariation.Size = New System.Drawing.Size(94, 20)
@@ -206,7 +207,7 @@ Partial Class ViewInputs
         Me.pbETABSInputs.Image = CType(resources.GetObject("pbETABSInputs.Image"), System.Drawing.Image)
         Me.pbETABSInputs.InitialImage = Nothing
         Me.pbETABSInputs.Location = New System.Drawing.Point(0, 0)
-        Me.pbETABSInputs.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.pbETABSInputs.Margin = New System.Windows.Forms.Padding(2)
         Me.pbETABSInputs.Name = "pbETABSInputs"
         Me.pbETABSInputs.Size = New System.Drawing.Size(30, 28)
         Me.pbETABSInputs.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -219,7 +220,7 @@ Partial Class ViewInputs
         Me.pbPDispInputs.Image = CType(resources.GetObject("pbPDispInputs.Image"), System.Drawing.Image)
         Me.pbPDispInputs.InitialImage = Nothing
         Me.pbPDispInputs.Location = New System.Drawing.Point(0, 0)
-        Me.pbPDispInputs.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.pbPDispInputs.Margin = New System.Windows.Forms.Padding(2)
         Me.pbPDispInputs.Name = "pbPDispInputs"
         Me.pbPDispInputs.Size = New System.Drawing.Size(30, 28)
         Me.pbPDispInputs.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -237,9 +238,9 @@ Partial Class ViewInputs
         Me.gbPDispInputs.Controls.Add(Me.lblIterations)
         Me.gbPDispInputs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbPDispInputs.Location = New System.Drawing.Point(18, 381)
-        Me.gbPDispInputs.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbPDispInputs.Margin = New System.Windows.Forms.Padding(2)
         Me.gbPDispInputs.Name = "gbPDispInputs"
-        Me.gbPDispInputs.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbPDispInputs.Padding = New System.Windows.Forms.Padding(2)
         Me.gbPDispInputs.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.gbPDispInputs.Size = New System.Drawing.Size(252, 124)
         Me.gbPDispInputs.TabIndex = 42
@@ -263,14 +264,36 @@ Partial Class ViewInputs
         Me.gbETABSInputs.Controls.Add(Me.lblGroups)
         Me.gbETABSInputs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbETABSInputs.Location = New System.Drawing.Point(18, 26)
-        Me.gbETABSInputs.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbETABSInputs.Margin = New System.Windows.Forms.Padding(2)
         Me.gbETABSInputs.Name = "gbETABSInputs"
-        Me.gbETABSInputs.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.gbETABSInputs.Padding = New System.Windows.Forms.Padding(2)
         Me.gbETABSInputs.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.gbETABSInputs.Size = New System.Drawing.Size(252, 340)
         Me.gbETABSInputs.TabIndex = 43
         Me.gbETABSInputs.TabStop = False
         Me.gbETABSInputs.Text = "ETABS Inputs"
+        '
+        'cbNonLinearOptions
+        '
+        Me.cbNonLinearOptions.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbNonLinearOptions.FormattingEnabled = True
+        Me.cbNonLinearOptions.Items.AddRange(New Object() {"None (Linear)", "Tension Only", "Compression Only"})
+        Me.cbNonLinearOptions.Location = New System.Drawing.Point(150, 197)
+        Me.cbNonLinearOptions.Margin = New System.Windows.Forms.Padding(2)
+        Me.cbNonLinearOptions.Name = "cbNonLinearOptions"
+        Me.cbNonLinearOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cbNonLinearOptions.Size = New System.Drawing.Size(94, 20)
+        Me.cbNonLinearOptions.TabIndex = 40
+        '
+        'lblNonLinearOption
+        '
+        Me.lblNonLinearOption.AutoSize = True
+        Me.lblNonLinearOption.Font = New System.Drawing.Font("Segoe UI", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNonLinearOption.Location = New System.Drawing.Point(4, 200)
+        Me.lblNonLinearOption.Name = "lblNonLinearOption"
+        Me.lblNonLinearOption.Size = New System.Drawing.Size(135, 13)
+        Me.lblNonLinearOption.TabIndex = 44
+        Me.lblNonLinearOption.Text = "Spring Nonlinear Option"
         '
         'tbStiffness
         '
@@ -306,7 +329,7 @@ Partial Class ViewInputs
         Me.rbImportFromFile.AutoSize = True
         Me.rbImportFromFile.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.rbImportFromFile.Location = New System.Drawing.Point(8, 308)
-        Me.rbImportFromFile.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.rbImportFromFile.Margin = New System.Windows.Forms.Padding(2)
         Me.rbImportFromFile.Name = "rbImportFromFile"
         Me.rbImportFromFile.Size = New System.Drawing.Size(174, 19)
         Me.rbImportFromFile.TabIndex = 41
@@ -319,7 +342,7 @@ Partial Class ViewInputs
         Me.rbSpring.AutoSize = True
         Me.rbSpring.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.rbSpring.Location = New System.Drawing.Point(8, 284)
-        Me.rbSpring.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.rbSpring.Margin = New System.Windows.Forms.Padding(2)
         Me.rbSpring.Name = "rbSpring"
         Me.rbSpring.Size = New System.Drawing.Size(180, 19)
         Me.rbSpring.TabIndex = 40
@@ -332,7 +355,7 @@ Partial Class ViewInputs
         Me.rbRigid.AutoSize = True
         Me.rbRigid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.rbRigid.Location = New System.Drawing.Point(8, 260)
-        Me.rbRigid.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.rbRigid.Margin = New System.Windows.Forms.Padding(2)
         Me.rbRigid.Name = "rbRigid"
         Me.rbRigid.Size = New System.Drawing.Size(123, 19)
         Me.rbRigid.TabIndex = 39
@@ -343,28 +366,6 @@ Partial Class ViewInputs
         'ofdJsonFile
         '
         Me.ofdJsonFile.FileName = "ofdJsonFile"
-        '
-        'lblNonLinearOption
-        '
-        Me.lblNonLinearOption.AutoSize = True
-        Me.lblNonLinearOption.Font = New System.Drawing.Font("Segoe UI", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNonLinearOption.Location = New System.Drawing.Point(4, 200)
-        Me.lblNonLinearOption.Name = "lblNonLinearOption"
-        Me.lblNonLinearOption.Size = New System.Drawing.Size(135, 13)
-        Me.lblNonLinearOption.TabIndex = 44
-        Me.lblNonLinearOption.Text = "Spring Nonlinear Option"
-        '
-        'cbNonLinearOptions
-        '
-        Me.cbNonLinearOptions.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbNonLinearOptions.FormattingEnabled = True
-        Me.cbNonLinearOptions.Items.AddRange(New Object() {"None (Linear)", "Tension Only", "Compression Only"})
-        Me.cbNonLinearOptions.Location = New System.Drawing.Point(150, 197)
-        Me.cbNonLinearOptions.Margin = New System.Windows.Forms.Padding(2)
-        Me.cbNonLinearOptions.Name = "cbNonLinearOptions"
-        Me.cbNonLinearOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cbNonLinearOptions.Size = New System.Drawing.Size(94, 20)
-        Me.cbNonLinearOptions.TabIndex = 40
         '
         'ViewInputs
         '
@@ -377,7 +378,7 @@ Partial Class ViewInputs
         Me.Controls.Add(Me.lblProgrBar)
         Me.Controls.Add(Me.progrBar)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "ViewInputs"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Piles Stiffness Calibration"

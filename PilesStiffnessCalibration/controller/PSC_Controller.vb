@@ -30,6 +30,7 @@ Public Class PSC_Controller
 	Protected SapModel As cSapModel
 	Protected ISapPlugin As cPluginCallback
 	'ExceptionHandlers
+	Private invalidInputsHandler As InvalidInputsHandler
 	Private missingInputsHandler As MissingInputsHandler
 	Private excessiveΔKHandler As ExcessiveΔKHandler
 	'EventListeners
@@ -172,6 +173,9 @@ Public Class PSC_Controller
 	Public Sub setEventsListener(eventsListener As EventsListener)
 		Me.eventsListener = eventsListener
 	End Sub
+	Public Sub setInvalidInputsHandler(invalidInputsHandler As InvalidInputsHandler)
+		Me.invalidInputsHandler = invalidInputsHandler
+	End Sub
 	Public Sub setMissingInputsHandler(missingInputsHandler As MissingInputsHandler)
 		Me.missingInputsHandler = missingInputsHandler
 	End Sub
@@ -197,6 +201,9 @@ Public Class PSC_Controller
 	End Function
 	Public Function getEventsListener() As EventsListener
 		Return Me.eventsListener
+	End Function
+	Public Function getInvalidInputsHandler() As InvalidInputsHandler
+		Return Me.invalidInputsHandler
 	End Function
 	Public Function getMissingInputsHandler() As MissingInputsHandler
 		Return Me.missingInputsHandler

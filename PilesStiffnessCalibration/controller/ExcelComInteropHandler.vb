@@ -1,4 +1,6 @@
-﻿Imports ETABSv1
+﻿Imports System.Web.UI.WebControls.Expressions
+Imports System.Windows.Forms
+Imports ETABSv1
 
 ''' <summary>
 '''     <remarks>
@@ -18,9 +20,13 @@ Public Class ExcelComInteropHandler
     'METHODS
     Public Overrides Sub execute(Optional ex As Exception = Nothing)
         'Build and display warning message if exception is not null
-        If ex IsNot Nothing Then
-            Me.message = ex.Message
-            MsgBox(Me.message, vbOKOnly + vbCritical, "WARNING - EXCEL COM ISSUES")
+        If ex IsNot Nothing And ex.GetType() Is GetType(ExcelComInteropException) Then
+            'Downcast the Exception to ExcelComInteropException
+            Dim excelComEx As ExcelComInteropException = DirectCast(ex, ExcelComInteropException)
+            'Build the message to be displayed in the MessageBox
+            Me.message = excelComEx.Message + vbNewLine + "Detailed Error Message: " + excelComEx.getErrorMessage()
+            'Show the custom TopMost MessageBox with the warning message
+            TopMostMsgBox.Show(Me.message, "WARNING - EXCEL COM ISSUES", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
 
     End Sub

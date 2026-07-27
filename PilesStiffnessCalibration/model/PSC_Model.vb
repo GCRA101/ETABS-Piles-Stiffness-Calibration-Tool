@@ -272,20 +272,39 @@ Public Class PSC_Model
             'Loop until iteration number gets equal to max or results reach convergence
         Loop While Me.iterNum < iterNumMax And isConvergent(pileObjsQueue) = False
 
-        'EXCEL OUTPUTS
-        'Initialize ExcelDataManager
-        Dim excelDataManager = New ExcelDataManager() '(Me.resultsFolderPath + "\Outputs.xlsx")
-        excelDataManager.initialize()
-        'Retrieve data from output json files
-        Dim jsonFilePaths As String() = IO.Directory.GetFiles(Me.jsonFilesFolderPath)
-        jsonFilePaths.ToList().Sort()
-        jsonFilePaths.ToList().ToDictionary(Function(filePath) filePath.Substring(filePath.IndexOf("Iteration")).Replace(".json", ""),
-                                            Function(filePath) jsonSerializer.deserialize(filePath)).ToList().
-                               ForEach(Sub(kvpair) excelDataManager.write("Piles Stiffness Calibration", kvpair.Value, kvpair.Key))
-        'Create Charts in Excel SpreadSheet
-        excelDataManager.createChart()
-        'Destroy the Excel Data Manager object
-        excelDataManager.dispose()
+
+        'SUMMARY EXCEL SPREADSHEET CREATION
+
+        'ExcelDataManager object initialization
+        Dim excelDataManager As ExcelDataManager = Nothing
+        'Excel Spreadsheet Creation and Charts Generation
+        Try
+            'EXCEL OUTPUTS
+            'Initialize ExcelDataManager
+            excelDataManager = New ExcelDataManager() '(Me.resultsFolderPath + "\Outputs.xlsx")
+            excelDataManager.initialize()
+            'Retrieve data from output json files
+            Dim jsonFilePaths As String() = IO.Directory.GetFiles(Me.jsonFilesFolderPath)
+            jsonFilePaths.ToList().Sort()
+            jsonFilePaths.ToList().ToDictionary(Function(filePath) filePath.Substring(filePath.IndexOf("Iteration")).Replace(".json", ""),
+                                                Function(filePath) jsonSerializer.deserialize(filePath)).ToList().
+                                   ForEach(Sub(kvpair) excelDataManager.write("Piles Stiffness Calibration", kvpair.Value, kvpair.Key))
+            'Create Charts in Excel SpreadSheet
+            excelDataManager.createChart()
+            'Destroy the Excel Data Manager object
+            excelDataManager.dispose()
+
+        Catch ex As Exception
+            'Any unexpected error during the creation of the outputs report in excel...
+            'Send a Warning Message to the user
+            MsgBox("Impossible to generate the Summary Excel Spreadsheet." + vbNewLine + "Try Running a Quick Repair of Microsoft Office.", vbOKOnly + vbCritical, "WARNING")
+            'Destroy the Excel Data Manager object
+            If excelDataManager IsNot Nothing Then
+                excelDataManager.dispose()
+            End If
+
+        End Try
+
         'Turn On control parameter iterationComplete
         Me.iterationComplete = True
         'Notify all the Observers - OBSERVER PATTERN

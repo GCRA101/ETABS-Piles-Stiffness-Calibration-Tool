@@ -77,7 +77,9 @@ Public Class PSC_Controller
 	Public Sub createExceptionHandlers() Implements ControllerInterface.createExceptionHandlers
 		Me.missingInputsHandler = New MissingInputsHandler(Me)
 		Me.excessiveΔKHandler = New ExcessiveΔKHandler(Me)
-	End Sub
+        Me.invalidInputsHandler = New InvalidInputsHandler(Me)
+        Me.excelComInteropHandler = New ExcelComInteropHandler(Me)
+    End Sub
 
 
 	Public Sub processInputData()

@@ -186,6 +186,7 @@
     <Compile Include="view\AboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="view\TopMostMsgBox.vb" />
     <Compile Include="view\ProcessName.vb" />
     <Compile Include="view\DockType.vb" />
     <Compile Include="view\ProcessNameRetriever.vb" />

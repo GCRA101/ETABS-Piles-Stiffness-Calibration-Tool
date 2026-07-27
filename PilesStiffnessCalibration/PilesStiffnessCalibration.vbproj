@@ -96,6 +96,7 @@
     <Compile Include="controller\Excessive?KHandler.vb" />
     <Compile Include="controller\FilePathRetriever.vb" />
     <Compile Include="controller\InvalidInputsHandler.vb" />
+    <Compile Include="controller\ExcelComInteropHandler.vb" />
     <Compile Include="controller\MissingInputsHandler.vb" />
     <Compile Include="controller\VisualEffects.vb" />
     <Compile Include="model\ExcelChartFactoryInterface.vb" />

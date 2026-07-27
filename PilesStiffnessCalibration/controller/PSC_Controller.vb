@@ -32,7 +32,8 @@ Public Class PSC_Controller
 	'ExceptionHandlers
 	Private invalidInputsHandler As InvalidInputsHandler
 	Private missingInputsHandler As MissingInputsHandler
-	Private excessiveΔKHandler As ExcessiveΔKHandler
+    Private excessiveΔKHandler As ExcessiveΔKHandler
+	Private excelComInteropHandler As ExcelComInteropHandler
 	'EventListeners
 	Private eventsListener As EventsListener
 	'AudioManagers
@@ -193,7 +194,10 @@ Public Class PSC_Controller
 	Public Sub setMissingInputsHandler(missingInputsHandler As MissingInputsHandler)
 		Me.missingInputsHandler = missingInputsHandler
 	End Sub
-	Public Sub setExcessiveΔKHandler(excessiveΔKHandler As ExcessiveΔKHandler)
+    Public Sub setExcelComInteropHandler(excelComInteropHandler As ExcelComInteropHandler)
+        Me.excelComInteropHandler = excelComInteropHandler
+    End Sub
+    Public Sub setExcessiveΔKHandler(excessiveΔKHandler As ExcessiveΔKHandler)
 		Me.excessiveΔKHandler = excessiveΔKHandler
 	End Sub
 	Public Sub setJsonFilePath(jsonFilePath As String)
@@ -222,7 +226,10 @@ Public Class PSC_Controller
 	Public Function getMissingInputsHandler() As MissingInputsHandler
 		Return Me.missingInputsHandler
 	End Function
-	Public Function getExcessiveΔKHandler() As ExcessiveΔKHandler
+    Public Function getExcelComInteropHandler() As ExcelComInteropHandler
+        Return Me.excelComInteropHandler
+    End Function
+    Public Function getExcessiveΔKHandler() As ExcessiveΔKHandler
 		Return Me.excessiveΔKHandler
 	End Function
 	Public Function getJsonFilePath() As String

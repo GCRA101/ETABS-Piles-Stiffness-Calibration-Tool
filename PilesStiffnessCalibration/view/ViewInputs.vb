@@ -125,9 +125,6 @@ Public Class ViewInputs
 
     Private Sub update() Implements Observer.update
 
-        'Force window to be on top of all the other ones
-        'Me.TopMost = True
-
         'POPULATE CHECKBOXES
 
         'Update CheckBoxes with Group Names
@@ -180,12 +177,7 @@ Public Class ViewInputs
             model.getSapModel().View.RefreshView()
         End If
 
-
         Me.Refresh()
-
-        'Prevent window from being on top of all the other ones
-        'Me.TopMost = False
-
 
     End Sub
 

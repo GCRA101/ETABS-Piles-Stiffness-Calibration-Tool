@@ -296,21 +296,27 @@ Public Class PSC_Model
 
         Catch ex As Exception
             'Any unexpected error during the creation of the outputs report in excel...
-            'Send a Warning Message to the user
-            MsgBox("Impossible to generate the Summary Excel Spreadsheet." + vbNewLine + "Try Running a Quick Repair of Microsoft Office.", vbOKOnly + vbCritical, "WARNING")
+
             'Destroy the Excel Data Manager object
             If excelDataManager IsNot Nothing Then
                 excelDataManager.dispose()
             End If
+            'Build Warning Message for the user
+            Dim warningMessage As String
+            warningMessage = "Impossible to generate the Summary Excel Spreadsheet." + vbNewLine + "Try Running a Quick Repair of Microsoft Office."
+            'Throw Custom Exception
+            Throw New ExcelComInteropException(warningMessage, ex.Message)
+
+        Finally
+
+            'Turn On control parameter iterationComplete
+            Me.iterationComplete = True
+            'Notify all the Observers - OBSERVER PATTERN
+            Me.notifyObservers()
+            'Close the PDisp Model
+            Me.pDispModel.close()
 
         End Try
-
-        'Turn On control parameter iterationComplete
-        Me.iterationComplete = True
-        'Notify all the Observers - OBSERVER PATTERN
-        Me.notifyObservers()
-        'Close the PDisp Model
-        Me.pDispModel.close()
 
     End Sub
 

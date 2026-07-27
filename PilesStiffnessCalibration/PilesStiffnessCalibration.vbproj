@@ -109,6 +109,7 @@
     <Compile Include="controller\SoundManager.vb" />
     <Compile Include="controller\SoundPathRetriever.vb" />
     <Compile Include="model\IncludePrivateResolver.vb" />
+    <Compile Include="model\ExcelComInteropException.vb" />
     <Compile Include="model\InvalidFilePathException.vb" />
     <Compile Include="model\JSONSerializer.vb" />
     <Compile Include="model\InvalidInputsException.vb" />

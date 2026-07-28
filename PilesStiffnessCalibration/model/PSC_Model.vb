@@ -1,10 +1,11 @@
 ﻿
-Imports ETABSv1
-Imports Newtonsoft.Json
-
-
-Imports pdispauto_20_1
+Imports System.Drawing.Drawing2D
 Imports System.IO
+Imports System.Runtime.CompilerServices
+Imports ETABSv1
+Imports Microsoft.Office.Core
+Imports Newtonsoft.Json
+Imports pdispauto_20_1
 
 ''' <summary>
 ''' 
@@ -49,6 +50,7 @@ Public Class PSC_Model
     Private etabsPointNames As List(Of String)      'TO BE REPLACED WITH ETABS WRAPPING CLASSES !!!
     Private selEtabsGroupName As String
     Private selEtabsLoadComboName As String
+    Private selNonLinearOption As String
     Private iterNumMax As Integer
     Private convergenceFactor As Double
     Private pileObjs As List(Of PileObject)
@@ -63,7 +65,7 @@ Public Class PSC_Model
     Private Const fixity As Double = 100000000
 
     Private Const MODEL_NAME = "Piles Stiffness Calibration Tool"
-    Private Const MODEL_VERSION = "Version: " + "1.0.0"
+    Private Const MODEL_VERSION = "Version: " + "2.0.0"
     Private Const MODEL_COPYRIGHT = "Copyright @ Buro Happold Ltd Inc.2024"
     Private Const MODEL_AUTHOR = "Giorgio Carlo Roberto Albieri"
     Private Const MODEL_OWNER = "Buro Happold Ltd"
@@ -100,7 +102,7 @@ Public Class PSC_Model
 
 
     Public Sub initialize(sapModel As ETABSv1.cSapModel, pDispFilePath As String, selEtabsLoadComboName As String,
-                          selEtabsGroupName As String, iterNumMax As Integer, convergenceFactor As Double)
+                          selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer, convergenceFactor As Double)
         'Check validity of inputs
         Me.checkInputsData(sapModel, pDispFilePath, selEtabsLoadComboName, selEtabsGroupName, iterNumMax, convergenceFactor)
         'Assign Model attributes
@@ -108,6 +110,7 @@ Public Class PSC_Model
         Me.pDispModel = New PDispModel(pDispFilePath)
         Me.selEtabsLoadComboName = selEtabsLoadComboName
         Me.selEtabsGroupName = selEtabsGroupName
+        Me.selNonLinearOption = selNonLinearOption
         Me.iterNumMax = iterNumMax
         Me.convergenceFactor = convergenceFactor
         Me.sapModelInitialPath = Me.sapModel.GetModelFilename(True)
@@ -161,23 +164,36 @@ Public Class PSC_Model
     End Sub
 
     Public Sub extractEtabsModelData()
+
+        Dim errorMessage As String = ""
+
         '1. Extract Etabs Model's GROUP NAMES
         Dim groupNumNames As Integer, groupNames As String()
         Me.sapModel.GroupDef.GetNameList(groupNumNames, groupNames)
-        Me.etabsGroupNames = groupNames.ToList()
+        If (groupNumNames = 0) Then errorMessage += "No Groups are defined in the ETABS Model." & vbNewLine
         '2. Extract Etabs Model's LOAD CASES
         Dim loadCasesNum As Integer, loadCasesNames As String()
         Me.sapModel.LoadCases.GetNameList(loadCasesNum, loadCasesNames)
-        Me.etabsLoadCaseNames = loadCasesNames.ToList()
+        If (loadCasesNum = 0) Then errorMessage += "No Load Cases are defined in the ETABS Model." & vbNewLine
         '3. Extract Etabs Model's LOAD COMBO NAMES
         Dim lCombosNum As Integer, lComboNames As String()
         Me.sapModel.RespCombo.GetNameList(lCombosNum, lComboNames)
-        Me.etabsLoadComboNames = lComboNames.ToList()
+        If (lCombosNum = 0) Then errorMessage += "No Load Combos are defined in the ETABS Model." & vbNewLine
         '4. Extract Etabs Model's POINT NAMES
         Dim pointNumNames As Integer, pointNames As String()
         Me.sapModel.PointObj.GetNameList(pointNumNames, pointNames)
+        If (pointNumNames = 0) Then errorMessage += "No Point Objects are defined in the ETABS Model."
+
+        '5. Check Encountered Errors and if any, throw MissingInputsException
+        If (errorMessage <> "") Then Throw New MissingInputsException(errorMessage)
+
+        '6. Assign the extracted data to the Model's attributes
+        Me.etabsGroupNames = groupNames.ToList()
+        Me.etabsLoadCaseNames = loadCasesNames.ToList()
+        Me.etabsLoadComboNames = lComboNames.ToList()
         Me.etabsPointNames = pointNames.ToList()
-        '5. Notify Observers
+
+        '7. Notify Observers
         Me.notifyObservers()
     End Sub
 
@@ -256,26 +272,51 @@ Public Class PSC_Model
             'Loop until iteration number gets equal to max or results reach convergence
         Loop While Me.iterNum < iterNumMax And isConvergent(pileObjsQueue) = False
 
-        'EXCEL OUTPUTS
-        'Initialize ExcelDataManager
-        Dim excelDataManager = New ExcelDataManager() '(Me.resultsFolderPath + "\Outputs.xlsx")
-        excelDataManager.initialize()
-        'Retrieve data from output json files
-        Dim jsonFilePaths As String() = IO.Directory.GetFiles(Me.jsonFilesFolderPath)
-        jsonFilePaths.ToList().Sort()
-        jsonFilePaths.ToList().ToDictionary(Function(filePath) filePath.Substring(filePath.IndexOf("Iteration")).Replace(".json", ""),
-                                            Function(filePath) jsonSerializer.deserialize(filePath)).ToList().
-                               ForEach(Sub(kvpair) excelDataManager.write("Piles Stiffness Calibration", kvpair.Value, kvpair.Key))
-        'Create Charts in Excel SpreadSheet
-        excelDataManager.createChart()
-        'Destroy the Excel Data Manager object
-        excelDataManager.dispose()
-        'Turn On control parameter iterationComplete
-        Me.iterationComplete = True
-        'Notify all the Observers - OBSERVER PATTERN
-        Me.notifyObservers()
-        'Close the PDisp Model
-        Me.pDispModel.close()
+
+        'SUMMARY EXCEL SPREADSHEET CREATION
+
+        'ExcelDataManager object initialization
+        Dim excelDataManager As ExcelDataManager = Nothing
+        'Excel Spreadsheet Creation and Charts Generation
+        Try
+            'EXCEL OUTPUTS
+            'Initialize ExcelDataManager
+            excelDataManager = New ExcelDataManager() '(Me.resultsFolderPath + "\Outputs.xlsx")
+            excelDataManager.initialize()
+            'Retrieve data from output json files
+            Dim jsonFilePaths As String() = IO.Directory.GetFiles(Me.jsonFilesFolderPath)
+            jsonFilePaths.ToList().Sort()
+            jsonFilePaths.ToList().ToDictionary(Function(filePath) filePath.Substring(filePath.IndexOf("Iteration")).Replace(".json", ""),
+                                                Function(filePath) jsonSerializer.deserialize(filePath)).ToList().
+                                   ForEach(Sub(kvpair) excelDataManager.write("Piles Stiffness Calibration", kvpair.Value, kvpair.Key))
+            'Create Charts in Excel SpreadSheet
+            excelDataManager.createChart()
+            'Destroy the Excel Data Manager object
+            excelDataManager.dispose()
+
+        Catch ex As Exception
+            'Any unexpected error during the creation of the outputs report in excel...
+
+            'Destroy the Excel Data Manager object
+            If excelDataManager IsNot Nothing Then
+                excelDataManager.dispose()
+            End If
+            'Build Warning Message for the user
+            Dim warningMessage As String
+            warningMessage = "Impossible to generate the Summary Excel Spreadsheet." + vbNewLine + "Try Running a Quick Repair of Microsoft Office."
+            'Throw Custom Exception
+            Throw New ExcelComInteropException(warningMessage, ex.Message)
+
+        Finally
+
+            'Turn On control parameter iterationComplete
+            Me.iterationComplete = True
+            'Notify all the Observers - OBSERVER PATTERN
+            Me.notifyObservers()
+            'Close the PDisp Model
+            Me.pDispModel.close()
+
+        End Try
 
     End Sub
 
@@ -595,14 +636,53 @@ Public Class PSC_Model
         ' ASSIGN COMPUTED STIFFNESSES TO ETABS BASE POINTS
         Me.sapModel.SetModelIsLocked(False)
 
+        ' Restraint/Stiffness Arrays Initialization
+        Dim restraintsArray(5) As Boolean
+        Dim stiffnessArray(5) As Double
+        ' Link Properties Initialization
+        Dim linkName As String
+        Dim dof(5), fixed(5), nonLinear(5) As Boolean
+        Dim ke(5), ce(5), dis(5) As Double
+        Dim numLinks As Integer = 1
+        Dim linkNames(0) As String
+        Dim linkAxialDirs(0) As Integer
+        Dim linkAngles(0) As Double
+        dof(2) = True
+        nonLinear(2) = True
+        dis(2) = 0
+        linkAngles(0) = 0
+
         For Each pileObj In pileObjs
-            ' Delete existing restraints and springs from point object
-            ret = Me.sapModel.PointObj.DeleteRestraint(pileObj.getLocation.getName())
+            ' Delete the vertical restraint from point object while keeping all the other ones defined by the user
+            ret = Me.sapModel.PointObj.GetRestraint(pileObj.getLocation.getName(), restraintsArray)
+            restraintsArray(2) = False
+            ret = Me.sapModel.PointObj.SetRestraint(pileObj.getLocation.getName(), restraintsArray)
+            ' Delete all spring assignments from the point object
             ret = Me.sapModel.PointObj.DeleteSpring(pileObj.getLocation.getName())
+
             ' Compute new stiffness array
-            Dim stiffnessArray() As Double = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(), pileObj.getStiffness().getU3(), 0, 0, 0}
+            stiffnessArray = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(), pileObj.getStiffness().getU3(), 0, 0, 0}
+
             ' Generate/Update point spring property with computed stiffness array
             ret = Me.sapModel.PropPointSpring.SetPointSpringProp(pileObj.getLocation.getName(), 1, stiffnessArray)
+
+            Select Case Me.selNonLinearOption
+                Case "Tension Only"
+                    ' If the Spring Property is Tension Only, create a Hook Link Object and assign it to the Point Spring Property
+                    linkName = "tol_Link_" + pileObj.getLocation.getName()
+                    linkNames(0) = linkName
+                    linkAxialDirs(0) = 3
+                    ret = Me.sapModel.PropLink.SetHook(linkName, dof, fixed, nonLinear, ke, ce, stiffnessArray, dis, 0, 0)
+                    ret = Me.sapModel.PropPointSpring.SetLinks(pileObj.getLocation.getName(), numLinks, linkNames, linkAxialDirs, linkAngles)
+                Case "Compression Only"
+                    ' If the Spring Property is Compression Only, create a Gap Link Object and assign it to the Point Spring Property
+                    linkName = "col_Link_" + pileObj.getLocation.getName()
+                    linkNames(0) = linkName
+                    linkAxialDirs(0) = -3
+                    ret = Me.sapModel.PropLink.SetGap(linkName, dof, fixed, nonLinear, ke, ce, stiffnessArray, dis, 0, 0)
+                    ret = Me.sapModel.PropPointSpring.SetLinks(pileObj.getLocation.getName(), numLinks, linkNames, linkAxialDirs, linkAngles)
+            End Select
+
             ' Assign created/updated point spring property to point object
             ret = Me.sapModel.PointObj.SetSpringAssignment(pileObj.getLocation.getName(), pileObj.getLocation.getName())
         Next

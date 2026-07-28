@@ -30,8 +30,10 @@ Public Class PSC_Controller
 	Protected SapModel As cSapModel
 	Protected ISapPlugin As cPluginCallback
 	'ExceptionHandlers
+	Private invalidInputsHandler As InvalidInputsHandler
 	Private missingInputsHandler As MissingInputsHandler
-	Private excessiveΔKHandler As ExcessiveΔKHandler
+    Private excessiveΔKHandler As ExcessiveΔKHandler
+	Private excelComInteropHandler As ExcelComInteropHandler
 	'EventListeners
 	Private eventsListener As EventsListener
 	'AudioManagers
@@ -75,7 +77,9 @@ Public Class PSC_Controller
 	Public Sub createExceptionHandlers() Implements ControllerInterface.createExceptionHandlers
 		Me.missingInputsHandler = New MissingInputsHandler(Me)
 		Me.excessiveΔKHandler = New ExcessiveΔKHandler(Me)
-	End Sub
+        Me.invalidInputsHandler = New InvalidInputsHandler(Me)
+        Me.excelComInteropHandler = New ExcelComInteropHandler(Me)
+    End Sub
 
 
 	Public Sub processInputData()
@@ -98,12 +102,30 @@ Public Class PSC_Controller
 			selGroup = ""
 		End If
 
+		'Get the type of Non Linear Option selected by the user in the UI
+		Dim selNonLinearOption As String
+        selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedItem
+
+		'Get the Maximum Number of Iterations selected by the user in the UI
+		Dim iterNumMax As Integer
+		Try
+			iterNumMax = CInt(Me.view.getViewInputs().cbIterations.Items(Me.view.getViewInputs().cbIterations.SelectedIndex))
+			If (iterNumMax < 2) Then Throw New InvalidInputsException("Max number of Analysis Iterations must be bigger than 1.")
+		Catch ex1 As Exception
+			MsgBox("The Input Max Number of Analysis Iterations must be an integer.", vbOKOnly + vbCritical, "WARNING - INVALID INPUTS")
+			Throw
+		Catch ex2 As InvalidInputsException
+			Me.getInvalidInputsHandler().execute(ex2)
+		End Try
+
+		'Get the Maximum Displacement Variation selected by the user in the UI
+		Dim convergenceFactor As Double
+		convergenceFactor = CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbDispVariation.
+							Items(Me.view.getViewInputs().cbDispVariation.SelectedIndex)), "%")(0)) / 100.0
 
 		'2. Initialize the Model
-		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup,
-							CInt(Me.view.getViewInputs().cbIterations.Items(Me.view.getViewInputs().cbIterations.SelectedIndex)),
-							CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbDispVariation.
-							Items(Me.view.getViewInputs().cbDispVariation.SelectedIndex)), "%")(0)) / 100.0)
+		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax, convergenceFactor)
+
 		'Retain only points belonging to selected Group
 		Me.model.filterPointsByGroup()
 
@@ -168,10 +190,16 @@ Public Class PSC_Controller
 	Public Sub setEventsListener(eventsListener As EventsListener)
 		Me.eventsListener = eventsListener
 	End Sub
+	Public Sub setInvalidInputsHandler(invalidInputsHandler As InvalidInputsHandler)
+		Me.invalidInputsHandler = invalidInputsHandler
+	End Sub
 	Public Sub setMissingInputsHandler(missingInputsHandler As MissingInputsHandler)
 		Me.missingInputsHandler = missingInputsHandler
 	End Sub
-	Public Sub setExcessiveΔKHandler(excessiveΔKHandler As ExcessiveΔKHandler)
+    Public Sub setExcelComInteropHandler(excelComInteropHandler As ExcelComInteropHandler)
+        Me.excelComInteropHandler = excelComInteropHandler
+    End Sub
+    Public Sub setExcessiveΔKHandler(excessiveΔKHandler As ExcessiveΔKHandler)
 		Me.excessiveΔKHandler = excessiveΔKHandler
 	End Sub
 	Public Sub setJsonFilePath(jsonFilePath As String)
@@ -194,10 +222,16 @@ Public Class PSC_Controller
 	Public Function getEventsListener() As EventsListener
 		Return Me.eventsListener
 	End Function
+	Public Function getInvalidInputsHandler() As InvalidInputsHandler
+		Return Me.invalidInputsHandler
+	End Function
 	Public Function getMissingInputsHandler() As MissingInputsHandler
 		Return Me.missingInputsHandler
 	End Function
-	Public Function getExcessiveΔKHandler() As ExcessiveΔKHandler
+    Public Function getExcelComInteropHandler() As ExcelComInteropHandler
+        Return Me.excelComInteropHandler
+    End Function
+    Public Function getExcessiveΔKHandler() As ExcessiveΔKHandler
 		Return Me.excessiveΔKHandler
 	End Function
 	Public Function getJsonFilePath() As String

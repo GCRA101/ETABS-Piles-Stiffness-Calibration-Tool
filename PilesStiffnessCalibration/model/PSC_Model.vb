@@ -65,7 +65,7 @@ Public Class PSC_Model
     Private Const fixity As Double = 100000000
 
     Private Const MODEL_NAME = "Piles Stiffness Calibration Tool"
-    Private Const MODEL_VERSION = "Version: " + "1.0.0"
+    Private Const MODEL_VERSION = "Version: " + "2.0.0"
     Private Const MODEL_COPYRIGHT = "Copyright @ Buro Happold Ltd Inc.2024"
     Private Const MODEL_AUTHOR = "Giorgio Carlo Roberto Albieri"
     Private Const MODEL_OWNER = "Buro Happold Ltd"

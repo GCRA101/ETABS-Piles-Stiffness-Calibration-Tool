@@ -272,6 +272,9 @@ Public Class PSC_Model
             'Loop until iteration number gets equal to max or results reach convergence
         Loop While Me.iterNum < iterNumMax And isConvergent(pileObjsQueue) = False
 
+    End Sub
+
+    Public Sub generateExcelReport()
 
         'SUMMARY EXCEL SPREADSHEET CREATION
 

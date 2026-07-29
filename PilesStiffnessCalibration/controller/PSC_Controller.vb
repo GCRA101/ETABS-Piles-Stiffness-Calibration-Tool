@@ -152,6 +152,10 @@ Public Class PSC_Controller
 	Public Sub runIteration() Implements ControllerInterface.runIteration
 		'Call the Model's Iteration method
 		Me.model.runIteration()
+		'Call the Model's method generating the Outputs Excel Summary based on user input selection
+		If Me.view.getViewInputs.cbExcelReport.Checked = True Then
+			Me.model.generateExcelReport()
+		End If
 		'Play Sound Effect at the end of the process
 		Me.soundManager.play(Sound.ENDITERATION)
 	End Sub

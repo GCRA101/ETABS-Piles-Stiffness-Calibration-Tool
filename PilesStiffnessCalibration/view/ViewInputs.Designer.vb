@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ViewInputs
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class ViewInputs
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ViewInputs))
         Me.btnRunIteration = New System.Windows.Forms.Button()
@@ -50,15 +50,18 @@ Partial Class ViewInputs
         Me.rbSpring = New System.Windows.Forms.RadioButton()
         Me.rbRigid = New System.Windows.Forms.RadioButton()
         Me.ofdJsonFile = New System.Windows.Forms.OpenFileDialog()
+        Me.gbOutputs = New System.Windows.Forms.GroupBox()
+        Me.cbExcelReport = New System.Windows.Forms.CheckBox()
         CType(Me.pbETABSInputs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbPDispInputs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbPDispInputs.SuspendLayout()
         Me.gbETABSInputs.SuspendLayout()
+        Me.gbOutputs.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRunIteration
         '
-        Me.btnRunIteration.Location = New System.Drawing.Point(82, 525)
+        Me.btnRunIteration.Location = New System.Drawing.Point(82, 568)
         Me.btnRunIteration.Name = "btnRunIteration"
         Me.btnRunIteration.Size = New System.Drawing.Size(124, 38)
         Me.btnRunIteration.TabIndex = 29
@@ -68,7 +71,7 @@ Partial Class ViewInputs
         'lblProgrBar
         '
         Me.lblProgrBar.AutoSize = True
-        Me.lblProgrBar.Location = New System.Drawing.Point(23, 577)
+        Me.lblProgrBar.Location = New System.Drawing.Point(23, 621)
         Me.lblProgrBar.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblProgrBar.Name = "lblProgrBar"
         Me.lblProgrBar.Size = New System.Drawing.Size(109, 13)
@@ -77,7 +80,7 @@ Partial Class ViewInputs
         '
         'progrBar
         '
-        Me.progrBar.Location = New System.Drawing.Point(24, 594)
+        Me.progrBar.Location = New System.Drawing.Point(24, 638)
         Me.progrBar.Maximum = 100000
         Me.progrBar.Name = "progrBar"
         Me.progrBar.Size = New System.Drawing.Size(238, 22)
@@ -237,7 +240,7 @@ Partial Class ViewInputs
         Me.gbPDispInputs.Controls.Add(Me.cbIterations)
         Me.gbPDispInputs.Controls.Add(Me.lblIterations)
         Me.gbPDispInputs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbPDispInputs.Location = New System.Drawing.Point(18, 381)
+        Me.gbPDispInputs.Location = New System.Drawing.Point(18, 364)
         Me.gbPDispInputs.Margin = New System.Windows.Forms.Padding(2)
         Me.gbPDispInputs.Name = "gbPDispInputs"
         Me.gbPDispInputs.Padding = New System.Windows.Forms.Padding(2)
@@ -263,7 +266,7 @@ Partial Class ViewInputs
         Me.gbETABSInputs.Controls.Add(Me.cklbGroups)
         Me.gbETABSInputs.Controls.Add(Me.lblGroups)
         Me.gbETABSInputs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbETABSInputs.Location = New System.Drawing.Point(18, 26)
+        Me.gbETABSInputs.Location = New System.Drawing.Point(18, 11)
         Me.gbETABSInputs.Margin = New System.Windows.Forms.Padding(2)
         Me.gbETABSInputs.Name = "gbETABSInputs"
         Me.gbETABSInputs.Padding = New System.Windows.Forms.Padding(2)
@@ -278,7 +281,7 @@ Partial Class ViewInputs
         Me.cbNonLinearOptions.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbNonLinearOptions.FormattingEnabled = True
         Me.cbNonLinearOptions.Items.AddRange(New Object() {"None (Linear)", "Tension Only", "Compression Only"})
-        Me.cbNonLinearOptions.Location = New System.Drawing.Point(150, 197)
+        Me.cbNonLinearOptions.Location = New System.Drawing.Point(150, 192)
         Me.cbNonLinearOptions.Margin = New System.Windows.Forms.Padding(2)
         Me.cbNonLinearOptions.Name = "cbNonLinearOptions"
         Me.cbNonLinearOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -289,7 +292,7 @@ Partial Class ViewInputs
         '
         Me.lblNonLinearOption.AutoSize = True
         Me.lblNonLinearOption.Font = New System.Drawing.Font("Segoe UI", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNonLinearOption.Location = New System.Drawing.Point(4, 200)
+        Me.lblNonLinearOption.Location = New System.Drawing.Point(4, 195)
         Me.lblNonLinearOption.Name = "lblNonLinearOption"
         Me.lblNonLinearOption.Size = New System.Drawing.Size(135, 13)
         Me.lblNonLinearOption.TabIndex = 44
@@ -298,7 +301,7 @@ Partial Class ViewInputs
         'tbStiffness
         '
         Me.tbStiffness.Font = New System.Drawing.Font("Segoe UI", 6.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbStiffness.Location = New System.Drawing.Point(188, 284)
+        Me.tbStiffness.Location = New System.Drawing.Point(188, 278)
         Me.tbStiffness.Name = "tbStiffness"
         Me.tbStiffness.Size = New System.Drawing.Size(57, 18)
         Me.tbStiffness.TabIndex = 43
@@ -306,7 +309,7 @@ Partial Class ViewInputs
         'btnOpenJSONFile
         '
         Me.btnOpenJSONFile.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOpenJSONFile.Location = New System.Drawing.Point(188, 309)
+        Me.btnOpenJSONFile.Location = New System.Drawing.Point(188, 303)
         Me.btnOpenJSONFile.Name = "btnOpenJSONFile"
         Me.btnOpenJSONFile.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btnOpenJSONFile.Size = New System.Drawing.Size(57, 20)
@@ -318,7 +321,7 @@ Partial Class ViewInputs
         '
         Me.lblInitialStiffness.AutoSize = True
         Me.lblInitialStiffness.Font = New System.Drawing.Font("Segoe UI", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInitialStiffness.Location = New System.Drawing.Point(6, 235)
+        Me.lblInitialStiffness.Location = New System.Drawing.Point(6, 229)
         Me.lblInitialStiffness.Name = "lblInitialStiffness"
         Me.lblInitialStiffness.Size = New System.Drawing.Size(213, 13)
         Me.lblInitialStiffness.TabIndex = 42
@@ -328,7 +331,7 @@ Partial Class ViewInputs
         '
         Me.rbImportFromFile.AutoSize = True
         Me.rbImportFromFile.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.rbImportFromFile.Location = New System.Drawing.Point(8, 308)
+        Me.rbImportFromFile.Location = New System.Drawing.Point(8, 302)
         Me.rbImportFromFile.Margin = New System.Windows.Forms.Padding(2)
         Me.rbImportFromFile.Name = "rbImportFromFile"
         Me.rbImportFromFile.Size = New System.Drawing.Size(174, 19)
@@ -341,7 +344,7 @@ Partial Class ViewInputs
         '
         Me.rbSpring.AutoSize = True
         Me.rbSpring.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.rbSpring.Location = New System.Drawing.Point(8, 284)
+        Me.rbSpring.Location = New System.Drawing.Point(8, 278)
         Me.rbSpring.Margin = New System.Windows.Forms.Padding(2)
         Me.rbSpring.Name = "rbSpring"
         Me.rbSpring.Size = New System.Drawing.Size(180, 19)
@@ -354,7 +357,7 @@ Partial Class ViewInputs
         '
         Me.rbRigid.AutoSize = True
         Me.rbRigid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.rbRigid.Location = New System.Drawing.Point(8, 260)
+        Me.rbRigid.Location = New System.Drawing.Point(8, 254)
         Me.rbRigid.Margin = New System.Windows.Forms.Padding(2)
         Me.rbRigid.Name = "rbRigid"
         Me.rbRigid.Size = New System.Drawing.Size(123, 19)
@@ -367,11 +370,38 @@ Partial Class ViewInputs
         '
         Me.ofdJsonFile.FileName = "ofdJsonFile"
         '
+        'gbOutputs
+        '
+        Me.gbOutputs.Controls.Add(Me.cbExcelReport)
+        Me.gbOutputs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.gbOutputs.Location = New System.Drawing.Point(18, 501)
+        Me.gbOutputs.Margin = New System.Windows.Forms.Padding(2)
+        Me.gbOutputs.Name = "gbOutputs"
+        Me.gbOutputs.Padding = New System.Windows.Forms.Padding(2)
+        Me.gbOutputs.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.gbOutputs.Size = New System.Drawing.Size(252, 53)
+        Me.gbOutputs.TabIndex = 43
+        Me.gbOutputs.TabStop = False
+        Me.gbOutputs.Text = "Outputs"
+        '
+        'cbExcelReport
+        '
+        Me.cbExcelReport.AutoSize = True
+        Me.cbExcelReport.Checked = True
+        Me.cbExcelReport.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.cbExcelReport.Location = New System.Drawing.Point(8, 21)
+        Me.cbExcelReport.Name = "cbExcelReport"
+        Me.cbExcelReport.Size = New System.Drawing.Size(97, 19)
+        Me.cbExcelReport.TabIndex = 38
+        Me.cbExcelReport.Text = "Excel Report"
+        Me.cbExcelReport.UseVisualStyleBackColor = True
+        '
         'ViewInputs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(293, 634)
+        Me.ClientSize = New System.Drawing.Size(293, 677)
+        Me.Controls.Add(Me.gbOutputs)
         Me.Controls.Add(Me.gbETABSInputs)
         Me.Controls.Add(Me.gbPDispInputs)
         Me.Controls.Add(Me.btnRunIteration)
@@ -388,6 +418,8 @@ Partial Class ViewInputs
         Me.gbPDispInputs.PerformLayout()
         Me.gbETABSInputs.ResumeLayout(False)
         Me.gbETABSInputs.PerformLayout()
+        Me.gbOutputs.ResumeLayout(False)
+        Me.gbOutputs.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -419,4 +451,6 @@ Partial Class ViewInputs
     Friend WithEvents ofdJsonFile As Windows.Forms.OpenFileDialog
     Friend WithEvents lblNonLinearOption As Windows.Forms.Label
     Friend WithEvents cbNonLinearOptions As Windows.Forms.ComboBox
+    Friend WithEvents gbOutputs As Windows.Forms.GroupBox
+    Friend WithEvents cbExcelReport As Windows.Forms.CheckBox
 End Class

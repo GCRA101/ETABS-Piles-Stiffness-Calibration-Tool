@@ -406,8 +406,15 @@ Public Class PSC_Model
                 Dim message As String = "Pile Stiffness Variation from previous iteration looks excessive."
                 Dim errorPilesList As List(Of PileObject)
                 errorPilesList = plΔKList.Select(Function(dk)
-                                                     If dk >= ΔKMax Then Return plΔKList.IndexOf(dk)
-                                                 End Function).Select(Function(index) pileObjsQueue.First().Item(index))
+                                                     If dk >= ΔKMax Then
+                                                         Return plΔKList.IndexOf(dk)
+                                                     Else
+                                                         Return -1
+                                                     End If
+                                                 End Function).
+                                           Where(Function(index) index <> -1).
+                                           Select(Function(index) pileObjsQueue.First().Item(index)).
+                                           ToList()
 
                 Throw New ExcessiveΔKException(message, errorPilesList)
             End If

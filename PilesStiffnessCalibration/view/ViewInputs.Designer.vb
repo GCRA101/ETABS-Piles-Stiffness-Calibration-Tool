@@ -28,8 +28,8 @@ Partial Class ViewInputs
         Me.progrBar = New System.Windows.Forms.ProgressBar()
         Me.cbIterations = New System.Windows.Forms.ComboBox()
         Me.lblIterations = New System.Windows.Forms.Label()
-        Me.cbDispVariation = New System.Windows.Forms.ComboBox()
-        Me.lblDispVariation = New System.Windows.Forms.Label()
+        Me.cbVariation = New System.Windows.Forms.ComboBox()
+        Me.lblVariation = New System.Windows.Forms.Label()
         Me.lblLoadCombos = New System.Windows.Forms.Label()
         Me.cklbLoadCombos = New System.Windows.Forms.CheckedListBox()
         Me.lblGroups = New System.Windows.Forms.Label()
@@ -52,6 +52,8 @@ Partial Class ViewInputs
         Me.ofdJsonFile = New System.Windows.Forms.OpenFileDialog()
         Me.gbOutputs = New System.Windows.Forms.GroupBox()
         Me.cbExcelReport = New System.Windows.Forms.CheckBox()
+        Me.cbConvCriterion = New System.Windows.Forms.ComboBox()
+        Me.lblConvCriterion = New System.Windows.Forms.Label()
         CType(Me.pbETABSInputs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbPDispInputs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbPDispInputs.SuspendLayout()
@@ -61,7 +63,7 @@ Partial Class ViewInputs
         '
         'btnRunIteration
         '
-        Me.btnRunIteration.Location = New System.Drawing.Point(82, 568)
+        Me.btnRunIteration.Location = New System.Drawing.Point(82, 618)
         Me.btnRunIteration.Name = "btnRunIteration"
         Me.btnRunIteration.Size = New System.Drawing.Size(124, 38)
         Me.btnRunIteration.TabIndex = 29
@@ -71,7 +73,7 @@ Partial Class ViewInputs
         'lblProgrBar
         '
         Me.lblProgrBar.AutoSize = True
-        Me.lblProgrBar.Location = New System.Drawing.Point(23, 621)
+        Me.lblProgrBar.Location = New System.Drawing.Point(22, 672)
         Me.lblProgrBar.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblProgrBar.Name = "lblProgrBar"
         Me.lblProgrBar.Size = New System.Drawing.Size(109, 13)
@@ -80,7 +82,7 @@ Partial Class ViewInputs
         '
         'progrBar
         '
-        Me.progrBar.Location = New System.Drawing.Point(24, 638)
+        Me.progrBar.Location = New System.Drawing.Point(23, 689)
         Me.progrBar.Maximum = 100000
         Me.progrBar.Name = "progrBar"
         Me.progrBar.Size = New System.Drawing.Size(238, 22)
@@ -91,7 +93,7 @@ Partial Class ViewInputs
         Me.cbIterations.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbIterations.FormattingEnabled = True
         Me.cbIterations.Items.AddRange(New Object() {"2", "3", "4", "5", "10", "20", "50", "100"})
-        Me.cbIterations.Location = New System.Drawing.Point(154, 93)
+        Me.cbIterations.Location = New System.Drawing.Point(154, 136)
         Me.cbIterations.Margin = New System.Windows.Forms.Padding(2)
         Me.cbIterations.Name = "cbIterations"
         Me.cbIterations.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -102,7 +104,7 @@ Partial Class ViewInputs
         '
         Me.lblIterations.AutoSize = True
         Me.lblIterations.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIterations.Location = New System.Drawing.Point(6, 95)
+        Me.lblIterations.Location = New System.Drawing.Point(6, 138)
         Me.lblIterations.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblIterations.Name = "lblIterations"
         Me.lblIterations.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -110,30 +112,30 @@ Partial Class ViewInputs
         Me.lblIterations.TabIndex = 25
         Me.lblIterations.Text = "Max Num of Analysis Iterations:"
         '
-        'cbDispVariation
+        'cbVariation
         '
-        Me.cbDispVariation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbDispVariation.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbDispVariation.FormattingEnabled = True
-        Me.cbDispVariation.Items.AddRange(New Object() {"5%", "10%", "15%", "20%"})
-        Me.cbDispVariation.Location = New System.Drawing.Point(154, 65)
-        Me.cbDispVariation.Margin = New System.Windows.Forms.Padding(2)
-        Me.cbDispVariation.Name = "cbDispVariation"
-        Me.cbDispVariation.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cbDispVariation.Size = New System.Drawing.Size(94, 20)
-        Me.cbDispVariation.TabIndex = 31
+        Me.cbVariation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbVariation.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbVariation.FormattingEnabled = True
+        Me.cbVariation.Items.AddRange(New Object() {"5%", "10%", "15%", "20%"})
+        Me.cbVariation.Location = New System.Drawing.Point(154, 104)
+        Me.cbVariation.Margin = New System.Windows.Forms.Padding(2)
+        Me.cbVariation.Name = "cbVariation"
+        Me.cbVariation.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cbVariation.Size = New System.Drawing.Size(94, 20)
+        Me.cbVariation.TabIndex = 31
         '
-        'lblDispVariation
+        'lblVariation
         '
-        Me.lblDispVariation.AutoSize = True
-        Me.lblDispVariation.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDispVariation.Location = New System.Drawing.Point(6, 67)
-        Me.lblDispVariation.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblDispVariation.Name = "lblDispVariation"
-        Me.lblDispVariation.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblDispVariation.Size = New System.Drawing.Size(88, 12)
-        Me.lblDispVariation.TabIndex = 30
-        Me.lblDispVariation.Text = "Max Disp Variation:"
+        Me.lblVariation.AutoSize = True
+        Me.lblVariation.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblVariation.Location = New System.Drawing.Point(6, 106)
+        Me.lblVariation.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblVariation.Name = "lblVariation"
+        Me.lblVariation.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblVariation.Size = New System.Drawing.Size(66, 12)
+        Me.lblVariation.TabIndex = 30
+        Me.lblVariation.Text = "Max Variation:"
         '
         'lblLoadCombos
         '
@@ -232,11 +234,13 @@ Partial Class ViewInputs
         '
         'gbPDispInputs
         '
+        Me.gbPDispInputs.Controls.Add(Me.lblConvCriterion)
+        Me.gbPDispInputs.Controls.Add(Me.cbConvCriterion)
         Me.gbPDispInputs.Controls.Add(Me.pbPDispInputs)
         Me.gbPDispInputs.Controls.Add(Me.lblPDispFile)
         Me.gbPDispInputs.Controls.Add(Me.btnOpenPDispFile)
-        Me.gbPDispInputs.Controls.Add(Me.cbDispVariation)
-        Me.gbPDispInputs.Controls.Add(Me.lblDispVariation)
+        Me.gbPDispInputs.Controls.Add(Me.cbVariation)
+        Me.gbPDispInputs.Controls.Add(Me.lblVariation)
         Me.gbPDispInputs.Controls.Add(Me.cbIterations)
         Me.gbPDispInputs.Controls.Add(Me.lblIterations)
         Me.gbPDispInputs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -245,7 +249,7 @@ Partial Class ViewInputs
         Me.gbPDispInputs.Name = "gbPDispInputs"
         Me.gbPDispInputs.Padding = New System.Windows.Forms.Padding(2)
         Me.gbPDispInputs.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.gbPDispInputs.Size = New System.Drawing.Size(252, 124)
+        Me.gbPDispInputs.Size = New System.Drawing.Size(252, 169)
         Me.gbPDispInputs.TabIndex = 42
         Me.gbPDispInputs.TabStop = False
         Me.gbPDispInputs.Text = "PDISP Inputs"
@@ -374,7 +378,7 @@ Partial Class ViewInputs
         '
         Me.gbOutputs.Controls.Add(Me.cbExcelReport)
         Me.gbOutputs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbOutputs.Location = New System.Drawing.Point(18, 501)
+        Me.gbOutputs.Location = New System.Drawing.Point(18, 550)
         Me.gbOutputs.Margin = New System.Windows.Forms.Padding(2)
         Me.gbOutputs.Name = "gbOutputs"
         Me.gbOutputs.Padding = New System.Windows.Forms.Padding(2)
@@ -396,11 +400,36 @@ Partial Class ViewInputs
         Me.cbExcelReport.Text = "Excel Report"
         Me.cbExcelReport.UseVisualStyleBackColor = True
         '
+        'cbConvCriterion
+        '
+        Me.cbConvCriterion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbConvCriterion.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbConvCriterion.FormattingEnabled = True
+        Me.cbConvCriterion.Items.AddRange(New Object() {"Reaction", "Displacement", "Stiffness"})
+        Me.cbConvCriterion.Location = New System.Drawing.Point(154, 72)
+        Me.cbConvCriterion.Margin = New System.Windows.Forms.Padding(2)
+        Me.cbConvCriterion.Name = "cbConvCriterion"
+        Me.cbConvCriterion.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cbConvCriterion.Size = New System.Drawing.Size(94, 20)
+        Me.cbConvCriterion.TabIndex = 40
+        '
+        'lblConvCriterion
+        '
+        Me.lblConvCriterion.AutoSize = True
+        Me.lblConvCriterion.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblConvCriterion.Location = New System.Drawing.Point(6, 74)
+        Me.lblConvCriterion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblConvCriterion.Name = "lblConvCriterion"
+        Me.lblConvCriterion.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblConvCriterion.Size = New System.Drawing.Size(104, 12)
+        Me.lblConvCriterion.TabIndex = 41
+        Me.lblConvCriterion.Text = "Convergence Criterion:"
+        '
         'ViewInputs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(293, 677)
+        Me.ClientSize = New System.Drawing.Size(293, 736)
         Me.Controls.Add(Me.gbOutputs)
         Me.Controls.Add(Me.gbETABSInputs)
         Me.Controls.Add(Me.gbPDispInputs)
@@ -429,8 +458,8 @@ Partial Class ViewInputs
     Friend WithEvents progrBar As Windows.Forms.ProgressBar
     Friend WithEvents cbIterations As Windows.Forms.ComboBox
     Friend WithEvents lblIterations As Windows.Forms.Label
-    Friend WithEvents cbDispVariation As Windows.Forms.ComboBox
-    Friend WithEvents lblDispVariation As Windows.Forms.Label
+    Friend WithEvents cbVariation As Windows.Forms.ComboBox
+    Friend WithEvents lblVariation As Windows.Forms.Label
     Friend WithEvents lblLoadCombos As Windows.Forms.Label
     Friend WithEvents cklbLoadCombos As Windows.Forms.CheckedListBox
     Friend WithEvents lblGroups As Windows.Forms.Label
@@ -453,4 +482,6 @@ Partial Class ViewInputs
     Friend WithEvents cbNonLinearOptions As Windows.Forms.ComboBox
     Friend WithEvents gbOutputs As Windows.Forms.GroupBox
     Friend WithEvents cbExcelReport As Windows.Forms.CheckBox
+    Friend WithEvents lblConvCriterion As Windows.Forms.Label
+    Friend WithEvents cbConvCriterion As Windows.Forms.ComboBox
 End Class

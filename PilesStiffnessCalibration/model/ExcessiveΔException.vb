@@ -17,7 +17,7 @@
 ''' </summary>
 
 
-Public Class ExcessiveΔKException
+Public Class ExcessiveΔException
     Inherits Exception
 
     'ATTRIBUTES

@@ -10,11 +10,21 @@
 
 Public Class ExcessiveΔHandler
     Inherits ExceptionHandler
+    'ATTRIBUTES
+    Private parameterName As String
 
     'CONSTRUCTOR
+    'Overloaded Simple
     Public Sub New(controller As PSC_Controller)
         'Call the constructor of the superclass
         MyBase.New(controller)
+    End Sub
+    'Overloaded Extended
+    Public Sub New(controller As PSC_Controller, parameterName As String)
+        'Call the constructor of the superclass
+        MyBase.New(controller)
+        'Assign local attribute
+        Me.parameterName = parameterName
     End Sub
 
     'METHODS
@@ -34,10 +44,18 @@ Public Class ExcessiveΔHandler
             'Remove last comma and space from the string message
             Me.message.Remove(Me.message.Count - 2)
             'Display the Warning MessageBox Window
-            TopMostMsgBox.Show(Me.message, "WARNING - EXCESSIVE STIFFNESS VARIATION", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MsgBox(Me.message, vbOKOnly + vbCritical, "WARNING - EXCESSIVE " + Me.parameterName.ToUpper() + "VARIATION")
         End If
 
     End Sub
+
+    Public Sub setParameterName(parameterName As String)
+        Me.parameterName = parameterName
+    End Sub
+
+    Public Function getParameterName() As String
+        Return Me.parameterName
+    End Function
 
 
 End Class

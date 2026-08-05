@@ -32,7 +32,7 @@ Public Class PSC_Controller
 	'ExceptionHandlers
 	Private invalidInputsHandler As InvalidInputsHandler
 	Private missingInputsHandler As MissingInputsHandler
-    Private excessiveΔKHandler As ExcessiveΔKHandler
+	Private excessiveΔHandler As ExcessiveΔHandler
 	Private excelComInteropHandler As ExcelComInteropHandler
 	'EventListeners
 	Private eventsListener As EventsListener
@@ -76,8 +76,8 @@ Public Class PSC_Controller
 
 	Public Sub createExceptionHandlers() Implements ControllerInterface.createExceptionHandlers
 		Me.missingInputsHandler = New MissingInputsHandler(Me)
-		Me.excessiveΔKHandler = New ExcessiveΔKHandler(Me)
-        Me.invalidInputsHandler = New InvalidInputsHandler(Me)
+		Me.excessiveΔHandler = New ExcessiveΔHandler(Me)
+		Me.invalidInputsHandler = New InvalidInputsHandler(Me)
         Me.excelComInteropHandler = New ExcelComInteropHandler(Me)
     End Sub
 
@@ -118,13 +118,18 @@ Public Class PSC_Controller
 			Me.getInvalidInputsHandler().execute(ex2)
 		End Try
 
-		'Get the Maximum Displacement Variation selected by the user in the UI
+		'Get the Convergence Criterion selected by the user in the UI
+		Dim convergenceCriterion As String
+		convergenceCriterion = Me.view.getViewInputs().cbConvCriterion.SelectedItem
+		Me.excessiveΔHandler.setParameterName(convergenceCriterion)
+
+		'Get the Maximum Variation selected by the user in the UI
 		Dim convergenceFactor As Double
-		convergenceFactor = CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbDispVariation.
-							Items(Me.view.getViewInputs().cbDispVariation.SelectedIndex)), "%")(0)) / 100.0
+		convergenceFactor = CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbVariation.
+							Items(Me.view.getViewInputs().cbVariation.SelectedIndex)), "%")(0)) / 100.0
 
 		'2. Initialize the Model
-		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax, convergenceFactor)
+		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax, convergenceCriterion, convergenceFactor)
 
 		'Retain only points belonging to selected Group
 		Me.model.filterPointsByGroup()
@@ -203,8 +208,8 @@ Public Class PSC_Controller
     Public Sub setExcelComInteropHandler(excelComInteropHandler As ExcelComInteropHandler)
         Me.excelComInteropHandler = excelComInteropHandler
     End Sub
-    Public Sub setExcessiveΔKHandler(excessiveΔKHandler As ExcessiveΔKHandler)
-		Me.excessiveΔKHandler = excessiveΔKHandler
+	Public Sub setExcessiveΔHandler(excessiveΔHandler As ExcessiveΔHandler)
+		Me.excessiveΔHandler = excessiveΔHandler
 	End Sub
 	Public Sub setJsonFilePath(jsonFilePath As String)
 		Me.jsonFilePath = jsonFilePath
@@ -235,8 +240,8 @@ Public Class PSC_Controller
     Public Function getExcelComInteropHandler() As ExcelComInteropHandler
         Return Me.excelComInteropHandler
     End Function
-    Public Function getExcessiveΔKHandler() As ExcessiveΔKHandler
-		Return Me.excessiveΔKHandler
+	Public Function getExcessiveΔHandler() As ExcessiveΔHandler
+		Return Me.excessiveΔHandler
 	End Function
 	Public Function getJsonFilePath() As String
 		Return Me.jsonFilePath

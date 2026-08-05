@@ -52,6 +52,7 @@ Public Class PSC_Model
     Private selEtabsLoadComboName As String
     Private selNonLinearOption As String
     Private iterNumMax As Integer
+    Private convergenceCriterion As String
     Private convergenceFactor As Double
     Private pileObjs As List(Of PileObject)
     Private pileObjsInit As List(Of PileObject)
@@ -61,7 +62,7 @@ Public Class PSC_Model
     Private stepRun As Boolean = False
     Private iterationStarted As Boolean = False
     Private iterationComplete As Boolean = False
-    Private Const ΔKMax As Double = 10
+    Private Const ΔMax As Double = 10
     Private Const fixity As Double = 100000000
 
     Private Const MODEL_NAME = "Piles Stiffness Calibration Tool"
@@ -102,7 +103,8 @@ Public Class PSC_Model
 
 
     Public Sub initialize(sapModel As ETABSv1.cSapModel, pDispFilePath As String, selEtabsLoadComboName As String,
-                          selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer, convergenceFactor As Double)
+                          selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer,
+                          convergenceCriterion As String, convergenceFactor As Double)
         'Check validity of inputs
         Me.checkInputsData(sapModel, pDispFilePath, selEtabsLoadComboName, selEtabsGroupName, iterNumMax, convergenceFactor)
         'Assign Model attributes
@@ -112,6 +114,7 @@ Public Class PSC_Model
         Me.selEtabsGroupName = selEtabsGroupName
         Me.selNonLinearOption = selNonLinearOption
         Me.iterNumMax = iterNumMax
+        Me.convergenceCriterion = convergenceCriterion
         Me.convergenceFactor = convergenceFactor
         Me.sapModelInitialPath = Me.sapModel.GetModelFilename(True)
         Me.pDispInitialPath = pDispFilePath
@@ -379,35 +382,76 @@ Public Class PSC_Model
         If pileObjsQueue.Count > 1 Then
 
             '1. INITIALIZE AUXILIARY LIST
-            Dim plΔKList As List(Of Double) = New List(Of Double)
+            Dim plΔIList As List(Of Double) = New List(Of Double)
 
             '2. SORT THE FIRST/LAST LISTS OF THE QUEUE BASED ON THE ADDIGNED COMPARATOR
             pileObjsQueue.First().Sort()
             pileObjsQueue.Last().Sort()
 
-            '3. CALCULATE THE RATE INCREASE/DECREASE OF STIFFNESS FOR EACH PILE
-            plΔKList = pileObjsQueue.Last().Select(Function(plObj)
-                                                       'Search 
-                                                       Dim i As Integer = pileObjsQueue.First().BinarySearch(plObj)
-                                                       Dim Kprev As Double = pileObjsQueue.First()(i).getStiffness().getU3()
-                                                       Dim Knext As Double = plObj.getStiffness().getU3()
-                                                       Dim ΔK As Double = Math.Abs(Knext - Kprev) / Kprev
-                                                       Return ΔK
-                                                   End Function).ToList()
+            '3. CALCULATE THE RATE INCREASE/DECREASE OF LOAD/STIFFNESS/DISPLACEMENT FOR EACH PILE
+            'plΔIList = pileObjsQueue.Last().Select(Function(plObj)
+            '                                           'Search 
+            '                                           Dim i As Integer = pileObjsQueue.First().BinarySearch(plObj)
+            '                                           Dim iprev, inext As Double
+            '                                           Select Case Me.convergenceCriterion
+            '                                               Case "Reaction"
+            '                                                   iprev = pileObjsQueue.First()(i).getLoads.getF3()
+            '                                                   inext = plObj.getLoads.getF3()
+            '                                               Case "Displacement"
+            '                                                   iprev = pileObjsQueue.First()(i).getDisplacements.getU3()
+            '                                                   inext = plObj.getDisplacements.getU3()
+            '                                               Case "Stiffness"
+            '                                                   iprev = pileObjsQueue.First()(i).getStiffness().getU3()
+            '                                                   inext = plObj.getStiffness().getU3()
+            '                                           End Select
+            '                                           Dim ΔI As Double = Math.Abs(inext - iprev) / iprev
+            '                                           Return ΔI
+            '                                       End Function).ToList()
+
+
+            Dim firstIteration As List(Of PileObject) = pileObjsQueue.First()
+            Dim lastIteration As List(Of PileObject) = pileObjsQueue.Last()
+
+            For Each plObj As PileObject In lastIteration
+
+                ' Search index in first iteration
+                Dim i As Integer = firstIteration.BinarySearch(plObj)
+
+                Dim iprev As Double
+                Dim inext As Double
+
+                Select Case Me.convergenceCriterion
+                    Case "Reaction"
+                        iprev = firstIteration(i).getLoads.getF3()
+                        inext = plObj.getLoads.getF3()
+
+                    Case "Displacement"
+                        iprev = firstIteration(i).getDisplacements.getU3()
+                        inext = plObj.getDisplacements.getU3()
+
+                    Case "Stiffness"
+                        iprev = firstIteration(i).getStiffness().getU3()
+                        inext = plObj.getStiffness().getU3()
+                End Select
+
+                Dim ΔI As Double = Math.Abs(inext - iprev) / iprev
+                plΔIList.Add(ΔI)
+
+            Next
 
             '4. DEQUEUE FIRST/PREVIOUS LIST OF THE QUEUE
             pileObjsQueue.Dequeue()
 
             '5. RETURN BOOL
             ' True if the max increase/decrease is smaller than the convergenceFactor...
-            If (plΔKList.Max() < convergenceFactor) Then Return True
+            If (plΔIList.Max() < convergenceFactor) Then Return True
 
-            If (Math.Abs(plΔKList.Max()) > ΔKMax) Then
+            If (Math.Abs(plΔIList.Max()) > ΔMax) Then
                 Dim message As String = "Pile Stiffness Variation from previous iteration looks excessive."
                 Dim errorPilesList As List(Of PileObject)
-                errorPilesList = plΔKList.Select(Function(dk)
-                                                     If dk >= ΔKMax Then
-                                                         Return plΔKList.IndexOf(dk)
+                errorPilesList = plΔIList.Select(Function(dk)
+                                                     If dk >= ΔMax Then
+                                                         Return plΔIList.IndexOf(dk)
                                                      Else
                                                          Return -1
                                                      End If
@@ -416,7 +460,7 @@ Public Class PSC_Model
                                            Select(Function(index) pileObjsQueue.First().Item(index)).
                                            ToList()
 
-                Throw New ExcessiveΔKException(message, errorPilesList)
+                Throw New ExcessiveΔException(message, errorPilesList)
             End If
 
         End If
@@ -743,6 +787,9 @@ Public Class PSC_Model
     Public Sub setIterNumMax(iterNumMax As Integer)
         Me.iterNumMax = iterNumMax
     End Sub
+    Public Sub setConvergenceCriterion(convergenceCriterion As String)
+        Me.convergenceCriterion = convergenceCriterion
+    End Sub
     Public Sub setConvergenceFactor(convergenceFactor As Double)
         Me.convergenceFactor = convergenceFactor
     End Sub
@@ -781,6 +828,10 @@ Public Class PSC_Model
     Public Function getIterNumMax() As Integer
         Return Me.iterNumMax
     End Function
+    Public Function getConvergenceCriterion() As String
+        Return Me.convergenceCriterion
+    End Function
+
     Public Function getConvergenceFactor() As Double
         Return Me.convergenceFactor
     End Function

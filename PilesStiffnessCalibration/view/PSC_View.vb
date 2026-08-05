@@ -70,7 +70,7 @@ Public Class PSC_View
 			Me.controller.getMissingInputsHandler().execute(ex1)
 		Catch ex As Exception
 			' Any other unexpected error
-			MsgBox(ex.Message, vbOKOnly + vbCritical, "WARNING - ERROR")
+			TopMostMsgBox.Show(ex.Message, "WARNING - ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Throw
 		End Try
 

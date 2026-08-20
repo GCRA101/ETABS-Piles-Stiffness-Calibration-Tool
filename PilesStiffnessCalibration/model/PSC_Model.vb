@@ -740,7 +740,7 @@ Public Class PSC_Model
 
     Private Sub markNonConvergingPiles(pileNames As List(Of String))
         ret = Me.sapModel.SetModelIsLocked(False)
-        ret = Me.sapModel.GroupDef.SetGroup(Me.nonConvergingGroupName, 1)
+        ret = Me.sapModel.GroupDef.SetGroup_1(Me.nonConvergingGroupName, 1)
 
         For Each pileName In pileNames
             Me.sapModel.PointObj.SetGroupAssign(pileName, Me.nonConvergingGroupName)

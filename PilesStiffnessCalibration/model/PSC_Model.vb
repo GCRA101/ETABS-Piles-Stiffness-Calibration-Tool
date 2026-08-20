@@ -54,6 +54,7 @@ Public Class PSC_Model
     Private iterNumMax As Integer
     Private convergenceCriterion As String
     Private convergenceFactor As Double
+    Private percentile As Double
     Private pileObjs As List(Of PileObject)
     Private pileObjsInit As List(Of PileObject)
     Private pileObjsQueue As Queue(Of List(Of PileObject))
@@ -104,7 +105,7 @@ Public Class PSC_Model
 
     Public Sub initialize(sapModel As ETABSv1.cSapModel, pDispFilePath As String, selEtabsLoadComboName As String,
                           selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer,
-                          convergenceCriterion As String, convergenceFactor As Double)
+                          convergenceCriterion As String, convergenceFactor As Double, percentile As Double)
         'Check validity of inputs
         Me.checkInputsData(sapModel, pDispFilePath, selEtabsLoadComboName, selEtabsGroupName, iterNumMax, convergenceFactor)
         'Assign Model attributes
@@ -116,6 +117,7 @@ Public Class PSC_Model
         Me.iterNumMax = iterNumMax
         Me.convergenceCriterion = convergenceCriterion
         Me.convergenceFactor = convergenceFactor
+        Me.percentile = percentile
         Me.sapModelInitialPath = Me.sapModel.GetModelFilename(True)
         Me.pDispInitialPath = pDispFilePath
         'Create Output Directories
@@ -793,6 +795,9 @@ Public Class PSC_Model
     Public Sub setConvergenceFactor(convergenceFactor As Double)
         Me.convergenceFactor = convergenceFactor
     End Sub
+    Public Function setPercentile(percentile As Double) As Double
+        Me.percentile = percentile
+    End Function
     Public Sub setStepRun(stepRun As Boolean)
         Me.stepRun = stepRun
     End Sub
@@ -831,9 +836,11 @@ Public Class PSC_Model
     Public Function getConvergenceCriterion() As String
         Return Me.convergenceCriterion
     End Function
-
     Public Function getConvergenceFactor() As Double
         Return Me.convergenceFactor
+    End Function
+    Public Function getPercentile() As Double
+        Return Me.percentile
     End Function
     Public Function getStepRun() As Boolean
         Return Me.stepRun

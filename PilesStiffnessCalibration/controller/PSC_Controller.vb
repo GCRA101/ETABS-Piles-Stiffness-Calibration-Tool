@@ -134,7 +134,8 @@ Public Class PSC_Controller
 							Items(Me.view.getViewInputs().cbPercentile.SelectedIndex)), "%")(0)) / 100.0
 
 		'2. Initialize the Model
-		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax, convergenceCriterion, convergenceFactor)
+		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax,
+							convergenceCriterion, convergenceFactor, percentile)
 
 		'Retain only points belonging to selected Group
 		Me.model.filterPointsByGroup()

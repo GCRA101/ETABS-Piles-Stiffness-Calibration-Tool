@@ -425,7 +425,6 @@ Public Class PSC_Model
             '4. DEQUEUE FIRST/PREVIOUS LIST OF THE QUEUE
             pileObjsQueue.Dequeue()
 
-
             '5. CHECK THAT MAX DELTA IS LOWER THAN MAX ALLOWED
             ' If it's bigger...stop the iteration and raise an exception with error message for the user.
             If (plΔIList.Max() > ΔMax) Then
@@ -445,16 +444,22 @@ Public Class PSC_Model
                 Throw New ExcessiveΔException(message, errorPilesList)
             End If
 
-            '6. RETURN BOOL
+            '6. COLLECT/IDENTIFY CONVERGING PILES
+            ' Collect only piles which corresponding delta is smaller than the input convergenceFactor.
+            ' These piles are the ones for which convergence is achieved.
+            Dim convergingPlΔIs, nonConvergingPlΔIs As New Dictionary(Of String, Double)
+
+            For i As Integer = 0 To plΔIList.Count - 1
+                If plΔIList(i) < convergenceFactor Then
+                    convergingPlΔIs(lastIteration(i).getName()) = plΔIList(i)
+                Else
+                    nonConvergingPlΔIs(lastIteration(i).getName()) = plΔIList(i)
+                End If
+            Next
+
             ' Return True if the number of deltas smaller than the convergenceFactor is either equal or bigger
             ' than the percentile input by the user (default = 90%)
-            Dim convergingPlΔIs As Dictionary(Of String, Double) = New Dictionary(Of String, Double)
-            convergingPlΔIs = plΔIList.ToDictionary(Function(plΔI) pileObjsQueue(0).Item(plΔIList.IndexOf(plΔI)).getName(),
-                                    Function(plΔI) plΔI).Where(Function(kvPair) kvPair.Value < convergenceFactor)
             If (convergingPlΔIs.Keys.Count / plΔIList.Count >= percentile) Then
-
-                markNonConvergingPiles(convergingPlΔIs.Keys.ToList())
-
                 Return True
             End If
 

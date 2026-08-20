@@ -128,6 +128,11 @@ Public Class PSC_Controller
 		convergenceFactor = CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbVariation.
 							Items(Me.view.getViewInputs().cbVariation.SelectedIndex)), "%")(0)) / 100.0
 
+		'Get the Percentile selected by the user in the UI
+		Dim percentile As Double
+		percentile = CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbPercentile.
+							Items(Me.view.getViewInputs().cbPercentile.SelectedIndex)), "%")(0)) / 100.0
+
 		'2. Initialize the Model
 		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax, convergenceCriterion, convergenceFactor)
 

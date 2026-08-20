@@ -457,6 +457,13 @@ Public Class PSC_Model
                 End If
             Next
 
+            '7. MARK NON CONVERGING PILES IN THE ETABS MODEL
+            ' Group all piles that are not converging at this iteration within a corresponding ETABS Group
+            markNonConvergingPiles(nonConvergingPlΔIs.Keys.ToList())
+            ' Save the ETABS Model in order not to loose the created groups
+            Me.sapModel.File.Save()
+
+            '8. RETURN BOOL
             ' Return True if the number of deltas smaller than the convergenceFactor is either equal or bigger
             ' than the percentile input by the user (default = 90%)
             If (convergingPlΔIs.Keys.Count / plΔIList.Count >= percentile) Then

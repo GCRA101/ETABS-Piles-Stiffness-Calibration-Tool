@@ -101,6 +101,8 @@
     <Compile Include="controller\ExcelComInteropHandler.vb" />
     <Compile Include="controller\MissingInputsHandler.vb" />
     <Compile Include="controller\VisualEffects.vb" />
+    <Compile Include="model\Color.vb" />
+    <Compile Include="model\ColorInterface.vb" />
     <Compile Include="model\ExcelChartFactoryInterface.vb" />
     <Compile Include="model\ExcelChartFactory.vb" />
     <Compile Include="model\ExcelDataManager.vb" />

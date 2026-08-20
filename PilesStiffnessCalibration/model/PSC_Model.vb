@@ -751,9 +751,13 @@ Public Class PSC_Model
     End Sub
 
     Private Sub markNonConvergingPiles(pileNames As List(Of String))
+        ' Unlock the ETABS Model to allow the Creation and Assignment of Groups
         ret = Me.sapModel.SetModelIsLocked(False)
-        ret = Me.sapModel.GroupDef.SetGroup_1(Me.nonConvergingGroupName, 1)
-
+        ' Create Color Object to be assigned to the ETABS Group
+        Dim groupColor = New Color(255, 0, 0)
+        ' Create ETABS Group using color converted to ETABS integer
+        ret = Me.sapModel.GroupDef.SetGroup_1(Me.nonConvergingGroupName, groupColor.getEtabsIntValue())
+        ' Assign the ETABS Group to all Points assigned with an input pileName
         For Each pileName In pileNames
             Me.sapModel.PointObj.SetGroupAssign(pileName, Me.nonConvergingGroupName)
         Next

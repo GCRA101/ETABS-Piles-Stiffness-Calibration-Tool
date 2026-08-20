@@ -424,11 +424,10 @@ Public Class PSC_Model
             '4. DEQUEUE FIRST/PREVIOUS LIST OF THE QUEUE
             pileObjsQueue.Dequeue()
 
-            '5. RETURN BOOL
-            ' True if the max increase/decrease is smaller than the convergenceFactor...
-            If (plΔIList.Max() < convergenceFactor) Then Return True
 
-            If (Math.Abs(plΔIList.Max()) > ΔMax) Then
+            '5. CHECK THAT MAX DELTA IS LOWER THAN MAX ALLOWED
+            ' If it's bigger...stop the iteration and raise an exception with error message for the user.
+            If (plΔIList.Max() > ΔMax) Then
                 Dim message As String = "Pile Stiffness Variation from previous iteration looks excessive."
                 Dim errorPilesList As List(Of PileObject)
                 errorPilesList = plΔIList.Select(Function(dk)
@@ -444,6 +443,13 @@ Public Class PSC_Model
 
                 Throw New ExcessiveΔException(message, errorPilesList)
             End If
+
+            '6. RETURN BOOL
+            ' Return True if the number of deltas smaller than the convergenceFactor is either equal or bigger
+            ' than the percentile input by the user (default = 90%)
+            Dim convergingPlΔI As List(Of Double) = New List(Of Double)
+            convergingPlΔI = plΔIList.Where(Function(plΔI) plΔI < convergenceFactor).ToList()
+            If (convergingPlΔI.Count / plΔIList.Count >= percentile) Then Return True
 
         End If
 

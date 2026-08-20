@@ -391,26 +391,6 @@ Public Class PSC_Model
             pileObjsQueue.Last().Sort()
 
             '3. CALCULATE THE RATE INCREASE/DECREASE OF LOAD/STIFFNESS/DISPLACEMENT FOR EACH PILE
-            'plΔIList = pileObjsQueue.Last().Select(Function(plObj)
-            '                                           'Search 
-            '                                           Dim i As Integer = pileObjsQueue.First().BinarySearch(plObj)
-            '                                           Dim iprev, inext As Double
-            '                                           Select Case Me.convergenceCriterion
-            '                                               Case "Reaction"
-            '                                                   iprev = pileObjsQueue.First()(i).getLoads.getF3()
-            '                                                   inext = plObj.getLoads.getF3()
-            '                                               Case "Displacement"
-            '                                                   iprev = pileObjsQueue.First()(i).getDisplacements.getU3()
-            '                                                   inext = plObj.getDisplacements.getU3()
-            '                                               Case "Stiffness"
-            '                                                   iprev = pileObjsQueue.First()(i).getStiffness().getU3()
-            '                                                   inext = plObj.getStiffness().getU3()
-            '                                           End Select
-            '                                           Dim ΔI As Double = Math.Abs(inext - iprev) / iprev
-            '                                           Return ΔI
-            '                                       End Function).ToList()
-
-
             Dim firstIteration As List(Of PileObject) = pileObjsQueue.First()
             Dim lastIteration As List(Of PileObject) = pileObjsQueue.Last()
 

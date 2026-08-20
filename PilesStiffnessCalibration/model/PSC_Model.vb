@@ -65,6 +65,7 @@ Public Class PSC_Model
     Private iterationComplete As Boolean = False
     Private Const ΔMax As Double = 10
     Private Const fixity As Double = 100000000
+    Private Const nonConvergingGroupName = "PSCT - NON CONVERGING"
 
     Private Const MODEL_NAME = "Piles Stiffness Calibration Tool"
     Private Const MODEL_VERSION = "Version: " + "2.0.0"
@@ -447,9 +448,15 @@ Public Class PSC_Model
             '6. RETURN BOOL
             ' Return True if the number of deltas smaller than the convergenceFactor is either equal or bigger
             ' than the percentile input by the user (default = 90%)
-            Dim convergingPlΔI As List(Of Double) = New List(Of Double)
-            convergingPlΔI = plΔIList.Where(Function(plΔI) plΔI < convergenceFactor).ToList()
-            If (convergingPlΔI.Count / plΔIList.Count >= percentile) Then Return True
+            Dim convergingPlΔIs As Dictionary(Of String, Double) = New Dictionary(Of String, Double)
+            convergingPlΔIs = plΔIList.ToDictionary(Function(plΔI) pileObjsQueue(0).Item(plΔIList.IndexOf(plΔI)).getName(),
+                                    Function(plΔI) plΔI).Where(Function(kvPair) kvPair.Value < convergenceFactor)
+            If (convergingPlΔIs.Keys.Count / plΔIList.Count >= percentile) Then
+
+                markNonConvergingPiles(convergingPlΔIs.Keys.ToList())
+
+                Return True
+            End If
 
         End If
 
@@ -457,7 +464,6 @@ Public Class PSC_Model
         Return False
 
     End Function
-
 
 
     Private Sub readPileObjsForces(pileObjs As List(Of PileObject))
@@ -487,7 +493,6 @@ Public Class PSC_Model
         Next
 
     End Sub
-
 
 
     Private Sub readPileObjsDisplacements(pileObjs As List(Of PileObject))
@@ -730,6 +735,16 @@ Public Class PSC_Model
         Next
 
         Me.sapModel.View.RefreshView()
+
+    End Sub
+
+    Private Sub markNonConvergingPiles(pileNames As List(Of String))
+        ret = Me.sapModel.SetModelIsLocked(False)
+        ret = Me.sapModel.GroupDef.SetGroup(Me.nonConvergingGroupName, 1)
+
+        For Each pileName In pileNames
+            Me.sapModel.PointObj.SetGroupAssign(pileName, Me.nonConvergingGroupName)
+        Next
 
     End Sub
 

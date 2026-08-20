@@ -416,7 +416,7 @@ Public Class PSC_Model
                         inext = plObj.getStiffness().getU3()
                 End Select
 
-                Dim ΔI As Double = Math.Abs(inext - iprev) / iprev
+                Dim ΔI As Double = Math.Abs(Math.Abs(inext - iprev) / iprev)
                 plΔIList.Add(ΔI)
 
             Next

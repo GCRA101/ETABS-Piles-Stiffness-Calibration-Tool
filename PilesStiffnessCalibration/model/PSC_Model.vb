@@ -450,6 +450,8 @@ Public Class PSC_Model
             '6. COLLECT/IDENTIFY CONVERGING PILES
             ' Collect only piles which corresponding delta is smaller than the input convergenceFactor.
             ' These piles are the ones for which convergence is achieved.
+            Me.convergingPiles = New List(Of PileObject)
+            Me.nonConvergingPiles = New List(Of PileObject)
             For i As Integer = 0 To plΔIList.Count - 1
                 If plΔIList(i) < convergenceFactor Then
                     Me.convergingPiles.Add(lastIteration(i))

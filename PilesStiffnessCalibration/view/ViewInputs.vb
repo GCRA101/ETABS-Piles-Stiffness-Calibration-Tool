@@ -1,4 +1,5 @@
 ﻿Imports ETABSv1
+Imports Microsoft.Win32
 Imports Newtonsoft.Json
 Imports pdispauto_20_1
 Imports Piles_Stiffness_Iteration.model
@@ -54,47 +55,6 @@ Public Class ViewInputs
         InitializeComponent()
     End Sub
 
-    Private Sub lblLoadCombos_Click(sender As Object, e As EventArgs) Handles lblLoadCombos.Click
-
-    End Sub
-
-    Private Sub gbETABSInputs_Enter(sender As Object, e As EventArgs) Handles gbETABSInputs.Enter
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblNonLinearOption.Click
-
-    End Sub
-
-    Private Sub rbImportFromFile_CheckedChanged(sender As Object, e As EventArgs) Handles rbImportFromFile.CheckedChanged
-
-    End Sub
-
-    Private Sub btnOpenJSONFile_Click(sender As Object, e As EventArgs) Handles btnOpenJSONFile.Click
-
-    End Sub
-
-    Private Sub tbStiffness_TextChanged(sender As Object, e As EventArgs) Handles tbStiffness.TextChanged
-
-    End Sub
-
-    Private Sub rbSpring_CheckedChanged(sender As Object, e As EventArgs) Handles rbSpring.CheckedChanged
-
-    End Sub
-
-    Private Sub rbRigid_CheckedChanged(sender As Object, e As EventArgs) Handles rbRigid.CheckedChanged
-
-    End Sub
-
-    Private Sub lblInitialStiffness_Click(sender As Object, e As EventArgs) Handles lblInitialStiffness.Click
-
-    End Sub
-
-    Private Sub cbNonLinearOptions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbNonLinearOptions.SelectedIndexChanged
-
-    End Sub
-
-
 
     ' METHODS *******************************************************************************************
 
@@ -113,6 +73,8 @@ Public Class ViewInputs
                 cbBox.SelectedIndex = 0
             End If
         Next
+        'Set Percentile to 95% as the default one
+        Me.cbPercentile.SelectedIndex = 2
         'Disable/Enable Buttons and Textboxes
         tbStiffness.Enabled = False
         btnOpenJSONFile.Enabled = False
@@ -175,6 +137,12 @@ Public Class ViewInputs
             WindowResizer.dockWindow(ProcessName.CSI_ETABS, DockType.CENTER)
             model.getSapModel().View.RefreshWindow()
             model.getSapModel().View.RefreshView()
+            Dim Message As String
+            Message = "NUMBER OF CONVERGING PILES: " & Me.model.getConvergingPiles().Count & vbNewLine &
+                      "NUMBER OF NON CONVERGING PILES: " & Me.model.getNonConvergingPiles().Count & vbNewLine &
+                      "See Group PSCT - NON CONVERGING defined in saved ETABS Models to inspect non converged" &
+                      " piles at each iteration."
+            TopMostMsgBox.Show(Message, "CONVERGING PILES SUMMARY", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
         Me.Refresh()

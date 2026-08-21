@@ -1,4 +1,5 @@
 ﻿Imports ETABSv1
+Imports System.Windows.Forms
 
 ''' <summary>
 '''     <remarks>
@@ -20,7 +21,7 @@ Public Class MissingInputsHandler
         'Build and display warning message if exception is not null
         If ex IsNot Nothing Then
             Me.message = ex.Message
-            MsgBox(Me.message, vbOKOnly + vbCritical, "WARNING - MISSING INPUTS")
+            TopMostMsgBox.Show(Me.message, "WARNING - MISSING INPUTS", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
     End Sub

@@ -2,6 +2,7 @@
 Imports System.Drawing.Drawing2D
 Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports System.Windows.Forms
 Imports ETABSv1
 Imports Microsoft.Office.Core
 Imports Newtonsoft.Json
@@ -52,17 +53,22 @@ Public Class PSC_Model
     Private selEtabsLoadComboName As String
     Private selNonLinearOption As String
     Private iterNumMax As Integer
+    Private convergenceCriterion As String
     Private convergenceFactor As Double
+    Private percentile As Double
     Private pileObjs As List(Of PileObject)
     Private pileObjsInit As List(Of PileObject)
     Private pileObjsQueue As Queue(Of List(Of PileObject))
+    Private convergingPiles As List(Of PileObject)
+    Private nonConvergingPiles As List(Of PileObject)
     Private ret As Integer
     Private iterNum As Integer = 0
     Private stepRun As Boolean = False
     Private iterationStarted As Boolean = False
     Private iterationComplete As Boolean = False
-    Private Const ΔKMax As Double = 10
+    Private Const ΔMax As Double = 10
     Private Const fixity As Double = 100000000
+    Private Const nonConvergingGroupName = "PSCT - NON CONVERGING"
 
     Private Const MODEL_NAME = "Piles Stiffness Calibration Tool"
     Private Const MODEL_VERSION = "Version: " + "2.0.0"
@@ -102,7 +108,8 @@ Public Class PSC_Model
 
 
     Public Sub initialize(sapModel As ETABSv1.cSapModel, pDispFilePath As String, selEtabsLoadComboName As String,
-                          selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer, convergenceFactor As Double)
+                          selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer,
+                          convergenceCriterion As String, convergenceFactor As Double, percentile As Double)
         'Check validity of inputs
         Me.checkInputsData(sapModel, pDispFilePath, selEtabsLoadComboName, selEtabsGroupName, iterNumMax, convergenceFactor)
         'Assign Model attributes
@@ -112,7 +119,9 @@ Public Class PSC_Model
         Me.selEtabsGroupName = selEtabsGroupName
         Me.selNonLinearOption = selNonLinearOption
         Me.iterNumMax = iterNumMax
+        Me.convergenceCriterion = convergenceCriterion
         Me.convergenceFactor = convergenceFactor
+        Me.percentile = percentile
         Me.sapModelInitialPath = Me.sapModel.GetModelFilename(True)
         Me.pDispInitialPath = pDispFilePath
         'Create Output Directories
@@ -379,35 +388,54 @@ Public Class PSC_Model
         If pileObjsQueue.Count > 1 Then
 
             '1. INITIALIZE AUXILIARY LIST
-            Dim plΔKList As List(Of Double) = New List(Of Double)
+            Dim plΔIList As List(Of Double) = New List(Of Double)
 
             '2. SORT THE FIRST/LAST LISTS OF THE QUEUE BASED ON THE ADDIGNED COMPARATOR
             pileObjsQueue.First().Sort()
             pileObjsQueue.Last().Sort()
 
-            '3. CALCULATE THE RATE INCREASE/DECREASE OF STIFFNESS FOR EACH PILE
-            plΔKList = pileObjsQueue.Last().Select(Function(plObj)
-                                                       'Search 
-                                                       Dim i As Integer = pileObjsQueue.First().BinarySearch(plObj)
-                                                       Dim Kprev As Double = pileObjsQueue.First()(i).getStiffness().getU3()
-                                                       Dim Knext As Double = plObj.getStiffness().getU3()
-                                                       Dim ΔK As Double = Math.Abs(Knext - Kprev) / Kprev
-                                                       Return ΔK
-                                                   End Function).ToList()
+            '3. CALCULATE THE RATE INCREASE/DECREASE OF LOAD/STIFFNESS/DISPLACEMENT FOR EACH PILE
+            Dim firstIteration As List(Of PileObject) = pileObjsQueue.First()
+            Dim lastIteration As List(Of PileObject) = pileObjsQueue.Last()
+
+            For Each plObj As PileObject In lastIteration
+
+                ' Search index in first iteration
+                Dim i As Integer = firstIteration.BinarySearch(plObj)
+
+                Dim iprev As Double
+                Dim inext As Double
+
+                Select Case Me.convergenceCriterion
+                    Case "Reaction"
+                        iprev = firstIteration(i).getLoads.getF3()
+                        inext = plObj.getLoads.getF3()
+
+                    Case "Displacement"
+                        iprev = firstIteration(i).getDisplacements.getU3()
+                        inext = plObj.getDisplacements.getU3()
+
+                    Case "Stiffness"
+                        iprev = firstIteration(i).getStiffness().getU3()
+                        inext = plObj.getStiffness().getU3()
+                End Select
+
+                Dim ΔI As Double = Math.Abs(Math.Abs(inext - iprev) / iprev)
+                plΔIList.Add(ΔI)
+
+            Next
 
             '4. DEQUEUE FIRST/PREVIOUS LIST OF THE QUEUE
             pileObjsQueue.Dequeue()
 
-            '5. RETURN BOOL
-            ' True if the max increase/decrease is smaller than the convergenceFactor...
-            If (plΔKList.Max() < convergenceFactor) Then Return True
-
-            If (Math.Abs(plΔKList.Max()) > ΔKMax) Then
+            '5. CHECK THAT MAX DELTA IS LOWER THAN MAX ALLOWED
+            ' If it's bigger...stop the iteration and raise an exception with error message for the user.
+            If (plΔIList.Max() > ΔMax) Then
                 Dim message As String = "Pile Stiffness Variation from previous iteration looks excessive."
                 Dim errorPilesList As List(Of PileObject)
-                errorPilesList = plΔKList.Select(Function(dk)
-                                                     If dk >= ΔKMax Then
-                                                         Return plΔKList.IndexOf(dk)
+                errorPilesList = plΔIList.Select(Function(dk)
+                                                     If dk >= ΔMax Then
+                                                         Return plΔIList.IndexOf(dk)
                                                      Else
                                                          Return -1
                                                      End If
@@ -416,7 +444,34 @@ Public Class PSC_Model
                                            Select(Function(index) pileObjsQueue.First().Item(index)).
                                            ToList()
 
-                Throw New ExcessiveΔKException(message, errorPilesList)
+                Throw New ExcessiveΔException(message, errorPilesList)
+            End If
+
+            '6. COLLECT/IDENTIFY CONVERGING PILES
+            ' Collect only piles which corresponding delta is smaller than the input convergenceFactor.
+            ' These piles are the ones for which convergence is achieved.
+            Me.convergingPiles = New List(Of PileObject)
+            Me.nonConvergingPiles = New List(Of PileObject)
+            For i As Integer = 0 To plΔIList.Count - 1
+                If plΔIList(i) < convergenceFactor Then
+                    Me.convergingPiles.Add(lastIteration(i))
+                Else
+                    Me.nonConvergingPiles.Add(lastIteration(i))
+                End If
+            Next
+
+            '7. MARK NON CONVERGING PILES IN THE ETABS MODEL
+            ' Group all piles that are not converging at this iteration within a corresponding ETABS Group
+            markNonConvergingPiles(Me.nonConvergingPiles.Select(Function(pile) pile.getName()).ToList())
+            ' Save the ETABS Model in order not to loose the created groups
+            Me.sapModel.File.Save()
+
+            '8. RETURN BOOL
+            ' Notify the Observers + Return True if the number of deltas smaller than the convergenceFactor
+            ' is either equal or bigger than the percentile input by the user (default = 90%)
+            If (Me.convergingPiles.Count / plΔIList.Count >= percentile) Then
+                Me.notifyObservers()
+                Return True
             End If
 
         End If
@@ -425,7 +480,6 @@ Public Class PSC_Model
         Return False
 
     End Function
-
 
 
     Private Sub readPileObjsForces(pileObjs As List(Of PileObject))
@@ -455,7 +509,6 @@ Public Class PSC_Model
         Next
 
     End Sub
-
 
 
     Private Sub readPileObjsDisplacements(pileObjs As List(Of PileObject))
@@ -701,6 +754,19 @@ Public Class PSC_Model
 
     End Sub
 
+    Private Sub markNonConvergingPiles(pileNames As List(Of String))
+        ' Unlock the ETABS Model to allow the Creation and Assignment of Groups
+        ret = Me.sapModel.SetModelIsLocked(False)
+        ' Create Color Object to be assigned to the ETABS Group
+        Dim groupColor = New Color(255, 0, 0)
+        ' Create ETABS Group using color converted to ETABS integer
+        ret = Me.sapModel.GroupDef.SetGroup_1(Me.nonConvergingGroupName, groupColor.getEtabsIntValue())
+        ' Assign the ETABS Group to all Points assigned with an input pileName
+        For Each pileName In pileNames
+            Me.sapModel.PointObj.SetGroupAssign(pileName, Me.nonConvergingGroupName)
+        Next
+    End Sub
+
 
     Public Sub serialize(pileObjs As List(Of PileObject))
         ' SERIALIZE OUTPUTS IN A JSON FILE
@@ -743,9 +809,15 @@ Public Class PSC_Model
     Public Sub setIterNumMax(iterNumMax As Integer)
         Me.iterNumMax = iterNumMax
     End Sub
+    Public Sub setConvergenceCriterion(convergenceCriterion As String)
+        Me.convergenceCriterion = convergenceCriterion
+    End Sub
     Public Sub setConvergenceFactor(convergenceFactor As Double)
         Me.convergenceFactor = convergenceFactor
     End Sub
+    Public Function setPercentile(percentile As Double) As Double
+        Me.percentile = percentile
+    End Function
     Public Sub setStepRun(stepRun As Boolean)
         Me.stepRun = stepRun
     End Sub
@@ -762,6 +834,12 @@ Public Class PSC_Model
     End Function
     Public Function getPileObjsInit() As List(Of PileObject)
         Return Me.pileObjsInit
+    End Function
+    Public Function getConvergingPiles() As List(Of PileObject)
+        Return Me.convergingPiles
+    End Function
+    Public Function getNonConvergingPiles() As List(Of PileObject)
+        Return Me.nonConvergingPiles
     End Function
     Public Function getEtabsGroupNames() As List(Of String)
         Return Me.etabsGroupNames
@@ -781,8 +859,14 @@ Public Class PSC_Model
     Public Function getIterNumMax() As Integer
         Return Me.iterNumMax
     End Function
+    Public Function getConvergenceCriterion() As String
+        Return Me.convergenceCriterion
+    End Function
     Public Function getConvergenceFactor() As Double
         Return Me.convergenceFactor
+    End Function
+    Public Function getPercentile() As Double
+        Return Me.percentile
     End Function
     Public Function getStepRun() As Boolean
         Return Me.stepRun

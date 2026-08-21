@@ -157,11 +157,11 @@ Public Class EventsListener
             Me.controller.runIteration()
             Me.controller.terminate()
         Catch ex1 As OutOfLicensesException
-            MsgBox("No PDisp Licenses are currently available.", vbOKOnly + vbCritical, "WARNING")
+            TopMostMsgBox.Show("No PDisp Licenses are currently available.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex2 As MissingInputsException
             Me.controller.getMissingInputsHandler().execute(ex2)
-        Catch ex3 As ExcessiveΔKException
-            Me.controller.getExcessiveΔKHandler().execute(ex3)
+        Catch ex3 As ExcessiveΔException
+            Me.controller.getExcessiveΔHandler().execute(ex3)
         Catch ex4 As ExcelComInteropException
             Me.controller.getExcelComInteropHandler().execute(ex4)
         End Try

@@ -137,11 +137,10 @@ Public Class ViewInputs
             WindowResizer.dockWindow(ProcessName.CSI_ETABS, DockType.CENTER)
             model.getSapModel().View.RefreshWindow()
             model.getSapModel().View.RefreshView()
-            Me.model.getNonConvergingPiles()
             Dim Message As String
-            Message = "NUMBER OF CONVERGING PILES: " + Me.model.getConvergingPiles.Count() + vbNewLine +
-                      "NUMBER OF NON CONVERGING PILES: " + Me.model.getConvergingPiles.Count() + vbNewLine +
-                      "See Group PSCT - NON CONVERGING defined in saved ETABS Models to inspect non converged" +
+            Message = "NUMBER OF CONVERGING PILES: " & Me.model.getConvergingPiles().Count & vbNewLine &
+                      "NUMBER OF NON CONVERGING PILES: " & Me.model.getNonConvergingPiles().Count & vbNewLine &
+                      "See Group PSCT - NON CONVERGING defined in saved ETABS Models to inspect non converged" &
                       " piles at each iteration."
             TopMostMsgBox.Show(Message, "CONVERGING PILES SUMMARY", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If

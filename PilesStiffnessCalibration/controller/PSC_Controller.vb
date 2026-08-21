@@ -1,4 +1,5 @@
 ﻿Imports System.Reflection
+Imports System.Windows.Forms
 Imports ETABSv1
 Imports Newtonsoft.Json
 
@@ -78,8 +79,8 @@ Public Class PSC_Controller
 		Me.missingInputsHandler = New MissingInputsHandler(Me)
 		Me.excessiveΔHandler = New ExcessiveΔHandler(Me)
 		Me.invalidInputsHandler = New InvalidInputsHandler(Me)
-        Me.excelComInteropHandler = New ExcelComInteropHandler(Me)
-    End Sub
+		Me.excelComInteropHandler = New ExcelComInteropHandler(Me)
+	End Sub
 
 
 	Public Sub processInputData()
@@ -104,7 +105,7 @@ Public Class PSC_Controller
 
 		'Get the type of Non Linear Option selected by the user in the UI
 		Dim selNonLinearOption As String
-        selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedItem
+		selNonLinearOption = Me.view.getViewInputs().cbNonLinearOptions.SelectedItem
 
 		'Get the Maximum Number of Iterations selected by the user in the UI
 		Dim iterNumMax As Integer

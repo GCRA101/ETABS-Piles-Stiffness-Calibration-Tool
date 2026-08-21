@@ -2,6 +2,7 @@
 Imports System.Drawing.Drawing2D
 Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports System.Windows.Forms
 Imports ETABSv1
 Imports Microsoft.Office.Core
 Imports Newtonsoft.Json
@@ -58,6 +59,8 @@ Public Class PSC_Model
     Private pileObjs As List(Of PileObject)
     Private pileObjsInit As List(Of PileObject)
     Private pileObjsQueue As Queue(Of List(Of PileObject))
+    Private convergingPiles As List(Of PileObject)
+    Private nonConvergingPiles As List(Of PileObject)
     Private ret As Integer
     Private iterNum As Integer = 0
     Private stepRun As Boolean = False
@@ -447,26 +450,25 @@ Public Class PSC_Model
             '6. COLLECT/IDENTIFY CONVERGING PILES
             ' Collect only piles which corresponding delta is smaller than the input convergenceFactor.
             ' These piles are the ones for which convergence is achieved.
-            Dim convergingPlΔIs, nonConvergingPlΔIs As New Dictionary(Of String, Double)
-
             For i As Integer = 0 To plΔIList.Count - 1
                 If plΔIList(i) < convergenceFactor Then
-                    convergingPlΔIs(lastIteration(i).getName()) = plΔIList(i)
+                    Me.convergingPiles.Add(lastIteration(i))
                 Else
-                    nonConvergingPlΔIs(lastIteration(i).getName()) = plΔIList(i)
+                    Me.nonConvergingPiles.Add(lastIteration(i))
                 End If
             Next
 
             '7. MARK NON CONVERGING PILES IN THE ETABS MODEL
             ' Group all piles that are not converging at this iteration within a corresponding ETABS Group
-            markNonConvergingPiles(nonConvergingPlΔIs.Keys.ToList())
+            markNonConvergingPiles(Me.nonConvergingPiles.Select(Function(pile) pile.getName()).ToList())
             ' Save the ETABS Model in order not to loose the created groups
             Me.sapModel.File.Save()
 
             '8. RETURN BOOL
-            ' Return True if the number of deltas smaller than the convergenceFactor is either equal or bigger
-            ' than the percentile input by the user (default = 90%)
-            If (convergingPlΔIs.Keys.Count / plΔIList.Count >= percentile) Then
+            ' Notify the Observers + Return True if the number of deltas smaller than the convergenceFactor
+            ' is either equal or bigger than the percentile input by the user (default = 90%)
+            If (Me.convergingPiles.Count / plΔIList.Count >= percentile) Then
+                Me.notifyObservers()
                 Return True
             End If
 
@@ -761,7 +763,6 @@ Public Class PSC_Model
         For Each pileName In pileNames
             Me.sapModel.PointObj.SetGroupAssign(pileName, Me.nonConvergingGroupName)
         Next
-
     End Sub
 
 
@@ -831,6 +832,12 @@ Public Class PSC_Model
     End Function
     Public Function getPileObjsInit() As List(Of PileObject)
         Return Me.pileObjsInit
+    End Function
+    Public Function getConvergingPiles() As List(Of PileObject)
+        Return Me.convergingPiles
+    End Function
+    Public Function getNonConvergingPiles() As List(Of PileObject)
+        Return Me.nonConvergingPiles
     End Function
     Public Function getEtabsGroupNames() As List(Of String)
         Return Me.etabsGroupNames

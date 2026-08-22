@@ -40,7 +40,7 @@ Partial Class SplashScreen
         Me.pbAppLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.pbAppLogo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pbAppLogo.Location = New System.Drawing.Point(4, 4)
-        Me.pbAppLogo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pbAppLogo.Margin = New System.Windows.Forms.Padding(4)
         Me.pbAppLogo.Name = "pbAppLogo"
         Me.pbAppLogo.Size = New System.Drawing.Size(459, 396)
         Me.pbAppLogo.TabIndex = 0
@@ -54,7 +54,7 @@ Partial Class SplashScreen
         Me.tlpLogo.Controls.Add(Me.pbAppLogo, 0, 0)
         Me.tlpLogo.Controls.Add(Me.tlpTitle, 1, 0)
         Me.tlpLogo.Location = New System.Drawing.Point(1, 0)
-        Me.tlpLogo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tlpLogo.Margin = New System.Windows.Forms.Padding(4)
         Me.tlpLogo.Name = "tlpLogo"
         Me.tlpLogo.RowCount = 1
         Me.tlpLogo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -71,7 +71,7 @@ Partial Class SplashScreen
         Me.tlpTitle.Controls.Add(Me.lblVersion, 0, 1)
         Me.tlpTitle.Controls.Add(Me.lblCopyright, 0, 2)
         Me.tlpTitle.Location = New System.Drawing.Point(471, 4)
-        Me.tlpTitle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tlpTitle.Margin = New System.Windows.Forms.Padding(4)
         Me.tlpTitle.Name = "tlpTitle"
         Me.tlpTitle.RowCount = 3
         Me.tlpTitle.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.99522!))
@@ -85,10 +85,10 @@ Partial Class SplashScreen
         Me.lblApplicationName.AutoSize = True
         Me.lblApplicationName.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblApplicationName.Font = New System.Drawing.Font("Segoe UI Semibold", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblApplicationName.Location = New System.Drawing.Point(4, 174)
+        Me.lblApplicationName.Location = New System.Drawing.Point(4, 224)
         Me.lblApplicationName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblApplicationName.Name = "lblApplicationName"
-        Me.lblApplicationName.Size = New System.Drawing.Size(236, 82)
+        Me.lblApplicationName.Size = New System.Drawing.Size(236, 32)
         Me.lblApplicationName.TabIndex = 0
         Me.lblApplicationName.Text = "Application Name"
         '
@@ -106,13 +106,12 @@ Partial Class SplashScreen
         '
         'lblCopyright
         '
-        Me.lblCopyright.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCopyright.AutoSize = True
         Me.lblCopyright.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCopyright.Location = New System.Drawing.Point(168, 287)
-        Me.lblCopyright.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCopyright.Location = New System.Drawing.Point(4, 297)
+        Me.lblCopyright.Margin = New System.Windows.Forms.Padding(4, 10, 4, 0)
         Me.lblCopyright.Name = "lblCopyright"
-        Me.lblCopyright.Size = New System.Drawing.Size(72, 20)
+        Me.lblCopyright.Size = New System.Drawing.Size(59, 15)
         Me.lblCopyright.TabIndex = 2
         Me.lblCopyright.Text = "Copyright"
         '
@@ -126,7 +125,7 @@ Partial Class SplashScreen
         Me.Controls.Add(Me.tlpLogo)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SplashScreen"

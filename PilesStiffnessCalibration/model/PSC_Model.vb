@@ -710,9 +710,9 @@ Public Class PSC_Model
         Dim linkNames(0) As String
         Dim linkAxialDirs(0) As Integer
         Dim linkAngles(0) As Double
-        dof(2) = True
-        nonLinear(2) = True
-        dis(2) = 0
+        dof(0) = True
+        nonLinear(0) = True
+        dis(0) = 0
         linkAngles(0) = 0
 
         For Each pileObj In pileObjs
@@ -741,7 +741,7 @@ Public Class PSC_Model
                     ' If the Spring Property is Compression Only, create a Gap Link Object and assign it to the Point Spring Property
                     linkName = "col_Link_" + pileObj.getLocation.getName()
                     linkNames(0) = linkName
-                    linkAxialDirs(0) = -3
+                    linkAxialDirs(0) = 3
                     ret = Me.sapModel.PropLink.SetGap(linkName, dof, fixed, nonLinear, ke, ce, stiffnessArray, dis, 0, 0)
                     ret = Me.sapModel.PropPointSpring.SetLinks(pileObj.getLocation.getName(), numLinks, linkNames, linkAxialDirs, linkAngles)
             End Select

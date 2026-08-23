@@ -3,3 +3,8 @@ IMPROVEMENTS LIST
 - Add support for pdisp polygonal loads (once Oasys has fixed the bug affecting their API!!)
 - Add ETABS Model sanity check before running the analysis
 	- NL/L load cases setting out
+- Add support for multiple excel graphs generation (batches of 50 piles each)
+	- Adjust dynamically the font of pile labels to make them well visible based on varying size of the dataset
+- Prevent Excel Module from needing Microsoft Office Repair
+- Add Comparison between last ETABS Model and last PDisp Model in terms of displacements
+- Add Unit Tests

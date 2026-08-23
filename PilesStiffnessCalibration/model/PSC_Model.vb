@@ -68,6 +68,7 @@ Public Class PSC_Model
     Private iterationStarted As Boolean = False
     Private iterationComplete As Boolean = False
     Private Const ΔMax As Double = 10
+    Private Const kmin As Double = 1
     Private Const fixity As Double = 100000000
     Private Const nonConvergingGroupName = "PSCT - NON CONVERGING"
 
@@ -762,8 +763,9 @@ Public Class PSC_Model
     Private Sub updatePointSprings(pileObjs As List(Of PileObject))
 
         ' ASSIGN COMPUTED STIFFNESSES TO ETABS BASE POINTS
-        Me.sapModel.SetModelIsLocked(False)
 
+        ' Make sure the ETABS Model is unlocked to allow the assignment of point springs
+        Me.sapModel.SetModelIsLocked(False)
         ' Restraint/Stiffness Arrays Initialization
         Dim restraintsArray(5) As Boolean
         Dim stiffnessArray(5) As Double
@@ -778,6 +780,7 @@ Public Class PSC_Model
         dof(0) = True
         nonLinear(0) = True
         dis(0) = 0
+        linkAxialDirs(0) = 3
         linkAngles(0) = 0
 
         For Each pileObj In pileObjs
@@ -788,27 +791,47 @@ Public Class PSC_Model
             ' Delete all spring assignments from the point object
             ret = Me.sapModel.PointObj.DeleteSpring(pileObj.getLocation.getName())
 
-            ' Compute new stiffness array
-            stiffnessArray = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(), pileObj.getStiffness().getU3(), 0, 0, 0}
-
-            ' Generate/Update point spring property with computed stiffness array
-            ret = Me.sapModel.PropPointSpring.SetPointSpringProp(pileObj.getLocation.getName(), 1, stiffnessArray)
-
             Select Case Me.selNonLinearOption
+                Case "None (Linear)"
+                    ' Compute new stiffness array in Global Coordinates
+                    stiffnessArray = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(), pileObj.getStiffness().getU3(), 0, 0, 0}
+                    ' Generate/Update point spring property directly with computed stiffness array
+                    ret = Me.sapModel.PropPointSpring.SetPointSpringProp(pileObj.getLocation.getName(), 1, stiffnessArray)
                 Case "Tension Only"
-                    ' If the Spring Property is Tension Only, create a Hook Link Object and assign it to the Point Spring Property
+                    ' If the Spring Property is Tension Only, create a Hook Link Object and assign it to the Point Spring Property...
+                    ' Set point spring property with blank stiffness array
+                    ret = Me.sapModel.PropPointSpring.SetPointSpringProp(pileObj.getLocation.getName(), 1, {0, 0, 0, 0, 0, 0})
+                    ' Build up then link name
                     linkName = "tol_Link_" + pileObj.getLocation.getName()
                     linkNames(0) = linkName
-                    linkAxialDirs(0) = 3
+                    ' Compute new stiffness array in Local Link Coordinates
+                    If pileObj.getLoads.getF3() = 0 And pileObj.getDisplacements.getU3() < 0 Then
+                        stiffnessArray = {Me.kmin, 0, 0, 0, 0, 0}
+                    Else
+                        stiffnessArray = {pileObj.getStiffness().getU3(), 0, 0, 0, 0, 0}
+                    End If
+                    ' Create/Update Hook Link (Tension-Only)
                     ret = Me.sapModel.PropLink.SetHook(linkName, dof, fixed, nonLinear, ke, ce, stiffnessArray, dis, 0, 0)
+                    ' Assing Hook Link to point
                     ret = Me.sapModel.PropPointSpring.SetLinks(pileObj.getLocation.getName(), numLinks, linkNames, linkAxialDirs, linkAngles)
                 Case "Compression Only"
-                    ' If the Spring Property is Compression Only, create a Gap Link Object and assign it to the Point Spring Property
+                    ' If the Spring Property is Compression Only, create a Gap Link Object and assign it to the Point Spring Property...
+                    ' Set point spring property with blank stiffness array
+                    ret = Me.sapModel.PropPointSpring.SetPointSpringProp(pileObj.getLocation.getName(), 1, {0, 0, 0, 0, 0, 0})
+                    ' Build up then link name
                     linkName = "col_Link_" + pileObj.getLocation.getName()
                     linkNames(0) = linkName
-                    linkAxialDirs(0) = 3
+                    ' Compute new stiffness array in Local Link Coordinates
+                    If pileObj.getLoads.getF3() = 0 And pileObj.getDisplacements.getU3() > 0 Then
+                        stiffnessArray = {Me.kmin, 0, 0, 0, 0, 0}
+                    Else
+                        stiffnessArray = {pileObj.getStiffness().getU3(), 0, 0, 0, 0, 0}
+                    End If
+                    ' Create/Update Gap Link (Compression-Only)
                     ret = Me.sapModel.PropLink.SetGap(linkName, dof, fixed, nonLinear, ke, ce, stiffnessArray, dis, 0, 0)
+                    ' Assing Gap Link to point
                     ret = Me.sapModel.PropPointSpring.SetLinks(pileObj.getLocation.getName(), numLinks, linkNames, linkAxialDirs, linkAngles)
+
             End Select
 
             ' Assign created/updated point spring property to point object

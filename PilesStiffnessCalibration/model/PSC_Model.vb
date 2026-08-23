@@ -624,13 +624,11 @@ Public Class PSC_Model
                                    ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispRectLoad.getLoad().Name).
                                                                  Select(Function(plObj) plObj.getLoads().getF3()).
                                                                  FirstOrDefault()
-                                   If ppLoad <> 0 Then
-                                       ppLoad = ppLoad / (pDispRectLoad.getLoad().Width * pDispRectLoad.getLoad().Length)
-                                       Dim rectLoad As RectLoad
-                                       rectLoad = pDispRectLoad.getLoad()
-                                       rectLoad.Normal = ppLoad
-                                       pDispRectLoad.setLoad(rectLoad)
-                                   End If
+                                   ppLoad = ppLoad / (pDispRectLoad.getLoad().Width * pDispRectLoad.getLoad().Length)
+                                   Dim rectLoad As RectLoad
+                                   rectLoad = pDispRectLoad.getLoad()
+                                   rectLoad.Normal = ppLoad
+                                   pDispRectLoad.setLoad(rectLoad)
                                End Function)
         'Update CircLoads based on new loads from ETABS
         pDispCircLoads.ForEach(Function(pDispCircLoad)
@@ -638,13 +636,11 @@ Public Class PSC_Model
                                    ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispCircLoad.getLoad().Name).
                                                                  Select(Function(plObj) plObj.getLoads().getF3()).
                                                                  FirstOrDefault()
-                                   If ppLoad <> 0 Then
-                                       ppLoad = ppLoad / (Math.PI * (Math.Pow(pDispCircLoad.getLoad().Width, 2) / 4))
-                                       Dim circLoad As CircLoad
-                                       circLoad = pDispCircLoad.getLoad()
-                                       circLoad.Normal = ppLoad
-                                       pDispCircLoad.setLoad(circLoad)
-                                   End If
+                                   ppLoad = ppLoad / (Math.PI * (Math.Pow(pDispCircLoad.getLoad().Width, 2) / 4))
+                                   Dim circLoad As CircLoad
+                                   circLoad = pDispCircLoad.getLoad()
+                                   circLoad.Normal = ppLoad
+                                   pDispCircLoad.setLoad(circLoad)
                                End Function)
 
         ''Update PolyLoads based on new loads from ETABS

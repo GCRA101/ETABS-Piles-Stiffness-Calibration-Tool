@@ -1,6 +1,7 @@
 ﻿
 Imports System.Drawing.Drawing2D
 Imports System.IO
+Imports System.Net.WebRequestMethods
 Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms
 Imports ETABSv1
@@ -338,6 +339,9 @@ Public Class PSC_Model
         Try
             'UNLOCK THE ETABS MODEL
             sapModel.SetModelIsLocked(False)
+
+            'INITIALIZE PILES SPRINGS
+            If iter = 0 Then initializePointSprings()
 
             'ACTIVATE ALL LOAD CASES FOR RUNNING THE ANALYSIS
             ret = sapModel.Analyze.SetRunCaseFlag(Me.etabsLoadCaseNames(0), True, All:=True)
@@ -694,6 +698,71 @@ Public Class PSC_Model
     End Sub
 
 
+    Private Sub initializePointSprings()
+
+        Me.sapModel.SetModelIsLocked(False)
+
+        ' Restraint/Stiffness Arrays Initialization
+        Dim rigidLinkKzArray As Double() = {1000000000, 0, 0, 0, 0, 0}
+        ' Link Properties Initialization
+        Dim linkName, springPropertyName As String
+        Dim dof(5), fixed(5), nonLinear(5) As Boolean
+        Dim ke(5), ce(5), dis(5) As Double
+        Dim numLinks As Integer = 1
+        Dim linkNames(0) As String
+        Dim linkAxialDirs(0) As Integer
+        Dim linkAngles(0) As Double
+        dof(0) = True
+        nonLinear(0) = True
+        dis(0) = 0
+        linkAxialDirs(0) = 3
+        linkAngles(0) = 0
+
+        Select Case Me.selNonLinearOption
+            Case "None (Linear)"
+                'Assign Rigid Pinned Suppport to all Points and leave the Subroutine
+                For Each etabsPointName In Me.etabsPointNames
+                    ret = Me.sapModel.PointObj.SetRestraint(etabsPointName, {True, True, True, False, False, False})
+                Next
+                Me.sapModel.File.Save()
+                Exit Sub
+            Case "Tension Only"
+                springPropertyName = "tensionOnly"
+                linkName = "link_" + springPropertyName
+                linkNames(0) = linkName
+                ' Create/Update Hook Link (Tension-Only)
+                ret = Me.sapModel.PropLink.SetHook(linkName, dof, fixed, nonLinear, ke, ce, rigidLinkKzArray, dis, 0, 0)
+            Case "Compression Only"
+                springPropertyName = "compressionOnly"
+                linkName = "link_" + springPropertyName
+                linkNames(0) = linkName
+                ' Create/Update Gap Link (Compression-Only)
+                ret = Me.sapModel.PropLink.SetGap(linkName, dof, fixed, nonLinear, ke, ce, rigidLinkKzArray, dis, 0, 0)
+        End Select
+
+        ' Set Point Spring Property with Blank Stiffness Array
+        ret = Me.sapModel.PropPointSpring.SetPointSpringProp(springPropertyName, 1, {0, 0, 0, 0, 0, 0})
+        ' Assing Rigid Hook/Gap Link to Point Spring Property
+        ret = Me.sapModel.PropPointSpring.SetLinks(springPropertyName, numLinks, linkNames, linkAxialDirs, linkAngles)
+
+        ' Assign Spring Property to all Points
+        Dim restraintsArray(5) As Boolean
+        For Each etabsPointName In Me.etabsPointNames
+            ' Delete the vertical restraint from point object while keeping all the other ones defined by the user
+            ret = Me.sapModel.PointObj.GetRestraint(etabsPointName, restraintsArray)
+            restraintsArray(2) = False
+            ret = Me.sapModel.PointObj.SetRestraint(etabsPointName, restraintsArray)
+            ' Delete all previous spring assignments from the point object
+            ret = Me.sapModel.PointObj.DeleteSpring(etabsPointName)
+            ' Assing created non-linear spring
+            Me.sapModel.PointObj.SetSpringAssignment(etabsPointName, springPropertyName)
+        Next
+
+        Me.sapModel.File.Save()
+
+    End Sub
+
+
     Private Sub updatePointSprings(pileObjs As List(Of PileObject))
 
         ' ASSIGN COMPUTED STIFFNESSES TO ETABS BASE POINTS
@@ -753,6 +822,7 @@ Public Class PSC_Model
         Me.sapModel.View.RefreshView()
 
     End Sub
+
 
     Private Sub markNonConvergingPiles(pileNames As List(Of String))
         ' Unlock the ETABS Model to allow the Creation and Assignment of Groups

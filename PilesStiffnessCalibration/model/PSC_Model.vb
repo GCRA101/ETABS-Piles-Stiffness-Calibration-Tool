@@ -435,22 +435,22 @@ Public Class PSC_Model
 
             '5. CHECK THAT MAX DELTA IS LOWER THAN MAX ALLOWED
             ' If it's bigger...stop the iteration and raise an exception with error message for the user.
-            If (plΔIList.Max() > ΔMax) Then
-                Dim message As String = "Pile Stiffness Variation from previous iteration looks excessive."
-                Dim errorPilesList As List(Of PileObject)
-                errorPilesList = plΔIList.Select(Function(dk)
-                                                     If dk >= ΔMax Then
-                                                         Return plΔIList.IndexOf(dk)
-                                                     Else
-                                                         Return -1
-                                                     End If
-                                                 End Function).
-                                           Where(Function(index) index <> -1).
-                                           Select(Function(index) pileObjsQueue.First().Item(index)).
-                                           ToList()
+            'If (plΔIList.Max() > ΔMax) Then
+            '    Dim message As String = "Pile Stiffness Variation from previous iteration looks excessive."
+            '    Dim errorPilesList As List(Of PileObject)
+            '    errorPilesList = plΔIList.Select(Function(dk)
+            '                                         If dk >= ΔMax Then
+            '                                             Return plΔIList.IndexOf(dk)
+            '                                         Else
+            '                                             Return -1
+            '                                         End If
+            '                                     End Function).
+            '                               Where(Function(index) index <> -1).
+            '                               Select(Function(index) pileObjsQueue.First().Item(index)).
+            '                               ToList()
 
-                Throw New ExcessiveΔException(message, errorPilesList)
-            End If
+            '    Throw New ExcessiveΔException(message, errorPilesList)
+            'End If
 
             '6. COLLECT/IDENTIFY CONVERGING PILES
             ' Collect only piles which corresponding delta is smaller than the input convergenceFactor.

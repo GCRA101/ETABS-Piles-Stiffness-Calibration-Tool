@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="6016" dy="7948" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3511" dy="6567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -13,20 +13,20 @@
         <mxCell id="dRmqIshiCx0xRPH5AIic-177" parent="WIyWlLk6GJQsqaUBKTNV-1" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=540;tabHeight=120;tabPosition=left;html=1;whiteSpace=wrap;fillColor=default;gradientColor=#F5CCEE;strokeColor=#000000;strokeWidth=3;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;gradientDirection=south;" value="+" vertex="1">
           <mxGeometry height="2750" width="7690" x="-2080" y="-5481.96" as="geometry" />
         </mxCell>
-        <mxCell id="Z8_1X8fiiOwd9tu43lov-76" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;fontSize=15;" value="PSC_Model" vertex="1">
-          <mxGeometry height="1410" width="320" x="-1730" y="-4960" as="geometry" />
+        <mxCell id="Z8_1X8fiiOwd9tu43lov-76" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;fontSize=15;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" value="PSC_Model" vertex="1">
+          <mxGeometry height="1600" width="340" x="-1750" y="-4960" as="geometry" />
         </mxCell>
-        <mxCell id="Z8_1X8fiiOwd9tu43lov-77" parent="Z8_1X8fiiOwd9tu43lov-76" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fillColor=default;" value="(-) instance: PSC_Model &lt;static&gt;&#xa;(-) observers: List&lt;Observer&gt;&#xa;(-) jsonSerializer: JSONSerializer&lt;List&lt;PileObject&gt;&gt;&#xa;(-) sapModel: ETABSv1.cSapModel&#xa;(-) pDispModel: PDispModel&#xa;(-) sapModelInitialPath: String&#xa;(-) pDispModelInitialPath: String&#xa;(-) resultsFolderPath: String&#xa;(-) sapModelsFolderPath: String&#xa;(-) pDispModelsFolderPath: String&#xa;(-) jsonFilesFolderPath: String(-) etabsGroupNames: &#xa;List&lt;String&gt;&#xa;(-) etabsGroupNames: List&lt;String&gt;&#xa;(-) etabsLoadCaseNames: List&lt;String&gt;&#xa;(-) etabsLoadComboNames: List&lt;String&gt;&#xa;(-) etabsPointNames: List&lt;String&gt;&#xa;(-) selEtabsGroupName: String&#xa;(-) selEtabsLoadComboName: String&#xa;(-) iterNumMax : Integer&#xa;(-) convergenceFactor: Double&#xa;(-) pileObjs: List&lt;PileObject&gt;&#xa;(-) pileObjsInit: List&lt;PileObject&gt;&#xa;(-) pileObjsQueue: Queue&lt;List&lt;PileObject&gt;&gt;&#xa;(-) ret: Integer&#xa;(-) iterNum: Integer&#xa;(-) stepRun: Boolean&#xa;(-) iterationComplete: Boolean&#xa;(-) iterationStarted: Boolean&#xa;(-) fixity: Double =100,000,000&#xa;(-) ΔKMax: Double = 10&#xa;(-) MODEL_NAME: String&#xa;(-) MODEL_VERSION: String&#xa;(-) MODEL_COPYRIGHT: String&#xa;(-) MODEL_AUTHOR: String&#xa;(-) MODEL_OWNER: String&#xa;" vertex="1">
-          <mxGeometry height="500" width="320" y="40" as="geometry" />
+        <mxCell id="Z8_1X8fiiOwd9tu43lov-77" parent="Z8_1X8fiiOwd9tu43lov-76" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fillColor=default;" value="(-) instance: PSC_Model &lt;static&gt;&#xa;(-) observers: List&lt;Observer&gt;&#xa;(-) jsonSerializer: JSONSerializer&lt;List&lt;PileObject&gt;&gt;&#xa;(-) sapModel: ETABSv1.cSapModel&#xa;(-) pDispModel: PDispModel&#xa;(-) sapModelInitialPath: String&#xa;(-) pDispModelInitialPath: String&#xa;(-) resultsFolderPath: String&#xa;(-) sapModelsFolderPath: String&#xa;(-) pDispModelsFolderPath: String&#xa;(-) jsonFilesFolderPath: String(-) etabsGroupNames: &#xa;List&lt;String&gt;&#xa;(-) etabsGroupNames: List&lt;String&gt;&#xa;(-) etabsLoadCaseNames: List&lt;String&gt;&#xa;(-) etabsLoadComboNames: List&lt;String&gt;&#xa;(-) etabsPointNames: List&lt;String&gt;&#xa;(-) selEtabsGroupName: String&#xa;(-) selEtabsLoadComboName: String&#xa;(-) iterNumMax : Integer&#xa;(-) convergenceCriterion: String&#xa;(-) convergenceFactor: Double&#xa;(-) percentile: Double&#xa;(-) pileObjs: List&lt;PileObject&gt;&#xa;(-) pileObjsInit: List&lt;PileObject&gt;&#xa;(-) pileObjsQueue: Queue&lt;List&lt;PileObject&gt;&gt;&#xa;(-) convergingPiles: List&lt;PileObject&gt;&#xa;(-) nonConvergingPiles: List&lt;PileObject&gt;&#xa;(-) ret: Integer&#xa;(-) iterNum: Integer&#xa;(-) stepRun: Boolean&#xa;(-) iterationComplete: Boolean&#xa;(-) iterationStarted: Boolean&#xa;(-) fixity: Double =100,000,000&#xa;(-) ΔMax: Double = 10&#xa;(-) MODEL_NAME: String&#xa;(-) MODEL_VERSION: String&#xa;(-) MODEL_COPYRIGHT: String&#xa;(-) MODEL_AUTHOR: String&#xa;(-) MODEL_OWNER: String&#xa;" vertex="1">
+          <mxGeometry height="570" width="340" y="40" as="geometry" />
         </mxCell>
         <mxCell id="Z8_1X8fiiOwd9tu43lov-78" parent="Z8_1X8fiiOwd9tu43lov-76" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="320" y="540" as="geometry" />
+          <mxGeometry height="8" width="340" y="610" as="geometry" />
         </mxCell>
-        <mxCell id="Z8_1X8fiiOwd9tu43lov-79" parent="Z8_1X8fiiOwd9tu43lov-76" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fillColor=default;" value="(-) PSC_Model()&#xa;(+) getInstance(): PSC_Model &lt;static&gt;&#xa;(+) initialize(cSapModel: ETABSv1.cSapModel, pDispFilePath: String, selEtabsLoadComboName: String, selEtabsGroupName: String, iterNumMax: Integer, convergenceFactor: Double): void&#xa;(-) checkInputsData(cSapModel: ETABSv1.cSapModel, pDispFilePath: String, selEtabsLoadComboName: String, selEtabsGroupName: String, iterNumMax: Integer, convergenceFactor: Double): void&#xa;(+) registerObserver(Observer o): void&#xa;(+) removeObserver(Observer o): void&#xa;(+) notifyObservers(): void&#xa;(+) extractEtabsModelData(): void&#xa;(+) filterPointsByGroup(): void&#xa;(-) readPileObjsForces(List&lt;PileObject&gt;): void&#xa;(-) readPileObjsDisplacements(List&lt;PileObject&gt;): void&#xa;(-) computePileObjsStiffness(List&lt;PileObject&gt;): void&#xa;(-) updatePDispLoads(List&lt;PileObject&gt;): void&#xa;(-) updatePointSprings(List&lt;PileObject&gt;): void&#xa;(+) runIteration(): void&#xa;(+) generateExcelReport(): void&#xa;(+) runIterationStep(stepNum: Integer): void&#xa;(+) isConvergent(Queue&lt;List&lt;PileObject&gt;&gt;): Boolean&#xa;(+) serialize(List&lt;PileObject&gt;): void&#xa;(+) deserialize(): List&lt;PileObject&gt;&#xa;(+) setSapModel(sapModel:ETABSv1.cSapModel): void&#xa;(+) setPDispModel(pDispModel:PDispModel): void&#xa;(+) setPointRestraints(restraintBools:Boolean[]): void&#xa;(+) setPointStiffnessesFromValues(stiffnessValues: Double[]): void&#xa;(+) setPointStiffnessesFromJson(filePath: String): void&#xa;(+) setEtabsGroupNames(List&lt;String&gt;): void&#xa;(+) setEtabsLoadComboNames(List&lt;String&gt;): void&#xa;(+) setSelEtabsGroupName(String): void&#xa;(+) setSelEtabsLoadComboName(String): void&#xa;(+) setEtabsPointNames(List&lt;String&gt;): void&#xa;(+) setIterNumMax(iterNumMax: Integer): void&#xa;(+) setConvergenceFactor(convergenceFactor: Double): void&#xa;(+) setStepRun(stepRun: Boolean): void&#xa;(+) setPileObjs(pileObjs: List&lt;PileObject&gt;): void&#xa;(+) setPileObjsInit(pileObjsInit: List&lt;PileObject&gt;): void(+) getEtabsGroupNames(): List&lt;String&gt;&#xa;(+) getEtabsLoadComboNames(): List&lt;String&gt;&#xa;(+) getSelEtabsGroupName(): String&#xa;(+) getSelEtabsLoadComboName(): String&#xa;(+) getEtabsPointNames(): List&lt;String&gt;&#xa;(+) getIterNumMax(): Integer&#xa;(+) getConvergenceFactor(): Double&#xa;(+) getStepRun(): Boolean&#xa;(+) getIterationComplete(): Boolean&#xa;(+) getPileObjs(): List&lt;PileObject&gt;&#xa;(+) getPileObjsInit(): List&lt;PileObject&gt;&#xa;(+) getModelName(): String&#xa;(+) getModelVersion(): String&#xa;(+) getModelCopyRight(): String&#xa;(+) getModelAuthor(): String&#xa;(+) getModelOwner(): String&#xa;" vertex="1">
-          <mxGeometry height="862" width="320" y="548" as="geometry" />
+        <mxCell id="Z8_1X8fiiOwd9tu43lov-79" parent="Z8_1X8fiiOwd9tu43lov-76" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5,0,0,0],[1,0.5,0,0,0]];portConstraint=eastwest;whiteSpace=wrap;fillColor=default;" value="(-) PSC_Model()&#xa;(+) getInstance(): PSC_Model &lt;static&gt;&#xa;(+) initialize(cSapModel: ETABSv1.cSapModel, pDispFilePath: String, selEtabsLoadComboName: String, selEtabsGroupName: String, iterNumMax: Integer, convergenceFactor: Double): void&#xa;(-) checkInputsData(cSapModel: ETABSv1.cSapModel, pDispFilePath: String, selEtabsLoadComboName: String, selEtabsGroupName: String, iterNumMax: Integer, convergenceFactor: Double): void&#xa;(+) registerObserver(Observer o): void&#xa;(+) removeObserver(Observer o): void&#xa;(+) notifyObservers(): void&#xa;(+) extractEtabsModelData(): void&#xa;(+) filterPointsByGroup(): void&#xa;(-) readPileObjsForces(List&lt;PileObject&gt;): void&#xa;(-) readPileObjsDisplacements(List&lt;PileObject&gt;): void&#xa;(-) computePileObjsStiffness(List&lt;PileObject&gt;): void&#xa;(-) updatePDispLoads(List&lt;PileObject&gt;): void&#xa;(-) updatePointSprings(List&lt;PileObject&gt;): void&#xa;(+) runIteration(): void&#xa;(+) generateExcelReport(): void&#xa;(+) runIterationStep(stepNum: Integer): void&#xa;(+) isConvergent(Queue&lt;List&lt;PileObject&gt;&gt;): Boolean&#xa;(+) markNonConvergingPiles(pileNames: List(Of String)): void&#xa;(+) serialize(List&lt;PileObject&gt;): void&#xa;(+) deserialize(): List&lt;PileObject&gt;&#xa;(+) setSapModel(sapModel:ETABSv1.cSapModel): void&#xa;(+) setPDispModel(pDispModel:PDispModel): void&#xa;(+) setPointRestraints(restraintBools:Boolean[]): void&#xa;(+) setPointStiffnessesFromValues(stiffnessValues: Double[]): void&#xa;(+) setPointStiffnessesFromJson(filePath: String): void&#xa;(+) setEtabsGroupNames(List&lt;String&gt;): void&#xa;(+) setEtabsLoadComboNames(List&lt;String&gt;): void&#xa;(+) setSelEtabsGroupName(String): void&#xa;(+) setSelEtabsLoadComboName(String): void&#xa;(+) setEtabsPointNames(List&lt;String&gt;): void&#xa;(+) setIterNumMax(iterNumMax: Integer): void&#xa;(+) setConvergenceCriterion(convergenceCriterion: String): void&#xa;(+) setConvergenceFactor(convergenceFactor: Double): void&#xa;(+) setStepRun(stepRun: Boolean): void&#xa;(+) setPercentile(percentile: Double): void&#xa;(+) setPileObjs(pileObjs: List&lt;PileObject&gt;): void&#xa;(+) setPileObjsInit(pileObjsInit: List&lt;PileObject&gt;): void(+) getEtabsGroupNames(): List&lt;String&gt;&#xa;(+) getEtabsLoadComboNames(): List&lt;String&gt;&#xa;(+) getSelEtabsGroupName(): String&#xa;(+) getSelEtabsLoadComboName(): String&#xa;(+) getEtabsPointNames(): List&lt;String&gt;&#xa;(+) getIterNumMax(): Integer&#xa;(+) getConvergenceCriterion(): String&#xa;(+) getConvergenceFactor(): Double&#xa;(+) getConvergingPiles(): List&lt;PileObject&gt;&#xa;(+) getNonConvergingPiles(): List&lt;PileObject&gt;&#xa;(+) getPercentile(): Double&#xa;(+) getStepRun(): Boolean&#xa;(+) getIterationComplete(): Boolean&#xa;(+) getPileObjs(): List&lt;PileObject&gt;&#xa;(+) getPileObjsInit(): List&lt;PileObject&gt;&#xa;(+) getModelName(): String&#xa;(+) getModelVersion(): String&#xa;(+) getModelCopyRight(): String&#xa;(+) getModelAuthor(): String&#xa;(+) getModelOwner(): String&#xa;" vertex="1">
+          <mxGeometry height="982" width="340" y="618" as="geometry" />
         </mxCell>
         <mxCell id="Z8_1X8fiiOwd9tu43lov-80" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFE3FD;strokeColor=#36393d;" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Observable&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) registerObserver(Observer o)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) removeObserver(Observer o)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) notifyObservers()&lt;/p&gt;" vertex="1">
-          <mxGeometry height="90" width="220" x="-1680" y="-5110" as="geometry" />
+          <mxGeometry height="90" width="220" x="-1690" y="-5110" as="geometry" />
         </mxCell>
         <mxCell id="Z8_1X8fiiOwd9tu43lov-81" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFE3FD;strokeColor=#36393d;" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;model.Observer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) update()&lt;/p&gt;" vertex="1">
           <mxGeometry height="80" width="220" x="2805" y="-1990" as="geometry" />
@@ -94,16 +94,16 @@
           <mxGeometry height="102" width="280" y="188" as="geometry" />
         </mxCell>
         <mxCell id="RqBUZN4e1vriPUF_xMmd-76" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;" value="ViewInputs" vertex="1">
-          <mxGeometry height="760" width="280" x="3134" y="-1450" as="geometry" />
+          <mxGeometry height="826" width="280" x="3134" y="-1450" as="geometry" />
         </mxCell>
-        <mxCell id="RqBUZN4e1vriPUF_xMmd-77" parent="RqBUZN4e1vriPUF_xMmd-76" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" value="(-) convergenceFactor: Single&#xa;(-) controller: PSC_Controller&#xa;(-) groupName: String&#xa;(-) iter: Integer&#xa;(-) iterNumMax: Integer&#xa;(-) jsonFilePath: String&#xa;(-) jsonSerializer: JSONSerializer&lt;List&lt;PileObject&gt;&gt;&#xa;(-) loadComboName: String&#xa;(-) model: PSC_Model&#xa;(-) pDispFilePath: String&#xa;(-) pDispModel: PDispModel&#xa;(-) pileObjsQueue: Queue&lt;List&lt;PileObject&gt;&gt;&#xa;(-) progrBarStep: Integer&#xa;(-) ret: Integer&#xa;(-) startPileObjsList: List&lt;PileObject&gt;&#xa;(~) btnOpenJSONFile: Button&#xa;(~) btnOpenPDispFile: Button&#xa;(~) btnRunIteration: Button&#xa;(~) cbDispVariation: ComboBox&#xa;(~) cbExcelReport: CheckBox&#xa;(~) cbIterations: ComboBox&#xa;(~) cklbGroups: CheckedListBox&#xa;(~) cklbLoadCombos: CheckedListBox&#xa;(~) gbETABSInputs: GroupBox&#xa;(~) gbOutputs: GroupBox&#xa;(~) gbPDispInputs: GroupBox&#xa;(~) lblDispVariation: Label&#xa;(~) lblGroups: Label&#xa;(~) lblInitialStiffness: Label&#xa;(~) lblIterations: Label&#xa;(~) lblLoadCombos: Label&#xa;(~) lblPDispFile: Label&#xa;(~) lblProgrBar: Label&#xa;(~) ofdJsonFile: OpenFileDialog&#xa;(~) ofdPDispFile: OpenFileDialog&#xa;(~) pbETABSInputs: PictureBox&#xa;(~) pbPDispInputs: PictureBox&#xa;(~) progrBar: ProgressBar&#xa;(~) rbImportFromFile: RadioButton&#xa;(~) rbRigid: RadioButton&#xa;(~) rbSpring: RadioButton&#xa;(~) tbStiffness: TextBox&#xa;&#xa;&#xa;&#xa;&#xa;" vertex="1">
-          <mxGeometry height="610" width="280" y="40" as="geometry" />
+        <mxCell id="RqBUZN4e1vriPUF_xMmd-77" parent="RqBUZN4e1vriPUF_xMmd-76" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" value="(-) convergenceFactor: Single&#xa;(-) controller: PSC_Controller&#xa;(-) groupName: String&#xa;(-) iter: Integer&#xa;(-) iterNumMax: Integer&#xa;(-) jsonFilePath: String&#xa;(-) jsonSerializer: JSONSerializer&lt;List&lt;PileObject&gt;&gt;&#xa;(-) loadComboName: String&#xa;(-) model: PSC_Model&#xa;(-) pDispFilePath: String&#xa;(-) pDispModel: PDispModel&#xa;(-) pileObjsQueue: Queue&lt;List&lt;PileObject&gt;&gt;&#xa;(-) progrBarStep: Integer&#xa;(-) ret: Integer&#xa;(-) startPileObjsList: List&lt;PileObject&gt;&#xa;(~) btnOpenJSONFile: Button&#xa;(~) btnOpenPDispFile: Button&#xa;(~) btnRunIteration: Button&#xa;(~) cbDispVariation: ComboBox&#xa;(~) cbExcelReport: CheckBox&#xa;(~) cbConvCriterion: ComboBox&#xa;(~) cbIterations: ComboBox&#xa;(~) cbPercentile: ComboBox&#xa;(~) cklbGroups: CheckedListBox&#xa;(~) cklbLoadCombos: CheckedListBox&#xa;(~) gbETABSInputs: GroupBox&#xa;(~) gbOutputs: GroupBox&#xa;(~) gbPDispInputs: GroupBox&#xa;(~) lblConvCriterion: Label&#xa;(~) lblVariation: Label&#xa;(~) lblGroups: Label&#xa;(~) lblInitialStiffness: Label&#xa;(~) lblIterations: Label&#xa;(~) lblLoadCombos: Label&#xa;(~) lblPDispFile: Label&#xa;(~) lblPercentile: Label&#xa;(~) lblProgrBar: Label&#xa;(~) ofdJsonFile: OpenFileDialog&#xa;(~) ofdPDispFile: OpenFileDialog&#xa;(~) pbETABSInputs: PictureBox&#xa;(~) pbPDispInputs: PictureBox&#xa;(~) progrBar: ProgressBar&#xa;(~) rbImportFromFile: RadioButton&#xa;(~) rbRigid: RadioButton&#xa;(~) rbSpring: RadioButton&#xa;(~) tbStiffness: TextBox&#xa;&#xa;&#xa;&#xa;&#xa;" vertex="1">
+          <mxGeometry height="676" width="280" y="40" as="geometry" />
         </mxCell>
         <mxCell id="RqBUZN4e1vriPUF_xMmd-78" parent="RqBUZN4e1vriPUF_xMmd-76" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="280" y="650" as="geometry" />
+          <mxGeometry height="8" width="280" y="716" as="geometry" />
         </mxCell>
         <mxCell id="RqBUZN4e1vriPUF_xMmd-79" parent="RqBUZN4e1vriPUF_xMmd-76" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;fillColor=default;" value="(+) ViewInputs(model: PSC_Model, controller: PSC_Controller)&#xa;(-) initializeComponent()&#xa;(-) dispose()&#xa;(+) initialize()&#xa;(+) update()" vertex="1">
-          <mxGeometry height="102" width="280" y="658" as="geometry" />
+          <mxGeometry height="102" width="280" y="724" as="geometry" />
         </mxCell>
         <mxCell id="CFGV4j3l22RSOagM_br3-7" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;" value="PileObject" vertex="1">
           <mxGeometry height="540" width="300" x="390.3600000000006" y="-4493.96" as="geometry" />
@@ -306,7 +306,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="CFGV4j3l22RSOagM_br3-39" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;html=1;" value="JSONSerializer&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;T&amp;gt;&lt;/span&gt;" vertex="1">
-          <mxGeometry height="150" width="300" x="-1289" y="-4705" as="geometry" />
+          <mxGeometry height="150" width="300" x="-1290" y="-4670" as="geometry" />
         </mxCell>
         <mxCell id="CFGV4j3l22RSOagM_br3-40" parent="CFGV4j3l22RSOagM_br3-39" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(-) filePath: String&#xa;(-) jsonSettings: JsonSerializerSettings&#xa;&#xa;" vertex="1">
           <mxGeometry height="40" width="300" y="40" as="geometry" />
@@ -323,13 +323,13 @@
         <mxCell id="9fbSNvIKam-mQGXg7FVn-1" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;fontSize=15;" value="PSC_Controller" vertex="1">
           <mxGeometry height="770" width="330" x="-1010" y="-1410" as="geometry" />
         </mxCell>
-        <mxCell id="9fbSNvIKam-mQGXg7FVn-2" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[1,0.5,0,0,0]];portConstraint=eastwest;" value="(#) model: PSC_Model&#xa;(#) view: PSC_View&#xa;(#) SapModel: ETABSv1.cSapModel&#xa;(#) ISapPlugin: ETABSv1.cPluginCallback&#xa;(-) eventsListener: EventsListener&#xa;(-) excessiveΔKHandler: ExcessiveΔKHandler&#xa;(-) excelComInteropException: ExcelComInteropException&#xa;(-) invalidInputsHandler: InvalidInputsHandler&#xa;(-) jsonFilePath: String&#xa;(-) missingInputsHandler: MissingInputsHandler&#xa;(-) soundManager: SoundManager&#xa;(-) pDispFilePath: String&#xa;" vertex="1">
+        <mxCell id="9fbSNvIKam-mQGXg7FVn-2" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[1,0.5,0,0,0]];portConstraint=eastwest;" value="(#) model: PSC_Model&#xa;(#) view: PSC_View&#xa;(#) SapModel: ETABSv1.cSapModel&#xa;(#) ISapPlugin: ETABSv1.cPluginCallback&#xa;(-) eventsListener: EventsListener&#xa;(-) excessiveΔHandler: ExcessiveΔHandler&#xa;(-) excelComInteropException: ExcelComInteropException&#xa;(-) invalidInputsHandler: InvalidInputsHandler&#xa;(-) jsonFilePath: String&#xa;(-) missingInputsHandler: MissingInputsHandler&#xa;(-) soundManager: SoundManager&#xa;(-) pDispFilePath: String&#xa;" vertex="1">
           <mxGeometry height="190" width="330" y="40" as="geometry" />
         </mxCell>
         <mxCell id="9fbSNvIKam-mQGXg7FVn-3" parent="9fbSNvIKam-mQGXg7FVn-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="330" y="230" as="geometry" />
         </mxCell>
-        <mxCell id="9fbSNvIKam-mQGXg7FVn-4" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) PSC_Contoller(SapModel: ETABSv1.cSapModel, ISapPlugin: ETABSv1.cPluginCallback)&#xa;(+) initialize(): void&#xa;(+) createExceptionHandlers(): void&#xa;(+) processInputData(): void&#xa;(+) extractEtabsModelData(): void&#xa;(+) runIteration(): void&#xa;(+) terminate(): void&#xa;(+) serialize(): void&#xa;(+) deserialize(): void&#xa;(+) setSapModel(sapModel: cSapModel): void&#xa;(+) setISapPlugIn(iSapPlugIn: cPluginCallback): void&#xa;(+) setSoundManager(soundManager: &#xa;SoundManager): void&#xa;(+) setEventsListener(eventsListener: &#xa;EventsListener): void&#xa;(+) setInvalidInputsHandrler(invalidInputsHandler: InvalidInputsHandler): void&#xa;(+) setMissingInputsHandrler(missingInputsHandler: MissingInputsHandler): void&#xa;(+) setExcessiveΔKHandler(excessiveΔKHandler: ExcessiveΔKHandler): void&#xa;(+) setExcelComInteropHandler(excelComInteropHandler: ExcelComInteropHandler): void&#xa;(+) setJsonFilePath(jsonFilePath: String): void&#xa;(+) setPDispFilePath(pDispFilePath: String): void&#xa;(+) getSapModel(): cSapModel&#xa;(+) getISapPlugIn(): cPluginCallback&#xa;(+) getSoundManager(): SoundManager&#xa;(+) getEventsListener(): EventsListener&#xa;(+) getInvalidInputsHandler(): InvalidInputsHandler&#xa;(+) getMissingInputsHandler(): MissingInputsHandler&#xa;(+) getExcessiveΔKHandler(): ExcessiveΔKHandler&#xa;(+) getExcelComInteropHandler(): ExcelComInteropHandler&#xa;(+) getJsonFilePath(): String&#xa;(+) getPDispFilePath(): String" vertex="1">
+        <mxCell id="9fbSNvIKam-mQGXg7FVn-4" parent="9fbSNvIKam-mQGXg7FVn-1" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) PSC_Contoller(SapModel: ETABSv1.cSapModel, ISapPlugin: ETABSv1.cPluginCallback)&#xa;(+) initialize(): void&#xa;(+) createExceptionHandlers(): void&#xa;(+) processInputData(): void&#xa;(+) extractEtabsModelData(): void&#xa;(+) runIteration(): void&#xa;(+) terminate(): void&#xa;(+) serialize(): void&#xa;(+) deserialize(): void&#xa;(+) setSapModel(sapModel: cSapModel): void&#xa;(+) setISapPlugIn(iSapPlugIn: cPluginCallback): void&#xa;(+) setSoundManager(soundManager: &#xa;SoundManager): void&#xa;(+) setEventsListener(eventsListener: &#xa;EventsListener): void&#xa;(+) setInvalidInputsHandrler(invalidInputsHandler: InvalidInputsHandler): void&#xa;(+) setMissingInputsHandrler(missingInputsHandler: MissingInputsHandler): void&#xa;(+) setExcessiveΔHandler(excessiveΔHandler: ExcessiveΔHandler): void&#xa;(+) setExcelComInteropHandler(excelComInteropHandler: ExcelComInteropHandler): void&#xa;(+) setJsonFilePath(jsonFilePath: String): void&#xa;(+) setPDispFilePath(pDispFilePath: String): void&#xa;(+) getSapModel(): cSapModel&#xa;(+) getISapPlugIn(): cPluginCallback&#xa;(+) getSoundManager(): SoundManager&#xa;(+) getEventsListener(): EventsListener&#xa;(+) getInvalidInputsHandler(): InvalidInputsHandler&#xa;(+) getMissingInputsHandler(): MissingInputsHandler&#xa;(+) getExcessiveΔHandler(): ExcessiveΔHandler&#xa;(+) getExcelComInteropHandler(): ExcelComInteropHandler&#xa;(+) getJsonFilePath(): String&#xa;(+) getPDispFilePath(): String" vertex="1">
           <mxGeometry height="532" width="330" y="238" as="geometry" />
         </mxCell>
         <mxCell id="9fbSNvIKam-mQGXg7FVn-5" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFE3FD;strokeColor=#36393d;" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ControllerInterface&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) initialize(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) runIteration(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) serialize(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) deserialize(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) createExceptionHandlers(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) terminate(): void&lt;br&gt;&lt;/p&gt;" vertex="1">
@@ -496,8 +496,8 @@
         <mxCell id="9fbSNvIKam-mQGXg7FVn-75" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="CFGV4j3l22RSOagM_br3-40" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="Z8_1X8fiiOwd9tu43lov-77" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <Array as="points">
-              <mxPoint x="-1350" y="-4645" />
-              <mxPoint x="-1350" y="-4670" />
+              <mxPoint x="-1350" y="-4610" />
+              <mxPoint x="-1350" y="-4635" />
             </Array>
             <mxPoint x="-1200" y="-4730" as="sourcePoint" />
             <mxPoint x="-1672.5" y="-4360" as="targetPoint" />
@@ -754,7 +754,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="dRmqIshiCx0xRPH5AIic-174" parent="WIyWlLk6GJQsqaUBKTNV-1" style="html=1;labelBackgroundColor=none;fillColor=#FFCCCC;strokeColor=#666666;glass=0;sketch=1;gradientColor=#BD0D30;shadow=1;rounded=1;arcSize=50;" value="&lt;b style=&quot;&quot;&gt;&lt;i style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;STREAMS&lt;/font&gt;&lt;/i&gt;&lt;/b&gt;" vertex="1">
-          <mxGeometry height="28" width="170" x="-1655" y="-3530" as="geometry" />
+          <mxGeometry height="28" width="170" x="-1668.75" y="-3330" as="geometry" />
         </mxCell>
         <mxCell id="dRmqIshiCx0xRPH5AIic-178" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="&lt;font style=&quot;font-size: 90px;&quot;&gt;model&lt;/font&gt;" vertex="1">
           <mxGeometry height="67.67676767676768" width="200.14992503748124" x="-1915.1458103473628" y="-5450.004646464647" as="geometry" />
@@ -1520,7 +1520,7 @@
             <mxPoint x="-1120" y="-4089" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-1" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;&lt;exception&gt;&gt;&#xa;ExcessiveΔKException" vertex="1">
+        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-1" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;&lt;exception&gt;&gt;&#xa;ExcessiveΔException" vertex="1">
           <mxGeometry height="140" width="260" x="-865" y="-3936.98" as="geometry" />
         </mxCell>
         <mxCell id="fmy4LgwLfa0xV-Iqgp4i-2" parent="fmy4LgwLfa0xV-Iqgp4i-1" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(-) pileObjs: List&lt;PileObject&gt;&#xa;" vertex="1">
@@ -1529,7 +1529,7 @@
         <mxCell id="fmy4LgwLfa0xV-Iqgp4i-3" parent="fmy4LgwLfa0xV-Iqgp4i-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry width="260" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-4" parent="fmy4LgwLfa0xV-Iqgp4i-1" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) ExcessiveΔKException(message: String, pileObjs: List&lt;PileObject&gt;)&#xa;(+) getPileObjects(): List&lt;PileObject&gt;" vertex="1">
+        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-4" parent="fmy4LgwLfa0xV-Iqgp4i-1" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) ExcessiveΔException(message: String, pileObjs: List&lt;PileObject&gt;)&#xa;(+) getPileObjects(): List&lt;PileObject&gt;" vertex="1">
           <mxGeometry height="70" width="260" y="70" as="geometry" />
         </mxCell>
         <mxCell id="fmy4LgwLfa0xV-Iqgp4i-5" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="fmy4LgwLfa0xV-Iqgp4i-1" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontSize=12;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="dRmqIshiCx0xRPH5AIic-56" value="Extends">
@@ -1539,17 +1539,17 @@
             <mxPoint x="-770" y="-4260" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-7" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="ExcessiveΔKHandler" vertex="1">
-          <mxGeometry height="100" width="225" x="-1570" y="-1460" as="geometry" />
+        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-7" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="ExcessiveΔHandler" vertex="1">
+          <mxGeometry height="159.98000000000002" width="310" x="-1580" y="-1470" as="geometry" />
         </mxCell>
-        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-8" parent="fmy4LgwLfa0xV-Iqgp4i-7" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="&#xa;" vertex="1">
-          <mxGeometry height="10" width="225" y="30" as="geometry" />
+        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-8" parent="fmy4LgwLfa0xV-Iqgp4i-7" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(+) parameterName: string" vertex="1">
+          <mxGeometry height="20" width="310" y="30" as="geometry" />
         </mxCell>
         <mxCell id="fmy4LgwLfa0xV-Iqgp4i-9" parent="fmy4LgwLfa0xV-Iqgp4i-7" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="225" y="40" as="geometry" />
+          <mxGeometry height="8" width="310" y="50" as="geometry" />
         </mxCell>
-        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-10" parent="fmy4LgwLfa0xV-Iqgp4i-7" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) ExcessiveΔKHandler(controller: PSC_Controller)&#xa;(+) execute(ex: [Exception]): void" vertex="1">
-          <mxGeometry height="52" width="225" y="48" as="geometry" />
+        <mxCell id="fmy4LgwLfa0xV-Iqgp4i-10" parent="fmy4LgwLfa0xV-Iqgp4i-7" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) ExcessiveΔHandler(controller: PSC_Controller)(+) ExcessiveΔHandler(controller: PSC_Controller, parameterName)&#xa;(+) execute(ex: [Exception]): void&#xa;(+) setParameterName(parameterName: string): void&#xa;(+) getParameterName(): string" vertex="1">
+          <mxGeometry height="101.98" width="310" y="58" as="geometry" />
         </mxCell>
         <mxCell id="fmy4LgwLfa0xV-Iqgp4i-11" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="fmy4LgwLfa0xV-Iqgp4i-7" style="endArrow=block;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="dRmqIshiCx0xRPH5AIic-0" value="">
           <mxGeometry relative="1" width="160" as="geometry">
@@ -1564,13 +1564,17 @@
         </mxCell>
         <mxCell id="fmy4LgwLfa0xV-Iqgp4i-17" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="fmy4LgwLfa0xV-Iqgp4i-7" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.25;entryDx=0;entryDy=0;entryPerimeter=0;" target="9fbSNvIKam-mQGXg7FVn-2" value="">
           <mxGeometry relative="1" width="160" as="geometry">
+            <Array as="points">
+              <mxPoint x="-1170.03" y="-1389.97" />
+              <mxPoint x="-1170.03" y="-1322.52" />
+            </Array>
             <mxPoint x="-1280" y="-1360" as="sourcePoint" />
             <mxPoint x="-1000" y="-1340" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="fmy4LgwLfa0xV-Iqgp4i-18" connectable="0" parent="fmy4LgwLfa0xV-Iqgp4i-17" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Aggregation" vertex="1">
           <mxGeometry relative="1" x="-0.4554" y="-2" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint x="-29" y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="t-dWht4ebj5Bz-BGAbCH-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;fontSize=15;fontColor=default;html=1;" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;&amp;lt;static&amp;gt;&amp;gt;&lt;/span&gt;&lt;br&gt;WindowResizer" vertex="1">
@@ -1640,7 +1644,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=45;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;html=1;" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;ExcelDataManager&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="420" width="280" x="-1310" y="-3770" as="geometry" />
+          <mxGeometry height="420" width="280" x="-865" y="-3680" as="geometry" />
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-1" parent="eaw1AFDRlnI-Rr3le-9H-0" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(-) ExcelApp: Excel.Application&#xa;(-) ExcelWkb: Excel.Workbook&#xa;(-) ExcelWks: Excel.Worksheet&#xa;(-) filePath: String&#xa;" vertex="1">
           <mxGeometry height="65" width="280" y="45" as="geometry" />
@@ -1654,9 +1658,8 @@
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-4" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="eaw1AFDRlnI-Rr3le-9H-0" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=1;entryY=0.861;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryPerimeter=0;" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <Array as="points">
-              <mxPoint x="-1169" y="-3839" />
-              <mxPoint x="-1220" y="-3839" />
-              <mxPoint x="-1370" y="-3839" />
+              <mxPoint x="-725" y="-3750" />
+              <mxPoint x="-1370" y="-3750" />
               <mxPoint x="-1370" y="-4429" />
             </Array>
             <mxPoint x="-1170" y="-3709" as="sourcePoint" />
@@ -1665,7 +1668,7 @@
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-5" connectable="0" parent="eaw1AFDRlnI-Rr3le-9H-4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=0;" value="Aggregation" vertex="1">
           <mxGeometry relative="1" x="-0.0868" y="-1" as="geometry">
-            <mxPoint x="99" y="151" as="offset" />
+            <mxPoint x="249" y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-8" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="RqBUZN4e1vriPUF_xMmd-68" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="Z8_1X8fiiOwd9tu43lov-81" value="">
@@ -1710,7 +1713,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-12" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;&lt;exception&gt;&gt;&#xa;InvalidFilePathException" vertex="1">
-          <mxGeometry height="90" width="255" x="-668" y="-3770" as="geometry" />
+          <mxGeometry height="90" width="255" x="-480" y="-3900" as="geometry" />
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-13" parent="eaw1AFDRlnI-Rr3le-9H-12" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="&#xa;" vertex="1">
           <mxGeometry height="10" width="255" y="40" as="geometry" />
@@ -1723,15 +1726,16 @@
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-16" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="eaw1AFDRlnI-Rr3le-9H-0" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=12;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="eaw1AFDRlnI-Rr3le-9H-13" value="throws">
           <mxGeometry relative="1" width="160" as="geometry">
-            <mxPoint x="-974.5" y="-3719.46" as="sourcePoint" />
-            <mxPoint x="-718.5" y="-3786.46" as="targetPoint" />
+            <mxPoint x="-584.5" y="-3609.46" as="sourcePoint" />
+            <mxPoint x="-328.5" y="-3676.46" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-17" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="eaw1AFDRlnI-Rr3le-9H-12" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontSize=12;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="dRmqIshiCx0xRPH5AIic-53" value="Extends">
           <mxGeometry relative="1" width="160" x="-0.2176" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="-540.48" y="-3990" />
+              <mxPoint x="-350" y="-3900" />
+              <mxPoint x="-350" y="-3990" />
               <mxPoint x="-735" y="-3990" />
             </Array>
             <mxPoint x="-860" y="-4039" as="sourcePoint" />
@@ -1739,10 +1743,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eaw1AFDRlnI-Rr3le-9H-21" parent="WIyWlLk6GJQsqaUBKTNV-1" style="html=1;labelBackgroundColor=none;fillColor=#FFCCCC;strokeColor=#666666;glass=0;sketch=1;gradientColor=#BD0D30;shadow=1;rounded=1;arcSize=50;" value="&lt;b style=&quot;&quot;&gt;&lt;i style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;STREAMS&lt;/font&gt;&lt;/i&gt;&lt;/b&gt;" vertex="1">
-          <mxGeometry height="28" width="170" x="-1255" y="-3330" as="geometry" />
+          <mxGeometry height="28" width="170" x="-820" y="-3230" as="geometry" />
         </mxCell>
         <mxCell id="Xc0I3NwcWc2x1O5I0Oq--0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=45;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;html=1;" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;ExcelChartFactory&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="360" width="349" x="-860" y="-3360" as="geometry" />
+          <mxGeometry height="360" width="349" x="-530" y="-3301.02" as="geometry" />
         </mxCell>
         <mxCell id="Xc0I3NwcWc2x1O5I0Oq--1" parent="Xc0I3NwcWc2x1O5I0Oq--0" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(-) excelWkb: Workbook&#xa;(-) chart: Chart" vertex="1">
           <mxGeometry height="45" width="349" y="45" as="geometry" />
@@ -1754,20 +1758,20 @@
           <mxGeometry height="262" width="349" y="98" as="geometry" />
         </mxCell>
         <mxCell id="Xc0I3NwcWc2x1O5I0Oq--5" parent="WIyWlLk6GJQsqaUBKTNV-1" style="html=1;labelBackgroundColor=none;fillColor=#FFCCCC;strokeColor=#000000;glass=0;sketch=1;gradientColor=#FF3333;" value="&lt;i&gt;&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;FACTORY PATTERN&lt;/font&gt;&lt;/b&gt;&lt;/i&gt;" vertex="1">
-          <mxGeometry height="50" width="170" x="-441" y="-3340" as="geometry" />
+          <mxGeometry height="50" width="170" x="-111" y="-3281.02" as="geometry" />
         </mxCell>
         <mxCell id="Xc0I3NwcWc2x1O5I0Oq--8" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Xc0I3NwcWc2x1O5I0Oq--0" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="Xc0I3NwcWc2x1O5I0Oq--10" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <Array as="points">
-              <mxPoint x="-686" y="-3400" />
-              <mxPoint x="-547" y="-3400" />
+              <mxPoint x="-356" y="-3341.02" />
+              <mxPoint x="-217" y="-3341.02" />
             </Array>
-            <mxPoint x="-505.5" y="-3210" as="sourcePoint" />
-            <mxPoint x="-541" y="-3520" as="targetPoint" />
+            <mxPoint x="-175.5" y="-3151.02" as="sourcePoint" />
+            <mxPoint x="-211" y="-3461.02" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Xc0I3NwcWc2x1O5I0Oq--10" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFE3FD;strokeColor=#36393d;" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ExcelChartFactoryInterface&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) setChartType(chartType: Excel.xlChartType): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+)&amp;nbsp;&lt;span style=&quot;text-align: center; text-wrap: wrap;&quot;&gt;setChartTitle(title: String, [hasTitle: Boolean])&lt;/span&gt;: void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+)&amp;nbsp;&lt;span style=&quot;text-align: center; text-wrap: wrap;&quot;&gt;setChartAxis(axisTitle: String, axisType: Excel.XlAxisType, axisGroup: Excel.XlAxisGroup, sourceData: Excel.Range, labelsPosition:Excel.XlDataLabelPosition)&lt;/span&gt;:&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+)&lt;span style=&quot;text-align: center; text-wrap: wrap; background-color: initial;&quot;&gt;&amp;nbsp;setChartSeries(names: List&amp;lt;String&amp;gt;, valuesRangeAddress: String, labelsOrientation: XlDirection, labelsFontSize: Integer)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+)&amp;nbsp;&lt;span style=&quot;text-align: center; text-wrap: wrap; background-color: initial;&quot;&gt;setChartFormatThreeD()&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span style=&quot;text-align: center; text-wrap: wrap; background-color: initial;&quot;&gt;(+)&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center; text-wrap: wrap; background-color: initial;&quot;&gt;setTabProperties(name: String, color: Excel.XlColorIndex)&lt;/span&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="181.02" width="407.5" x="-750.5" y="-3610" as="geometry" />
+          <mxGeometry height="181.02" width="407.5" x="-420.5" y="-3551.02" as="geometry" />
         </mxCell>
         <mxCell id="1aEds5gZWEgiE7dHQm3D-5" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
           <mxGeometry height="372.33" width="325" x="-1620" y="-2320" as="geometry" />
@@ -1776,7 +1780,7 @@
           <mxGeometry height="293" width="263.7" x="2430" y="-2320" as="geometry" />
         </mxCell>
         <mxCell id="1aEds5gZWEgiE7dHQm3D-234" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;labelBackgroundColor=none;fillColor=#d5e8d4;strokeColor=#82b366;html=1;" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/span&gt;&lt;br&gt;ExcelRangeType" vertex="1">
-          <mxGeometry height="108" width="180" x="-1555" y="-3410" as="geometry" />
+          <mxGeometry height="108" width="180" x="-1045" y="-3190" as="geometry" />
         </mxCell>
         <mxCell id="1aEds5gZWEgiE7dHQm3D-235" parent="1aEds5gZWEgiE7dHQm3D-234" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;labelBackgroundColor=none;" value="HEADER_PRIMARY (0)&#xa;HEADER_SECONDARY (1)&#xa;NORMAL (2)" vertex="1">
           <mxGeometry height="60" width="180" y="40" as="geometry" />
@@ -1786,8 +1790,8 @@
         </mxCell>
         <mxCell id="1aEds5gZWEgiE7dHQm3D-237" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="eaw1AFDRlnI-Rr3le-9H-3" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="1aEds5gZWEgiE7dHQm3D-234" value="Use">
           <mxGeometry relative="1" width="160" as="geometry">
-            <mxPoint x="-1320" y="-3582" as="sourcePoint" />
-            <mxPoint x="-1450" y="-3488" as="targetPoint" />
+            <mxPoint x="-930" y="-3472" as="sourcePoint" />
+            <mxPoint x="-1060" y="-3378" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="1aEds5gZWEgiE7dHQm3D-242" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="eaw1AFDRlnI-Rr3le-9H-3" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="Xc0I3NwcWc2x1O5I0Oq--0" value="Use">
@@ -1846,9 +1850,6 @@
             <mxPoint x="5" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="uQL8i8UM-rYcg9ZWUqrd-14" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
-          <mxGeometry height="261.98" width="425" x="-2050" y="-1660" as="geometry" />
-        </mxCell>
         <mxCell id="uQL8i8UM-rYcg9ZWUqrd-15" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
           <mxGeometry height="101.98" width="494.5" x="-1117.25" y="-1320.99" as="geometry" />
         </mxCell>
@@ -1884,17 +1885,11 @@
             <mxPoint x="-870" y="-3979.48" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e3USVaksUC-vuJHWZCek-7" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
-          <mxGeometry height="203.96" width="410" x="-1280" y="-4285.94" as="geometry" />
-        </mxCell>
-        <mxCell id="e3USVaksUC-vuJHWZCek-8" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
-          <mxGeometry height="203.96" width="410" x="-700" y="-4185.94" as="geometry" />
-        </mxCell>
         <mxCell id="e3USVaksUC-vuJHWZCek-10" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
           <mxGeometry height="147.5" width="500" x="-1120" y="-910" as="geometry" />
         </mxCell>
         <mxCell id="e3USVaksUC-vuJHWZCek-12" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="ExcelComInteropHandler" vertex="1">
-          <mxGeometry height="100" width="235" x="-1715" y="-1290" as="geometry" />
+          <mxGeometry height="100" width="235" x="-1715" y="-1240" as="geometry" />
         </mxCell>
         <mxCell id="e3USVaksUC-vuJHWZCek-13" parent="e3USVaksUC-vuJHWZCek-12" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="&#xa;" vertex="1">
           <mxGeometry height="10" width="235" y="30" as="geometry" />
@@ -1943,17 +1938,65 @@
         </mxCell>
         <mxCell id="e3USVaksUC-vuJHWZCek-21" connectable="0" parent="e3USVaksUC-vuJHWZCek-20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;rotation=-90;" value="Extends" vertex="1">
           <mxGeometry relative="1" x="-0.0406" y="-1" as="geometry">
-            <mxPoint x="-1" y="46" as="offset" />
+            <mxPoint x="-1" y="16" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e3USVaksUC-vuJHWZCek-22" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
-          <mxGeometry height="261.98" width="425" x="-1820" y="-1390" as="geometry" />
-        </mxCell>
         <mxCell id="xPIKEmu_GDVmqeU9nLzk-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
-          <mxGeometry height="77.5" width="419" x="3050" y="-1169" as="geometry" />
+          <mxGeometry height="499" width="419" x="3050" y="-1300" as="geometry" />
         </mxCell>
-        <mxCell id="6fONaOiBgJxdGo7WbsaF-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
-          <mxGeometry height="48.96" width="452.5" x="-1796.25" y="-4120" as="geometry" />
+        <mxCell id="ZbgcD9k1D1wqFo25nUUq-1" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="248.96" width="600" x="-1050" y="-3998.96" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbgcD9k1D1wqFo25nUUq-3" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="330" width="500" x="-1695" y="-1556.98" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbgcD9k1D1wqFo25nUUq-5" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="274" width="452.5" x="-1820" y="-4735" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbgcD9k1D1wqFo25nUUq-6" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="102" width="452.5" x="-1820" y="-3593.02" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbgcD9k1D1wqFo25nUUq-7" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="150" width="452.5" x="-1830" y="-3780" as="geometry" />
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="90" width="452.5" x="-1820" y="-4030" as="geometry" />
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-2" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="jAzB7lN_WlmiuEdfgK6Z-4" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="jAzB7lN_WlmiuEdfgK6Z-8" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-1350" y="-3382.02" as="sourcePoint" />
+            <mxPoint x="-1350" y="-3461.02" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-3" connectable="0" parent="jAzB7lN_WlmiuEdfgK6Z-2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Implements" vertex="1">
+          <mxGeometry relative="1" x="-0.044" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-4" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;" value="Color" vertex="1">
+          <mxGeometry height="240" width="270" x="-1260" y="-3507" as="geometry" />
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-5" parent="jAzB7lN_WlmiuEdfgK6Z-4" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(-) red: Byte&#xa;(-) green: Byte&#xa;(-) blue: Byte&#xa;(-) RGB: Byte()&#xa;(-) etabsIntValue: Integer&#xa;" vertex="1">
+          <mxGeometry height="90" width="270" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-6" parent="jAzB7lN_WlmiuEdfgK6Z-4" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-7" parent="jAzB7lN_WlmiuEdfgK6Z-4" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) Color(red: Byte, green: Byte, blue: Byte)&#xa;(+) getRed() As Byte&#xa;(+) getGreen() As Byte&#xa;(+) getBlue() As Byte&#xa;(+) getRGB() As Byte()&#xa;(+) getEtabsIntValue() As Integer" vertex="1">
+          <mxGeometry height="102" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-8" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFE3FD;strokeColor=#36393d;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ColorInterface&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(+)&amp;nbsp;&lt;/span&gt;getRed() As Byte&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(+)&amp;nbsp;&lt;/span&gt;getGreen() As Byte&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(+)&amp;nbsp;&lt;/span&gt;getBlue() As Byte&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(+)&amp;nbsp;&lt;/span&gt;getRGB() As Byte()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(+)&amp;nbsp;&lt;/span&gt;getEtabsIntValue() As Integer&lt;/p&gt;" vertex="1">
+          <mxGeometry height="130" width="230" x="-1241" y="-3710" as="geometry" />
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-9" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Z8_1X8fiiOwd9tu43lov-79" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" target="jAzB7lN_WlmiuEdfgK6Z-4" value="Use">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="-1380" y="-3680" as="sourcePoint" />
+            <mxPoint x="-1022" y="-3940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jAzB7lN_WlmiuEdfgK6Z-10" parent="WIyWlLk6GJQsqaUBKTNV-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=6;strokeColor=#00CC66;" value="" vertex="1">
+          <mxGeometry height="870" width="600" x="-1450" y="-3953.96" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

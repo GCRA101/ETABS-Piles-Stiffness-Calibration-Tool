@@ -344,7 +344,9 @@ Public Class PSC_Model
             sapModel.SetModelIsLocked(False)
 
             'INITIALIZE PILES SPRINGS
-            If iter = 0 Then initializePointSprings()
+            If iter = 0 Then
+                initializeEtabsPointSprings()
+            End If
 
             'ACTIVATE ALL LOAD CASES FOR RUNNING THE ANALYSIS
             ret = sapModel.Analyze.SetRunCaseFlag(Me.etabsLoadCaseNames(0), True, All:=True)
@@ -699,7 +701,7 @@ Public Class PSC_Model
     End Sub
 
 
-    Private Sub initializePointSprings()
+    Private Sub initializeEtabsPointSprings()
 
         Me.sapModel.SetModelIsLocked(False)
 

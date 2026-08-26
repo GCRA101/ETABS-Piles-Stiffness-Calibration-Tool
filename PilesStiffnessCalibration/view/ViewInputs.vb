@@ -66,6 +66,8 @@ Public Class ViewInputs
         Me.cbNonLinearOptions.SelectedIndex = 0
         'Set Rigid Piles Option as the default one
         Me.rbRigid.Checked = True
+        'Set Override Area Loads
+        Me.cbOverridePDispAreaLoads.Checked = False
         'Set first item of each combobox as the default one
         For Each comp As Component In gbPDispInputs.Controls
             If CStr(comp.GetType().Name) = "ComboBox" Then

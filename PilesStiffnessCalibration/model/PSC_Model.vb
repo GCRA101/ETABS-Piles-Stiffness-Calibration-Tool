@@ -379,7 +379,7 @@ Public Class PSC_Model
             '2. Read Point Reactions from ETABS and assign them to PileObjects
             readPileObjsForces(Me.pileObjs)
             '3. Update PDisp Loads based on ETABS reactions
-            updatePDispLoads(Me.pileObjs)
+            updatePDispLoads(Me.pileObjs, Me.overridePDispLoads)
             '4. Perform Analysis
             pDispModel.analyse()
             '5. Save pDispModel
@@ -623,7 +623,7 @@ Public Class PSC_Model
     End Sub
 
 
-    Private Sub updatePDispLoads(pileObjs As List(Of PileObject))
+    Private Sub updatePDispLoads(pileObjs As List(Of PileObject), Optional override As Boolean = True)
 
         'UPDATE PDISP LOADS
 
@@ -641,7 +641,14 @@ Public Class PSC_Model
                                    ppLoad = ppLoad / (pDispRectLoad.getLoad().Width * pDispRectLoad.getLoad().Length)
                                    Dim rectLoad As RectLoad
                                    rectLoad = pDispRectLoad.getLoad()
-                                   rectLoad.Normal = ppLoad
+                                   If (Not override) Then
+                                       Dim index As Integer
+                                       index = Me.pDispRectLoadsV0.Select(Function(pdrl) pdrl.getLoad().Name).ToList().
+                                                                   BinarySearch(pDispRectLoad.getLoad().Name)
+                                       rectLoad.Normal = ppLoad + Me.pDispRectLoadsV0(index).getLoad().Normal
+                                   Else
+                                       rectLoad.Normal = ppLoad
+                                   End If
                                    pDispRectLoad.setLoad(rectLoad)
                                End Function)
         'Update CircLoads based on new loads from ETABS
@@ -653,7 +660,14 @@ Public Class PSC_Model
                                    ppLoad = ppLoad / (Math.PI * (Math.Pow(pDispCircLoad.getLoad().Width, 2) / 4))
                                    Dim circLoad As CircLoad
                                    circLoad = pDispCircLoad.getLoad()
-                                   circLoad.Normal = ppLoad
+                                   If (Not override) Then
+                                       Dim index As Integer
+                                       index = Me.pDispCircLoadsV0.Select(Function(pdrl) pdrl.getLoad().Name).ToList().
+                                                                   BinarySearch(pDispCircLoad.getLoad().Name)
+                                       circLoad.Normal = ppLoad + Me.pDispCircLoadsV0(index).getLoad().Normal
+                                   Else
+                                       circLoad.Normal = ppLoad
+                                   End If
                                    pDispCircLoad.setLoad(circLoad)
                                End Function)
 
@@ -773,8 +787,12 @@ Public Class PSC_Model
     End Sub
 
     Private Sub initializePDispLoads()
+        ' Extract PDisp Rectangular Loads and Sort them based on their Name using a Comparer Lambda Expression
         Me.pDispRectLoadsV0 = Me.rectLoadsPuller.pull()
+        Me.pDispRectLoadsV0.Sort(Function(pdrl1, pdrl2) pdrl1.getLoad().Name > pdrl2.getLoad().Name)
+        ' Extract PDisp Circular Loads and Sort them based on their Name using a Comparer Lambda Expression
         Me.pDispCircLoadsV0 = Me.circLoadsPuller.pull()
+        Me.pDispCircLoadsV0.Sort(Function(pdrl1, pdrl2) pdrl1.getLoad().Name > pdrl2.getLoad().Name)
     End Sub
 
 

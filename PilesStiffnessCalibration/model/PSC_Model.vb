@@ -633,43 +633,62 @@ Public Class PSC_Model
         'Dim pDispPolyLoads As List(Of PDispPolyLoad) = polyLoadsPuller.pull()
 
         'Update RectLoads based on new loads from ETABS
-        pDispRectLoads.ForEach(Function(pDispRectLoad)
-                                   Dim ppLoad As Double
-                                   ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispRectLoad.getLoad().Name).
+        For i As Integer = 0 To pDispRectLoads.Count - 1
+
+            Dim pDispRectLoad As PDispRectLoad = pDispRectLoads(i)
+
+            'Compute ppLoad
+            Dim ppLoad As Double = 0.0
+            ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispRectLoad.getLoad().Name).
                                                                  Select(Function(plObj) plObj.getLoads().getF3()).
                                                                  FirstOrDefault()
-                                   ppLoad = ppLoad / (pDispRectLoad.getLoad().Width * pDispRectLoad.getLoad().Length)
-                                   Dim rectLoad As RectLoad
-                                   rectLoad = pDispRectLoad.getLoad()
-                                   If (Not override) Then
-                                       Dim index As Integer
-                                       index = Me.pDispRectLoadsV0.Select(Function(pdrl) pdrl.getLoad().Name).ToList().
-                                                                   BinarySearch(pDispRectLoad.getLoad().Name)
-                                       rectLoad.Normal = ppLoad + Me.pDispRectLoadsV0(index).getLoad().Normal
-                                   Else
-                                       rectLoad.Normal = ppLoad
-                                   End If
-                                   pDispRectLoad.setLoad(rectLoad)
-                               End Function)
+
+            ppLoad = ppLoad / (pDispRectLoad.getLoad().Width * pDispRectLoad.getLoad().Length)
+
+            'Copy load
+            Dim rectLoad As RectLoad = pDispRectLoad.getLoad()
+
+            If Not override Then
+                'Find matching load in V0
+                Dim pDispRectLoadV0 As PDispRectLoad = Nothing
+                pDispRectLoadV0 = Me.pDispRectLoadsV0.First(Function(pdrl) pdrl.getLoad().Name = pDispRectLoad.getLoad().Name)
+                rectLoad.Normal = ppLoad + pDispRectLoadV0.getLoad().Normal
+            Else
+                rectLoad.Normal = ppLoad
+            End If
+
+            pDispRectLoad.setLoad(rectLoad)
+
+        Next
+
         'Update CircLoads based on new loads from ETABS
-        pDispCircLoads.ForEach(Function(pDispCircLoad)
-                                   Dim ppLoad As Double
-                                   ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispCircLoad.getLoad().Name).
+        For i As Integer = 0 To pDispCircLoads.Count - 1
+
+            Dim pDispCircLoad As PDispCircLoad = pDispCircLoads(i)
+
+            'Compute ppLoad
+            Dim ppLoad As Double = 0.0
+            ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispCircLoad.getLoad().Name).
                                                                  Select(Function(plObj) plObj.getLoads().getF3()).
                                                                  FirstOrDefault()
-                                   ppLoad = ppLoad / (Math.PI * (Math.Pow(pDispCircLoad.getLoad().Width, 2) / 4))
-                                   Dim circLoad As CircLoad
-                                   circLoad = pDispCircLoad.getLoad()
-                                   If (Not override) Then
-                                       Dim index As Integer
-                                       index = Me.pDispCircLoadsV0.Select(Function(pdrl) pdrl.getLoad().Name).ToList().
-                                                                   BinarySearch(pDispCircLoad.getLoad().Name)
-                                       circLoad.Normal = ppLoad + Me.pDispCircLoadsV0(index).getLoad().Normal
-                                   Else
-                                       circLoad.Normal = ppLoad
-                                   End If
-                                   pDispCircLoad.setLoad(circLoad)
-                               End Function)
+
+            ppLoad = ppLoad / (Math.PI * (Math.Pow(pDispCircLoad.getLoad().Width, 2) / 4))
+
+            'Copy load
+            Dim circLoad As CircLoad = pDispCircLoad.getLoad()
+
+            If Not override Then
+                'Find matching load in V0
+                Dim pDispCircLoadV0 As PDispCircLoad = Nothing
+                pDispCircLoadV0 = Me.pDispCircLoadsV0.First(Function(pdrl) pdrl.getLoad().Name = pDispCircLoad.getLoad().Name)
+                circLoad.Normal = ppLoad + pDispCircLoadV0.getLoad().Normal
+            Else
+                circLoad.Normal = ppLoad
+            End If
+
+            pDispCircLoad.setLoad(circLoad)
+
+        Next
 
         ''Update PolyLoads based on new loads from ETABS
         'pDispPolyLoads.ForEach(Function(pDispPolyLoad)

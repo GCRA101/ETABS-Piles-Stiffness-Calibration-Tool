@@ -69,6 +69,8 @@ Public Class PSC_Model
     Private rectloadsPusher As LoadsPusher(Of PDispRectLoad)
     Private circloadsPusher As LoadsPusher(Of PDispCircLoad)
     Private polyloadsPusher As LoadsPusher(Of PDispPolyLoad)
+    Private pDispRectLoadsV0 As List(Of PDispRectLoad)
+    Private pDispCircLoadsV0 As List(Of PDispCircLoad)
     Private ret As Integer
     Private iterNum As Integer = 0
     Private stepRun As Boolean = False
@@ -359,6 +361,7 @@ Public Class PSC_Model
             'INITIALIZE PILES SPRINGS
             If iter = 0 Then
                 initializeEtabsPointSprings()
+                initializePDispLoads()
             End If
 
             'ACTIVATE ALL LOAD CASES FOR RUNNING THE ANALYSIS
@@ -767,6 +770,11 @@ Public Class PSC_Model
 
         Me.sapModel.File.Save()
 
+    End Sub
+
+    Private Sub initializePDispLoads()
+        Me.pDispRectLoadsV0 = Me.rectLoadsPuller.pull()
+        Me.pDispCircLoadsV0 = Me.circLoadsPuller.pull()
     End Sub
 
 

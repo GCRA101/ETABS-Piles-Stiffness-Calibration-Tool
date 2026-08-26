@@ -53,6 +53,7 @@ Public Class PSC_Model
     Private selEtabsGroupName As String
     Private selEtabsLoadComboName As String
     Private selNonLinearOption As String
+    Private overridePDispLoads As Boolean
     Private iterNumMax As Integer
     Private convergenceCriterion As String
     Private convergenceFactor As Double
@@ -110,8 +111,8 @@ Public Class PSC_Model
 
 
     Public Sub initialize(sapModel As ETABSv1.cSapModel, pDispFilePath As String, selEtabsLoadComboName As String,
-                          selEtabsGroupName As String, selNonLinearOption As String, iterNumMax As Integer,
-                          convergenceCriterion As String, convergenceFactor As Double, percentile As Double)
+                          selEtabsGroupName As String, selNonLinearOption As String, overridePDispLoads As Boolean,
+                          iterNumMax As Integer, convergenceCriterion As String, convergenceFactor As Double, percentile As Double)
         'Check validity of inputs
         Me.checkInputsData(sapModel, pDispFilePath, selEtabsLoadComboName, selEtabsGroupName, iterNumMax, convergenceFactor)
         'Assign Model attributes
@@ -120,6 +121,7 @@ Public Class PSC_Model
         Me.selEtabsLoadComboName = selEtabsLoadComboName
         Me.selEtabsGroupName = selEtabsGroupName
         Me.selNonLinearOption = selNonLinearOption
+        Me.overridePDispLoads = overridePDispLoads
         Me.iterNumMax = iterNumMax
         Me.convergenceCriterion = convergenceCriterion
         Me.convergenceFactor = convergenceFactor
@@ -362,6 +364,8 @@ Public Class PSC_Model
             updatePDispLoads(Me.pileObjs)
             '4. Perform Analysis
             pDispModel.analyse()
+            '5. Save pDispModel
+            'pDispModel.save(FileManager.setNewFilePath(Me.pDispInitialPath, Me.pDispModelsFolderPath, Me.iterNum))
             '5. Read Point Displacements from PDisp and assign them to PileObjects
             readPileObjsDisplacements(Me.pileObjs)
             '6 Update the Piles Status based on the 
@@ -895,6 +899,9 @@ Public Class PSC_Model
     Public Sub setEtabsPointNames(etabsPointNames As List(Of String))
         Me.etabsPointNames = etabsPointNames
     End Sub
+    Public Sub setOverridePDispLoads(overridePDispLoads As Boolean)
+        Me.overridePDispLoads = overridePDispLoads
+    End Sub
     Public Sub setIterNumMax(iterNumMax As Integer)
         Me.iterNumMax = iterNumMax
     End Sub
@@ -944,6 +951,9 @@ Public Class PSC_Model
     End Function
     Public Function getEtabsPointNames() As List(Of String)
         Return Me.etabsPointNames
+    End Function
+    Public Function getOverridePDispLoads() As Boolean
+        Return Me.overridePDispLoads
     End Function
     Public Function getIterNumMax() As Integer
         Return Me.iterNumMax

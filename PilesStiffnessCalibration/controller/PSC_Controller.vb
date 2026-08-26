@@ -134,9 +134,13 @@ Public Class PSC_Controller
 		percentile = CDbl(Strings.Split(CStr(Me.view.getViewInputs().cbPercentile.
 							Items(Me.view.getViewInputs().cbPercentile.SelectedIndex)), "%")(0)) / 100.0
 
+		'Get the PDisp Area Loads Overriding option selected by the user in the UI
+		Dim overridePDispLoads As Boolean
+		overridePDispLoads = Me.view.getViewInputs().cbOverridePDispAreaLoads.Checked
+
 		'2. Initialize the Model
-		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, iterNumMax,
-							convergenceCriterion, convergenceFactor, percentile)
+		Me.model.initialize(Me.SapModel, pDispFilePath, selLoadCombo, selGroup, selNonLinearOption, overridePDispLoads,
+							iterNumMax, convergenceCriterion, convergenceFactor, percentile)
 
 		'Retain only points belonging to selected Group
 		Me.model.filterPointsByGroup()

@@ -63,6 +63,12 @@ Public Class PSC_Model
     Private pileObjsQueue As Queue(Of List(Of PileObject))
     Private convergingPiles As List(Of PileObject)
     Private nonConvergingPiles As List(Of PileObject)
+    Private rectLoadsPuller As LoadsPuller(Of PDispRectLoad)
+    Private circLoadsPuller As LoadsPuller(Of PDispCircLoad)
+    Private polyLoadsPuller As LoadsPuller(Of PDispPolyLoad)
+    Private rectloadsPusher As LoadsPusher(Of PDispRectLoad)
+    Private circloadsPusher As LoadsPusher(Of PDispCircLoad)
+    Private polyloadsPusher As LoadsPusher(Of PDispPolyLoad)
     Private ret As Integer
     Private iterNum As Integer = 0
     Private stepRun As Boolean = False
@@ -128,6 +134,13 @@ Public Class PSC_Model
         Me.percentile = percentile
         Me.sapModelInitialPath = Me.sapModel.GetModelFilename(True)
         Me.pDispInitialPath = pDispFilePath
+        'Create PDisp Push/Pull Utility Classes
+        Me.rectLoadsPuller = New LoadsPuller(Of PDispRectLoad)(pDispModel)
+        Me.circLoadsPuller = New LoadsPuller(Of PDispCircLoad)(pDispModel)
+        Me.polyLoadsPuller = New LoadsPuller(Of PDispPolyLoad)(pDispModel)
+        Me.rectloadsPusher = New LoadsPusher(Of PDispRectLoad)(pDispModel)
+        Me.circloadsPusher = New LoadsPusher(Of PDispCircLoad)(pDispModel)
+        Me.polyloadsPusher = New LoadsPusher(Of PDispPolyLoad)(pDispModel)
         'Create Output Directories
         Me.resultsFolderPath = FileManager.setDatedFolderPath(Path.GetDirectoryName(Me.sapModelInitialPath), "PSCT_Results")
         Me.sapModelsFolderPath = Me.resultsFolderPath + "\ETABS_Models"
@@ -611,18 +624,9 @@ Public Class PSC_Model
 
         'UPDATE PDISP LOADS
 
-        'Set up Pullers for each type of load
-        Dim rectLoadsPuller As LoadsPuller(Of PDispRectLoad) = New LoadsPuller(Of PDispRectLoad)(pDispModel)
-        Dim circLoadsPuller As LoadsPuller(Of PDispCircLoad) = New LoadsPuller(Of PDispCircLoad)(pDispModel)
-        Dim polyLoadsPuller As LoadsPuller(Of PDispPolyLoad) = New LoadsPuller(Of PDispPolyLoad)(pDispModel)
-        'Set up Pushers for each type of load
-        Dim rectloadsPusher As LoadsPusher(Of PDispRectLoad) = New LoadsPusher(Of PDispRectLoad)(pDispModel)
-        Dim circloadsPusher As LoadsPusher(Of PDispCircLoad) = New LoadsPusher(Of PDispCircLoad)(pDispModel)
-        Dim polyloadsPusher As LoadsPusher(Of PDispPolyLoad) = New LoadsPusher(Of PDispPolyLoad)(pDispModel)
-
         'Extract all pdispLoads depending on type
-        Dim pDispRectLoads As List(Of PDispRectLoad) = rectLoadsPuller.pull()
-        Dim pDispCircLoads As List(Of PDispCircLoad) = circLoadsPuller.pull()
+        Dim pDispRectLoads As List(Of PDispRectLoad) = Me.rectLoadsPuller.pull()
+        Dim pDispCircLoads As List(Of PDispCircLoad) = Me.circLoadsPuller.pull()
         'Dim pDispPolyLoads As List(Of PDispPolyLoad) = polyLoadsPuller.pull()
 
         'Update RectLoads based on new loads from ETABS
@@ -694,8 +698,8 @@ Public Class PSC_Model
         '                       End Function)
 
         'Push updated PdispLoads back in PDisp
-        rectloadsPusher.push(pDispRectLoads, True)
-        circloadsPusher.push(pDispCircLoads, True)
+        Me.rectloadsPusher.push(pDispRectLoads, True)
+        Me.circloadsPusher.push(pDispCircLoads, True)
         'polyloadsPusher.push(pDispPolyLoads, True)
 
     End Sub

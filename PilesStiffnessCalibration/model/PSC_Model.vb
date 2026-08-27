@@ -806,12 +806,10 @@ Public Class PSC_Model
     End Sub
 
     Private Sub initializePDispLoads()
-        ' Extract PDisp Rectangular Loads and Sort them based on their Name using a Comparer Lambda Expression
+        ' Extract PDisp Rectangular Loads
         Me.pDispRectLoadsV0 = Me.rectLoadsPuller.pull()
-        Me.pDispRectLoadsV0.Sort(Function(pdrl1, pdrl2) pdrl1.getLoad().Name > pdrl2.getLoad().Name)
-        ' Extract PDisp Circular Loads and Sort them based on their Name using a Comparer Lambda Expression
+        ' Extract PDisp Circular Loads
         Me.pDispCircLoadsV0 = Me.circLoadsPuller.pull()
-        Me.pDispCircLoadsV0.Sort(Function(pdrl1, pdrl2) pdrl1.getLoad().Name > pdrl2.getLoad().Name)
     End Sub
 
 

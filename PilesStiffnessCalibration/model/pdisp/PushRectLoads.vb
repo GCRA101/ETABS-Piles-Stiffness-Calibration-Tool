@@ -24,16 +24,19 @@ Public Class PushRectLoads
     Public Sub push(overwrite As Boolean) Implements PushData.push
 
         With Me.pDispModel.getPDispApp()
-            '1. DELETE EXISTING RECTLOADS IF overwrite=True
-            If (overwrite) Then
-                Dim numRectLoads As Short
-                Do
-                    .DeleteRectLoad(1)
-                    .NumRectLoads(numRectLoads)
-                Loop Until numRectLoads = 0
-            End If
-            '2. ADD NEW RECTLOADS
-            Me.rectLoads.ForEach(Sub(rectLd) .AddRectLoad(rectLd.getLoad()))
+            With Me.pDispModel.getPDispApp()
+                '1. DELETE EXISTING RECTLOADS IF overwrite=True
+                If (overwrite) Then
+                    Dim numRectLoads As Short
+                    Do
+                        .DeleteRectLoad(1)
+                        .NumRectLoads(numRectLoads)
+                    Loop Until numRectLoads = 0
+                End If
+                '2. ADD NEW RECTLOADS
+                Me.rectLoads.ForEach(Sub(rectLd) .AddRectLoad(rectLd.getLoad()))
+
+            End With
 
         End With
 

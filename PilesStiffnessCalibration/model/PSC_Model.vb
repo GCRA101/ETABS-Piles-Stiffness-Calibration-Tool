@@ -637,12 +637,15 @@ Public Class PSC_Model
 
             Dim pDispRectLoad As PDispRectLoad = pDispRectLoads(i)
 
-            'Compute ppLoad
-            Dim ppLoad As Double = 0.0
-            ppLoad = pileObjs.Where(Function(plObj) plObj.getLocation().getName() = pDispRectLoad.getLoad().Name).
-                                                                 Select(Function(plObj) plObj.getLoads().getF3()).
-                                                                 FirstOrDefault()
+            'Compute ppLoad based on the corresponding pileObj's F3 load
+            Dim ppLoad As Double? = pileObjs.Where(Function(pObj) pObj.getLocation().getName() = pDispRectLoad.getLoad().Name).
+            Select(Function(pObj) CType(pObj.getLoads().getF3(), Double?)).
+            FirstOrDefault()
 
+            'If no corresponding pileObj is found, skip to next iteration (i.e. do not update the load)
+            If (ppLoad Is Nothing) Then Continue For
+
+            'Normalize ppLoad by the area of the RectLoad
             ppLoad = ppLoad / (pDispRectLoad.getLoad().Width * pDispRectLoad.getLoad().Length)
 
             'Copy load

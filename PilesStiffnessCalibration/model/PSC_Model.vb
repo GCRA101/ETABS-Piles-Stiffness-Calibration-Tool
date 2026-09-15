@@ -371,8 +371,8 @@ Public Class PSC_Model
             ret = sapModel.Analyze.RunAnalysis()   'θ(n)
 
             'ACTIVATE ONLY LOAD COMBO SELECTED BY THE USER
-            sapModel.Results.Setup.DeselectAllCasesAndCombosForOutput()
-            sapModel.Results.Setup.SetComboSelectedForOutput(Me.selEtabsLoadComboName)
+            ret = sapModel.Results.Setup.DeselectAllCasesAndCombosForOutput()
+            ret = sapModel.Results.Setup.SetComboSelectedForOutput(Me.selEtabsLoadComboName)
 
             '1. Initialize/Reset List of PileObject Records for current iteration step
             Me.pileObjs = New List(Of PileObject)

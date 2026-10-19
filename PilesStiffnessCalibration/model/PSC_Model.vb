@@ -608,18 +608,19 @@ Public Class PSC_Model
 
         'COMPUTE SPRING STIFFNESSES
 
-        pileObjs.ForEach(Function(plObj)
-                             Dim springName = "Spring_" + plObj.getLocation().getName()
-                             Dim zStiffness As Double
-                             If plObj.getStatus = PileStatus.LOADED Then
-                                 zStiffness = Math.Round(CDbl(plObj.getLoads().getF3()) /
-                                                         CDbl(plObj.getDisplacements().getU3()), 1)
-                             Else
-                                 zStiffness = fixity
-                             End If
-                             Dim stiffnessValues() As Double = {0, 0, zStiffness}
-                             plObj.setStiffness(New SpringObject(springName, stiffnessValues))
-                         End Function)
+        For Each plObj In pileObjs
+            Dim springName = "Spring_" + plObj.getLocation().getName()
+            Dim zStiffness As Double
+            If plObj.getStatus = PileStatus.LOADED Then
+                zStiffness = Math.Round(CDbl(plObj.getLoads().getF3()) /
+                                        CDbl(plObj.getDisplacements().getU3()), 1)
+            Else
+                zStiffness = fixity
+            End If
+            Dim stiffnessValues() As Double = {0, 0, zStiffness}
+            plObj.setStiffness(New SpringObject(springName, stiffnessValues))
+        Next
+
     End Sub
 
 

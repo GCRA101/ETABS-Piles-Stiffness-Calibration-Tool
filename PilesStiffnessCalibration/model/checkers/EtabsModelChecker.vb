@@ -73,8 +73,8 @@ Public Class EtabsModelChecker
         If namesOnlyInEtabsGroup.Count = 0 And namesOnlyInPointNames.Count = 0 Then
             Return (True, Nothing)
         Else
-            Dim error = New CheckError("Point Names do not match")
-            Return (False, error)
+            Dim err = New CheckError("Point Names do not match")
+            Return (False, err)
         End If
 
     End Function

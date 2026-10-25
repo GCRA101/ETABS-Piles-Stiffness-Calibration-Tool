@@ -6,11 +6,11 @@
 ''' </summary>
 Public Interface FEAModelCheckerInterface
 
-    Function checkAnalysisRuns() As (success As Boolean, Error As CheckError)
-    Function checkModelOpens() As (success As Boolean, Error As CheckError)
-    Function checkModelSaves() As (success As Boolean, Error As CheckError)
-    Function checkPointsCount(selEtabsGroupName As String, pointsCount As Integer) As (success As Boolean, Error As CheckError)
-    Function checkPointsNames(selEtabsGroupName As String, pointNames As List(Of String)) As (success As Boolean, Error As CheckError)
+    Function checkAnalysisRuns() As (success As Boolean, err As CheckError)
+    Function checkModelOpens() As (success As Boolean, err As CheckError)
+    Function checkModelSaves() As (success As Boolean, err As CheckError)
+    Function checkPointsCount(selEtabsGroupName As String, pointsCount As Integer) As (success As Boolean, err As CheckError)
+    Function checkPointsNames(selEtabsGroupName As String, pointNames As List(Of String)) As (success As Boolean, err As CheckError)
     Sub runAllChecks()
 
 End Interface

@@ -20,43 +20,43 @@ Public Class PDispModelChecker
 
     'METHODS
 
-    Public Function checkAnalysisRuns() As (success As Boolean, err As CheckError))) Implements FEAModelCheckerInterface.checkAnalysisRuns
+    Public Function checkAnalysisRuns() As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkAnalysisRuns
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkDisplacementValues() As (success As Boolean, err As CheckError)))
+    Public Function checkDisplacementValues() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkGridsCalculation() As (success As Boolean, err As CheckError)))
+    Public Function checkGridsCalculation() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkAreaValues() As (success As Boolean, err As CheckError)))
+    Public Function checkAreaValues() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkLoadTypes() As (success As Boolean, err As CheckError)))
+    Public Function checkLoadTypes() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkLoadValues() As (success As Boolean, err As CheckError)))
+    Public Function checkLoadValues() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkModelOpens() As (success As Boolean, err As CheckError))) Implements FEAModelCheckerInterface.checkModelOpens
+    Public Function checkModelOpens() As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkModelOpens
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkModelSaves() As (success As Boolean, err As CheckError))) Implements FEAModelCheckerInterface.checkModelSaves
+    Public Function checkModelSaves() As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkModelSaves
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkPointsCount(pointsCount As Integer) As (success As Boolean, err As CheckError))) Implements FEAModelCheckerInterface.checkPointsCount
+    Public Function checkPointsCount(selEtabsGroupName As String, pointsCount As Integer) As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkPointsCount
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkPointsNames(pointNames As List(Of String)) As (success As Boolean, err As CheckError))) Implements FEAModelCheckerInterface.checkPointsNames
+    Public Function checkPointsNames(selEtabsGroupName As String, pointNames As List(Of String)) As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkPointsNames
         Throw New NotImplementedException()
     End Function
 

@@ -22,31 +22,31 @@ Public Class EtabsModelChecker
 
     'METHODS
 
-    Public Function checkAnalysisRuns() As Boolean Implements FEAModelCheckerInterface.checkAnalysisRuns
+    Public Function checkAnalysisRuns() As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkAnalysisRuns
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkLoadPatterns() As Boolean
+    Public Function checkLoadPatterns() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkLoadCases() As Boolean
+    Public Function checkLoadCases() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkLoadCombos() As Boolean
+    Public Function checkLoadCombos() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkModelOpens() As Boolean Implements FEAModelCheckerInterface.checkModelOpens
+    Public Function checkModelOpens() As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkModelOpens
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkModelSaves() As Boolean Implements FEAModelCheckerInterface.checkModelSaves
+    Public Function checkModelSaves() As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkModelSaves
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkPointsCount(pointsCount As Integer) As Boolean Implements FEAModelCheckerInterface.checkPointsCount
+    Public Function checkPointsCount(selEtabsGroupName As String, pointsCount As Integer) As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkPointsCount
         Throw New NotImplementedException()
     End Function
 
@@ -54,7 +54,7 @@ Public Class EtabsModelChecker
         Throw New NotImplementedException()
     End Function
 
-    Public Function checkPointSpringProperties() As Boolean
+    Public Function checkPointSpringProperties() As (success As Boolean, err As CheckError)
         Throw New NotImplementedException()
     End Function
 

@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="6016" dy="7948" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3742" dy="6567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -1999,7 +1999,7 @@
           <mxGeometry height="870" width="600" x="-1450" y="-3953.96" as="geometry" />
         </mxCell>
         <mxCell id="6lXhg40Ho3ViBXugsG4l-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=45;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;html=1;" value="&lt;div&gt;EtabsModelChecker&lt;/div&gt;" vertex="1">
-          <mxGeometry height="400" width="340" x="-1680" y="-3202" as="geometry" />
+          <mxGeometry height="400" width="340" x="290" y="-3456.02" as="geometry" />
         </mxCell>
         <mxCell id="6lXhg40Ho3ViBXugsG4l-1" parent="6lXhg40Ho3ViBXugsG4l-0" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(-) etabsModel: ETABSv1.cSapModel " vertex="1">
           <mxGeometry height="45" width="340" y="45" as="geometry" />
@@ -2007,8 +2007,43 @@
         <mxCell id="6lXhg40Ho3ViBXugsG4l-2" parent="6lXhg40Ho3ViBXugsG4l-0" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="340" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="6lXhg40Ho3ViBXugsG4l-3" parent="6lXhg40Ho3ViBXugsG4l-0" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) EtabsModelChecker(etabsModel: ETABSv1.cSapModel )&#xa;(+) checkLoadPatterns()&#xa;(+) checkLoadCases()&#xa;(+) checkLoadCombos()&#xa;(+) checkPointSpringProperties()&#xa;.............&#xa;&#xa;&#xa;" vertex="1">
+        <mxCell id="6lXhg40Ho3ViBXugsG4l-3" parent="6lXhg40Ho3ViBXugsG4l-0" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) EtabsModelChecker(etabsModel: ETABSv1.cSapModel )&#xa;(+) checkAnalysisRuns(): boolean&#xa;(+) checkLoadPatterns()&#xa;(+) checkLoadCases()&#xa;(+) checkLoadCombos()&#xa;(+) checkModelOpens(): boolean&#xa;(+) checkModelSaves(): boolean&#xa;(+) checkPointsCount(pointsCount: int): boolean&#xa;(+) checkPointNames(pointNames: List&lt;String&gt;): boolean&#xa;(+) checkPointSpringProperties()&#xa;(+) runAllChecks():void&#xa;.............&#xa;&#xa;&#xa;" vertex="1">
           <mxGeometry height="302" width="340" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="5YYGybw-rRtmFtMoQiFi-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=45;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#eeeeee;strokeColor=#36393d;html=1;" value="&lt;div&gt;PDispModelChecker&lt;/div&gt;" vertex="1">
+          <mxGeometry height="400" width="340" x="690.36" y="-3456.02" as="geometry" />
+        </mxCell>
+        <mxCell id="5YYGybw-rRtmFtMoQiFi-1" parent="5YYGybw-rRtmFtMoQiFi-0" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="(-) pDispModel: PDispModel" vertex="1">
+          <mxGeometry height="45" width="340" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="5YYGybw-rRtmFtMoQiFi-2" parent="5YYGybw-rRtmFtMoQiFi-0" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="340" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5YYGybw-rRtmFtMoQiFi-3" parent="5YYGybw-rRtmFtMoQiFi-0" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" value="(+) PDispModelChecker(pDispModel: PDispModel)&#xa;(+) checkAnalysisRuns(): boolean&#xa;(+) checkDisplacementValues()&#xa;(+) checkGridsCalculation()&#xa;(+) checkAreaValues(): boolean&#xa;(+) checkLoadTypes(): boolean&#xa;(+) checkLoadValues(): boolean&#xa;(+) checkModelOpens(): boolean&#xa;(+) checkModelSaves(): boolean&#xa;(+) checkPointsCount(pointsCount: int): boolean&#xa;(+) checkPointNames(pointNames: List&lt;String&gt;): boolean&#xa;(+) runAllChecks():void&#xa;.............&#xa;&#xa;&#xa;" vertex="1">
+          <mxGeometry height="302" width="340" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="5YYGybw-rRtmFtMoQiFi-4" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFE3FD;strokeColor=#36393d;" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;FEAModelCheckerInterface&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) checkAnalysisRuns(): boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) checkModelOpens(): boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) checkModelSaves(): boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) checkPointsCount(pointsCount: int): boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) checkPointsNames(pointNames: List&amp;lt;String&amp;gt;): boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;(+) runAllChecks(): void&lt;/p&gt;" vertex="1">
+          <mxGeometry height="150" width="407.5" x="460" y="-3730" as="geometry" />
+        </mxCell>
+        <mxCell id="5YYGybw-rRtmFtMoQiFi-5" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="6lXhg40Ho3ViBXugsG4l-0" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="5YYGybw-rRtmFtMoQiFi-4" value="">
+          <mxGeometry relative="1" width="160" x="0.0619" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="-3530" />
+              <mxPoint x="663.75" y="-3530" />
+            </Array>
+            <mxPoint x="471.86" y="-3507" as="sourcePoint" />
+            <mxPoint x="609.86" y="-3576" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5YYGybw-rRtmFtMoQiFi-6" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="5YYGybw-rRtmFtMoQiFi-0" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="5YYGybw-rRtmFtMoQiFi-4" value="">
+          <mxGeometry relative="1" width="160" x="0.0005" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="-3530" />
+              <mxPoint x="663.75" y="-3530" />
+            </Array>
+            <mxPoint x="640" y="-3386" as="sourcePoint" />
+            <mxPoint x="844" y="-3510" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

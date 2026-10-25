@@ -1,4 +1,5 @@
-Imports ETABSv1
+﻿Imports ETABSv1
+Imports Newtonsoft.Json.Linq
 
 ''' <summary>
 '''     <remarks>
@@ -79,8 +80,46 @@ Public Class EtabsModelChecker
 
     End Function
 
-    Public Function checkPointSpringProperties() As (success As Boolean, err As CheckError)
-        Throw New NotImplementedException()
+    Public Function checkPointSpringProperties(pointNames As List(Of String)) As (success As Boolean, err As CheckError)
+
+        ' 1. COLLECT UNIQUE NAMES OF POINTSPRINGPROPERTY ASSIGNED TO INPUT POINTNAMES
+        ' Variables Declaration
+        Dim ret As Integer                                                                                      'Θ(1)
+        Dim pointName, pointSpringPropName As String                                                            'Θ(1)
+        Dim pointSpringPropNames As HashSet(Of String)                                                          'Θ(1)
+        ' Looping through input pointNames
+        For Each pointName In pointNames                                                                        'n*Θ(1)+Θ(1)
+            ' Extract name of PointSpringProperty from current pointName
+            ret = Me.etabsModel.PointObj.GetSpringAssignment(pointName, pointSpringPropName)                    'Θ(1)
+            ' Add to HashSet DataStructure
+            pointSpringPropNames.Add(pointSpringPropName)                                                       'Θ(1)
+        Next
+
+        '2. EXTRACT STIFFNESS ARRAYS FROM COLLECTED POINTSPRINGPROPERTIES
+        ' Variables Declaration
+        Dim springOption, color As Integer                                                                      'Θ(1)
+        Dim stiffnessArray As Double()                                                                          'Θ(1)
+        Dim cSys, soilProfile, footing, notes, iGuid As String                                                  'Θ(1)
+        Dim period As Double                                                                                    'Θ(1)
+        Dim pointSpringProps As Dictionary(Of String, Double())                                                 'Θ(1)
+        ' Extract Arrays and assign them to dictionary
+        For Each pointSpringPropName In pointSpringPropNames                                                    'O(n) / +Θ(1)
+            ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pointSpringPropName, springOption, stiffnessArray, cSys,
+                                                             soilProfile, footing, period, color, notes, iGuid) 'Θ(1)
+            pointSpringProps.Add(pointSpringPropName, stiffnessArray)                                           'Θ(1)
+        Next
+
+        '3. CHECK STIFFNESS ARRAYS
+        For Each kvp In pointSpringProps                                                                        'O(n) / +Θ(1)
+            If kvp.Value.ToList().Any(Function(ki) Double.IsNaN(ki)) Then                                       'Θ(1) (O(6))
+                Return (False, New CheckError("Computed point spring properties contain NaN Values. "))         'Θ(1)
+            End If                                                                                              'Θ(1)
+        Next                                                                                                    'Θ(1)
+
+        '...If no error has been encountered...return true flag and null error object
+        Return (True, Nothing)
+
+
     End Function
 
     Public Sub runAllChecks() Implements FEAModelCheckerInterface.runAllChecks

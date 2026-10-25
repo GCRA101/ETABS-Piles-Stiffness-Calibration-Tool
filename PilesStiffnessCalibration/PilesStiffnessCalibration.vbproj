@@ -101,6 +101,9 @@
     <Compile Include="controller\ExcelComInteropHandler.vb" />
     <Compile Include="controller\MissingInputsHandler.vb" />
     <Compile Include="controller\VisualEffects.vb" />
+    <Compile Include="model\checkers\EtabsModelChecker.vb" />
+    <Compile Include="model\checkers\FEAModelCheckerInterface.vb" />
+    <Compile Include="model\checkers\PDispModelChecker.vb" />
     <Compile Include="model\Color.vb" />
     <Compile Include="model\ColorInterface.vb" />
     <Compile Include="model\ExcelChartFactoryInterface.vb" />

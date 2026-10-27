@@ -1,3 +1,4 @@
+Imports Newtonsoft.Json.Linq
 Imports pdispauto_20_1
 
 ''' <summary>
@@ -60,7 +61,37 @@ Public Class PDispModelChecker
     End Function
 
     Public Function checkAreaValues() As (success As Boolean, err As CheckError)
-        Throw New NotImplementedException()
+
+        '1. EXTRACT ALL PDISP LOADS FROM PDISP MODEL (polygonal type is not supported due to bugs in Oasys source code)
+        'Set up Pullers for each type of load
+        Dim rectLoadsPuller As LoadsPuller(Of PDispRectLoad) = New LoadsPuller(Of PDispRectLoad)(Me.pDispModel)
+        Dim circLoadsPuller As LoadsPuller(Of PDispCircLoad) = New LoadsPuller(Of PDispCircLoad)(Me.pDispModel)
+        'Extract all pdispLoads depending on type
+        Dim pDispRectLoads As List(Of PDispRectLoad) = rectLoadsPuller.pull()
+        Dim pDispCircLoads As List(Of PDispCircLoad) = circLoadsPuller.pull()
+
+        'Check area load dimensions for PDispRect Loads
+        For i As Integer = 0 To pDispRectLoads.Count - 1
+            Dim pDispRectLoad As PDispRectLoad = pDispRectLoads(i)
+            Dim w, l As Double
+            w = pDispRectLoad.getLoad().Width
+            l = pDispRectLoad.getLoad().Length
+            If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Or l = 0 Or Double.IsNaN(l) Or Double.IsInfinity(l) Then
+                Return (False, New CheckError("Invalid area load dimensions have been found in the PDisp Model. Please review."))
+            End If
+        Next
+
+        'Check area load dimensions for PDispCirc Loads
+        For i As Integer = 0 To pDispCircLoads.Count - 1
+            Dim pDispCircLoad As PDispCircLoad = pDispCircLoads(i)
+            Dim w, l As Double
+            w = pDispCircLoad.getLoad().Width
+            If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Then
+                Return (False, New CheckError("Invalid area load dimensions have been found in the PDisp Model. Please review."))
+            End If
+        Next
+
+        Return (True, Nothing)
     End Function
 
     Public Function checkLoadTypes() As (success As Boolean, err As CheckError)

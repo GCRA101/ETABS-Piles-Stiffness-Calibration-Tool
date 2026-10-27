@@ -38,6 +38,16 @@ The process continues until convergence criteria are met, and outputs are automa
 
 ---
 
+## 🛠️ Building from source
+
+Prerequisites:
+- Visual Studio with .NET Framework desktop development (restore NuGet packages).
+- **ETABS 22** installed at `C:\Program Files\Computers and Structures\ETABS 22\` (provides `ETABSv1.dll` and `CSiDetailAPI.dll`).
+- **Microsoft Excel** (Office interop assemblies).
+- **Oasys PDisp 20.1** at runtime. Its COM interop assembly (`Interop.pdispauto_20_1.dll`) is committed in `PilesStiffnessCalibration/lib/`, so it is not needed to compile.
+
+---
+
 ## 🖥️ User Interface
 
 ### ETABS Tools UI

@@ -103,24 +103,45 @@ Public Class EtabsModelChecker
         Dim period As Double                                                                                    'Θ(1)
         Dim pointSpringProps As Dictionary(Of String, Double())                                                 'Θ(1)
         ' Extract Arrays and assign them to dictionary
-        For Each pointSpringPropName In pointSpringPropNames                                                    'O(n) / +Θ(1)
+        For Each pointSpringPropName In pointSpringPropNames                                                    'Θ(n)+Θ(1)
             ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pointSpringPropName, springOption, stiffnessArray, cSys,
                                                              soilProfile, footing, period, color, notes, iGuid) 'Θ(1)
             pointSpringProps.Add(pointSpringPropName, stiffnessArray)                                           'Θ(1)
         Next
 
         '3. CHECK STIFFNESS ARRAYS
-        For Each kvp In pointSpringProps                                                                        'O(n) / +Θ(1)
+        For Each kvp In pointSpringProps                                                                        'O(n)/Ω(1) +Θ(1)
             If kvp.Value.ToList().Any(Function(ki) Double.IsNaN(ki)) Then                                       'Θ(1) (O(6))
                 Return (False, New CheckError("Computed point spring properties contain NaN Values. "))         'Θ(1)
             End If                                                                                              'Θ(1)
         Next                                                                                                    'Θ(1)
 
         '...If no error has been encountered...return true flag and null error object
-        Return (True, Nothing)
+        Return (True, Nothing)                                                                                  'Θ(1)
 
 
     End Function
+
+    Public Function checkPointSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)
+
+        '1. CHECK MATCHING OF STIFFNESS ARRAYS BETWEEN PILEOBJS AND ETABS MODEL POINTSPRINGPROPERTIES
+        ' Variables Declaration
+        Dim ret, springOption, color As Integer                                                                 'Θ(1)
+        Dim stiffnessArray As Double()                                                                          'Θ(1)
+        Dim cSys, soilProfile, footing, notes, iGuid As String                                                  'Θ(1)
+        Dim period As Double                                                                                    'Θ(1)
+        Dim pointSpringPropNames As List(Of String)                                                             'Θ(1)
+        ' Check pileobjs stiffness arrays against ETABS model spring stiffness arrays
+        For Each pileObj In pileObjs                                                                            'O(n)/Ω(1) +Θ(1)
+            ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pileObj.getStiffness().getName(),
+                        springOption, stiffnessArray, cSys, soilProfile, footing, period, color, notes, iGuid)  'Θ(1)
+            If pileObj.getStiffness().getValues().Equals(stiffnessArray) = False Then                           'Θ(1)
+                Return (False, New CheckError("ETABS Point Spring Properties do not match computed values."))   'Θ(1)
+            End If                                                                                              'Θ(1)
+        Next                                                                                                    'Θ(1)
+        '...If no error has been encountered...return true flag and null error object
+        Return (True, Nothing)                                                                                  'Θ(1)
+    End Function                                                                                                'Θ(1)
 
     Public Sub runAllChecks() Implements FEAModelCheckerInterface.runAllChecks
         Throw New NotImplementedException()

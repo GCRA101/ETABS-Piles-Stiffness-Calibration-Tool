@@ -248,15 +248,10 @@
     <EmbeddedResource Include="Icons\PluginIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="pdispauto_20_1">
-      <Guid>{C901EC99-B5AB-497E-8D34-79B338ECD5FD}</Guid>
-      <VersionMajor>20</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
+    <Reference Include="Interop.pdispauto_20_1">
+      <HintPath>lib\Interop.pdispauto_20_1.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="sounds\CHECKBOX.wav" />

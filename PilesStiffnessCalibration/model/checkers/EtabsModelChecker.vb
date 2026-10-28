@@ -164,7 +164,7 @@ Public Class EtabsModelChecker
         Dim errorsCount As Integer = 0                                                                                      'Θ(1)
         Dim errorMessage As String = "Point reactions contain NaN Or Infinity Values at following locations: "              'Θ(1)
         ' Looping through input pointNames
-        For Each pointName In pointNames                                                                                    'Θ(n)+Θ(1)
+        For Each pointName In pointNames                                                                                    'O(n)/Ω(1) +Θ(1)
             ret = Me.etabsModel.Results.JointReact(pointName, itemTypeElm, numRes, obj, elm, loadCase,
                                                    stepType, stepNum, f1, f2, f3, m1, m2, m3)                               'Θ(1)
             If ret <> 0 OrElse numRes = 0 OrElse f1 Is Nothing OrElse f2 Is Nothing OrElse f3 Is Nothing OrElse

@@ -69,7 +69,14 @@ Public Class PDispModelChecker
         'Extract all pdispLoads depending on type
         Dim pDispRectLoads As List(Of PDispRectLoad) = rectLoadsPuller.pull()
         Dim pDispCircLoads As List(Of PDispCircLoad) = circLoadsPuller.pull()
+        'Error lists storing the pdisp loads affected by invalid area load dimensions (width and length)
+        Dim errorPDispRectLoads As List(Of PDispRectLoad) = New List(Of PDispRectLoad)()
+        Dim errorPDispCircLoads As List(Of PDispCircLoad) = New List(Of PDispCircLoad)()
+        'Errors Count + Message
+        Dim errorCount As Integer = 0
+        Dim errorMessage As String = "Invalid area load dimensions have been found in the PDisp Model. See Loads "
 
+        '2. CHECK AREA LOAD DIMENSIONS
         'Check area load dimensions for PDispRect Loads
         For i As Integer = 0 To pDispRectLoads.Count - 1
             Dim pDispRectLoad As PDispRectLoad = pDispRectLoads(i)
@@ -77,20 +84,28 @@ Public Class PDispModelChecker
             w = pDispRectLoad.getLoad().Width
             l = pDispRectLoad.getLoad().Length
             If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Or l = 0 Or Double.IsNaN(l) Or Double.IsInfinity(l) Then
-                Return (False, New CheckError("Invalid area load dimensions have been found in the PDisp Model. Please review."))
+                errorMessage += pDispRectLoad.getLoad().Name + ", "
+                errorCount += 1
             End If
         Next
-
         'Check area load dimensions for PDispCirc Loads
         For i As Integer = 0 To pDispCircLoads.Count - 1
             Dim pDispCircLoad As PDispCircLoad = pDispCircLoads(i)
             Dim w, l As Double
             w = pDispCircLoad.getLoad().Width
             If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Then
-                Return (False, New CheckError("Invalid area load dimensions have been found in the PDisp Model. Please review."))
+                errorMessage += pDispCircLoad.getLoad().Name + ", "
+                errorCount += 1
             End If
         Next
 
+        '3. RETURN RESULTS
+        '...if errors have been encountered, return false bool flag and error object with built error message...
+        If errorCount > 0 Then
+            errorMessage = errorMessage.TrimEnd(", ")
+            Return (False, New CheckError(errorMessage))
+        End If
+        '...if no errors have been encountered, return true bool flag and null error object...
         Return (True, Nothing)
     End Function
 

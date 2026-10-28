@@ -140,9 +140,9 @@ Public Class EtabsModelChecker
     ' Time Complexity: T(n) = Θ(n)
 
 
-    Public Function checkPointSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)    'T(n)
+    Public Function checkPointLinearSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)
 
-        '1. CHECK MATCHING OF STIFFNESS ARRAYS BETWEEN PILEOBJS AND ETABS MODEL POINTSPRINGPROPERTIES
+        '1. CHECK MATCHING OF STIFFNESS ARRAYS BETWEEN PILEOBJS AND ETABS MODEL POINTSPRINGPROPERTIES                         'T(n)
         ' Variables Declaration
         Dim ret, springOption, color As Integer                                                                               'Θ(1)
         Dim stiffnessArray As Double()                                                                                        'Θ(1)
@@ -170,7 +170,7 @@ Public Class EtabsModelChecker
                 errorsCount += 1                                                                                              'Θ(1)
                 errorMessage &= propName & ", "                                                                               'Θ(1)
             End If                                                                                                            'Θ(1)
-        Next                                                                                                                'Θ(1)
+        Next                                                                                                                  'Θ(1)
 
         '2. RETURN RESULTS
         If errorsCount > 0 Then                                                                                               'Θ(1)

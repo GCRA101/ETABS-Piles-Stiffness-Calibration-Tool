@@ -90,7 +90,7 @@ Public Class EtabsModelChecker
         ' Variables Declaration
         Dim ret As Integer                                                                                                  'Θ(1)
         Dim pointName, pointSpringPropName As String                                                                        'Θ(1)
-        Dim pointSpringPropNames As HashSet(Of String)                                                                      'Θ(1)
+        Dim pointSpringPropNames As New HashSet(Of String)                                                                    'Θ(1)
         ' Looping through input pointNames
         For Each pointName In pointNames                                                                                    'n*Θ(1)+Θ(1)
             ' Extract name of PointSpringProperty from current pointName
@@ -105,7 +105,7 @@ Public Class EtabsModelChecker
         Dim stiffnessArray As Double()                                                                                      'Θ(1)
         Dim cSys, soilProfile, footing, notes, iGuid As String                                                              'Θ(1)
         Dim period As Double                                                                                                'Θ(1)
-        Dim pointSpringProps As Dictionary(Of String, Double())                                                             'Θ(1)
+        Dim pointSpringProps As New Dictionary(Of String, Double())                                                         'Θ(1)
         ' Extract Arrays and assign them to dictionary
         For Each pointSpringPropName In pointSpringPropNames                                                                'Θ(n)+Θ(1)
             ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pointSpringPropName, springOption, stiffnessArray, cSys,
@@ -148,22 +148,33 @@ Public Class EtabsModelChecker
         Dim stiffnessArray As Double()                                                                                        'Θ(1)
         Dim cSys, soilProfile, footing, notes, iGuid As String                                                                'Θ(1)
         Dim period As Double                                                                                                  'Θ(1)
-        Dim pointSpringPropNames As List(Of String)                                                                           'Θ(1)
         Dim errorsCount As Integer = 0                                                                                        'Θ(1)
         Dim errorMessage As String = "ETABS Point Spring Properties do not match computed values at following locations: "    'Θ(1)
         ' Check pileobjs stiffness arrays against ETABS model spring stiffness arrays
         For Each pileObj In pileObjs                                                                                          'O(n)/Ω(1) +Θ(1)
-            ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pileObj.getStiffness().getName(),
+            ' ETABS point spring property is named after the point (see PSC_Model.updatePointSprings)
+            Dim propName As String = pileObj.getLocation().getName()                                                          'Θ(1)
+            ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(propName,
                         springOption, stiffnessArray, cSys, soilProfile, footing, period, color, notes, iGuid)                'Θ(1)
-            If pileObj.getStiffness().getValues().Equals(stiffnessArray) = False Then                                         'Θ(1)
-                errorsCount += 1                                                                                              'Θ(1)
-                errorMessage &= pileObj.getStiffness().getName() & ", "                                                      'Θ(1)
+            If ret <> 0 OrElse stiffnessArray Is Nothing Then                                                                 'Θ(1)
+                Return (False, New CheckError(ErrorSeverity.FATAL,
+                        "Impossible to read ETABS Point Spring Property '" & propName & "'."))                                'Θ(1)
             End If                                                                                                            'Θ(1)
-        Next                                                                                                                  'Θ(1)
+            ' Expected array as assigned in ETABS: U1, U2, U3 + zero rotational stiffnesses
+            Dim expected As Double() = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(),
+                                        pileObj.getStiffness().getU3(), 0, 0, 0}                                              'Θ(1)
+            Dim matches As Boolean = stiffnessArray.Length = expected.Length AndAlso
+                Enumerable.Range(0, expected.Length).All(
+                    Function(i) Math.Abs(expected(i) - stiffnessArray(i)) <= 0.000001 * Math.Max(1.0, Math.Abs(expected(i))))  'Θ(1)
+            If Not matches Then                                                                                               'Θ(1)
+                errorsCount += 1                                                                                              'Θ(1)
+                errorMessage &= propName & ", "                                                                               'Θ(1)
+            End If                                                                                                            'Θ(1)
+        Next                                                                                                                'Θ(1)
 
         '2. RETURN RESULTS
         If errorsCount > 0 Then                                                                                               'Θ(1)
-            Return (False, New CheckError(ErrorSeverity.WARNING, errorMessage))                                               'Θ(1)
+            Return (False, New CheckError(ErrorSeverity.WARNING, errorMessage.TrimEnd(","c, " "c)))                           'Θ(1)
         End If                                                                                                                'Θ(1)
         '...If no error has been encountered...return true flag and null error object
         Return (True, Nothing)                                                                                                'Θ(1)

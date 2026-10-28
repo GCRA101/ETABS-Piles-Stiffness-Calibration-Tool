@@ -36,5 +36,8 @@
     Public Function getMetadata() As Object
         Return Me.metadata
     End Function
+    Public Function getSeverity() As ErrorSeverity
+        Return Me.severity
+    End Function
 
 End Class

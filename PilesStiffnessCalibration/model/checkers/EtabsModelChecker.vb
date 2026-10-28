@@ -72,15 +72,20 @@ Public Class EtabsModelChecker
 
 
         '3. Return True if no mismatching names were found
-        Dim errorMessage As String = "Following Point Names are missing in Etabs Group " & selEtabsGroupName & ": "
-        If namesOnlyInEtabsGroup.Count = 0 And namesOnlyInPointNames.Count = 0 Then
+        If namesOnlyInEtabsGroup.Count = 0 AndAlso namesOnlyInPointNames.Count = 0 Then
             Return (True, Nothing)
-        Else
-            '...If mismatching names have been found...return false flag and error object...
-            namesOnlyInPointNames.ForEach(Sub(name) errorMessage &= name + ", ")
-            Dim err = New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(","))
-            Return (False, err)
         End If
+        '...If mismatching names have been found...return false flag and error object...
+        Dim errorMessage As String = ""
+        If namesOnlyInPointNames.Count > 0 Then
+            errorMessage &= "Following Point Names are missing in Etabs Group " & selEtabsGroupName & ": " &
+                            String.Join(", ", namesOnlyInPointNames) & ". "
+        End If
+        If namesOnlyInEtabsGroup.Count > 0 Then
+            errorMessage &= "Following Point Names are in Etabs Group " & selEtabsGroupName &
+                            " but missing from the input points: " & String.Join(", ", namesOnlyInEtabsGroup) & "."
+        End If
+        Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage.Trim()))
 
     End Function
 
@@ -90,11 +95,15 @@ Public Class EtabsModelChecker
         ' Variables Declaration
         Dim ret As Integer                                                                                                  'Θ(1)
         Dim pointName, pointSpringPropName As String                                                                        'Θ(1)
-        Dim pointSpringPropNames As New HashSet(Of String)                                                                    'Θ(1)
+        Dim pointSpringPropNames As New HashSet(Of String)                                                                  'Θ(1)
         ' Looping through input pointNames
         For Each pointName In pointNames                                                                                    'n*Θ(1)+Θ(1)
             ' Extract name of PointSpringProperty from current pointName
             ret = Me.etabsModel.PointObj.GetSpringAssignment(pointName, pointSpringPropName)                                'Θ(1)
+            If ret <> 0 OrElse String.IsNullOrEmpty(pointSpringPropName) OrElse pointSpringPropName = "None" Then
+                Return (False, New CheckError(ErrorSeverity.FATAL,
+                        "No point spring property could be read for point '" & pointName & "'."))
+            End If
             ' Add to HashSet DataStructure
             pointSpringPropNames.Add(pointSpringPropName)                                                                   'Θ(1)
         Next
@@ -110,19 +119,22 @@ Public Class EtabsModelChecker
         For Each pointSpringPropName In pointSpringPropNames                                                                'Θ(n)+Θ(1)
             ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pointSpringPropName, springOption, stiffnessArray, cSys,
                                                              soilProfile, footing, period, color, notes, iGuid)             'Θ(1)
+            If ret <> 0 OrElse stiffnessArray Is Nothing Then
+                Return (False, New CheckError(ErrorSeverity.FATAL,
+                        "Impossible to read ETABS Point Spring Property '" & pointSpringPropName & "'."))
+            End If
             pointSpringProps.Add(pointSpringPropName, stiffnessArray)                                                       'Θ(1)
         Next
 
         '3. CHECK STIFFNESS ARRAYS
         ' Variables Declaration
-        Dim errorPointSpringProps As Dictionary(Of String, Double())                                                        'Θ(1)
         'Errors Count + Message
         Dim errorsCount As Integer = 0                                                                                      'Θ(1)
         Dim errorMessage As String = "Computed point spring properties contain " +
                                         "NaN Or Infinity Values at following locations: "                                   'Θ(1)
         ' Check errors in each stiffness array
         For Each kvp In pointSpringProps                                                                                    'O(n)/Ω(1) +Θ(1)
-            If kvp.Value.ToList().Any(Function(ki) Double.IsNaN(ki) Or Double.IsInfinity(ki)) Then                          'Θ(1)
+            If kvp.Value.ToList().Any(Function(ki) Double.IsNaN(ki) OrElse Double.IsInfinity(ki)) Then                      'Θ(1)
                 errorsCount += 1                                                                                            'Θ(1)
                 errorMessage &= kvp.Key & ", "                                                                              'Θ(1)
             End If                                                                                                          'Θ(1)
@@ -131,7 +143,7 @@ Public Class EtabsModelChecker
         ' 4. RETURN RESULTS
         If errorsCount > 0 Then                                                                                             'Θ(1)
             '...If errors have been encountered...return false flag and error object...
-            Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(", ")))                                 'Θ(1)
+            Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(","c, " "c)))                           'Θ(1)
         Else                                                                                                                'Θ(1)
             '...If no error has been encountered...return true flag and null error object
             Return (True, Nothing)                                                                                          'Θ(1)

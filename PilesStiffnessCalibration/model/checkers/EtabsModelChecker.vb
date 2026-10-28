@@ -116,7 +116,7 @@ Public Class EtabsModelChecker
         Dim period As Double                                                                                                'Θ(1)
         Dim pointSpringProps As New Dictionary(Of String, Double())                                                         'Θ(1)
         ' Extract Arrays and assign them to dictionary
-        For Each pointSpringPropName In pointSpringPropNames                                                                'Θ(n)+Θ(1)
+        For Each pointSpringPropName In pointSpringPropNames                                                                'O(n)/Ω(1) +Θ(1)
             ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pointSpringPropName, springOption, stiffnessArray, cSys,
                                                              soilProfile, footing, period, color, notes, iGuid)             'Θ(1)
             If ret <> 0 OrElse stiffnessArray Is Nothing Then
@@ -150,6 +150,46 @@ Public Class EtabsModelChecker
         End If                                                                                                              'Θ(1)
     End Function
     ' Time Complexity: T(n) = Θ(n)
+
+
+    Public Function checkPointReactions(pointNames As List(Of String)) As (success As Boolean, err As CheckError)    'T(n)
+
+        ' 1. EXTRACT REACTIONS FROM INPUT POINTNAMES
+        ' Variables Declaration
+        Dim ret, numRes As Integer                                                                                          'Θ(1)
+        Dim itemTypeElm As ETABSv1.eItemTypeElm                                                                             'Θ(1)
+        Dim obj, elm, loadCase, stepType As String()                                                                        'Θ(1)
+        Dim stepNum, f1, f2, f3, m1, m2, m3 As Double()                                                                     'Θ(1)
+        'Errors Count + Message
+        Dim errorsCount As Integer = 0                                                                                      'Θ(1)
+        Dim errorMessage As String = "Point reactions contain NaN Or Infinity Values at following locations: "              'Θ(1)
+        ' Looping through input pointNames
+        For Each pointName In pointNames                                                                                    'Θ(n)+Θ(1)
+            ret = Me.etabsModel.Results.JointReact(pointName, itemTypeElm, numRes, obj, elm, loadCase,
+                                                   stepType, stepNum, f1, f2, f3, m1, m2, m3)                               'Θ(1)
+            If ret <> 0 OrElse numRes = 0 OrElse f1 Is Nothing OrElse f2 Is Nothing OrElse f3 Is Nothing OrElse
+               m1 Is Nothing OrElse m2 Is Nothing OrElse m3 Is Nothing Then
+                Return (False, New CheckError(ErrorSeverity.FATAL,
+                        "Impossible to read ETABS reactions for point '" & pointName & "'."))
+            End If
+
+            ' 2. CHECK REACTIONS
+            If f1.Concat(f2).Concat(f3).Concat(m1).Concat(m2).Concat(m3).
+                Any(Function(r) Double.IsNaN(r) OrElse Double.IsInfinity(r)) Then                                           'Θ(1)
+                errorsCount += 1                                                                                            'Θ(1)
+                errorMessage &= pointName & ", "                                                                            'Θ(1)
+            End If
+        Next
+
+        ' 3. RETURN RESULTS
+        If errorsCount > 0 Then                                                                                             'Θ(1)
+            '...If errors have been encountered...return false flag and error object...
+            Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(","c, " "c)))                           'Θ(1)
+        End If
+        '...If no error has been encountered...return true flag and null error object
+        Return (True, Nothing)                                                                                              'Θ(1)
+    End Function
+    ' Time Complexity: T(n) = O(n) / Ω(1)
 
 
     Public Function checkPointLinearSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)

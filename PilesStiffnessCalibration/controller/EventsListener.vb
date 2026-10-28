@@ -164,6 +164,8 @@ Public Class EventsListener
             Me.controller.getExcessiveΔHandler().execute(ex3)
         Catch ex4 As ExcelComInteropException
             Me.controller.getExcelComInteropHandler().execute(ex4)
+        Catch ex5 As InvalidFEAOutputsException
+            Me.controller.getInvalidFEAOutputsHandler().execute(ex5)
         End Try
     End Sub
 

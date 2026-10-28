@@ -525,12 +525,20 @@ Public Class PSC_Model
         Dim f1, f2, f3, m1, m2, m3 As Double()
         Dim f_1, f_2, f_3, m_1, m_2, m_3 As Double
         Dim ppX, ppY, ppZ As Double
+        Dim invalidReactionPointNames As New List(Of String)
 
         For i = 0 To etabsPointNames.Count - 1 Step 1
             'Get reactions and coordinates from etabs points
             ret = sapModel.Results.JointReact(etabsPointNames(i), itemTypeElm, numRes, obj, elm, loadCase,
                                              stepType, stepNum, f1, f2, f3, m1, m2, m3)
             ret = sapModel.PointObj.GetCoordCartesian(etabsPointNames(i), ppX, ppY, ppZ)
+            'Check reactions are not blank / NaN / Infinity
+            If numRes = 0 OrElse f1 Is Nothing OrElse f2 Is Nothing OrElse f3 Is Nothing OrElse
+               f1.Length = 0 OrElse f2.Length = 0 OrElse f3.Length = 0 OrElse
+               f1.Concat(f2).Concat(f3).Any(Function(force) Double.IsNaN(force) OrElse Double.IsInfinity(force)) Then
+                invalidReactionPointNames.Add(etabsPointNames(i))
+                Continue For
+            End If
             'Format reactions
             f_1 = f1.Select(Of Double)(Function(force) (Math.Round(force, 0))).First()
             f_2 = f2.Select(Of Double)(Function(force) (Math.Round(force, 0))).First()
@@ -539,6 +547,11 @@ Public Class PSC_Model
             pileObjs.Add(New PileObject(etabsPointNames(i), New PointObject(etabsPointNames(i), ppX, ppY, ppZ),,
                          New PointLoads(New Double() {f_1, f_2, f_3})))
         Next
+
+        If invalidReactionPointNames.Count > 0 Then
+            Throw New InvalidFEAOutputsException("ETABS reactions are blank, NaN or Infinity at following points: " &
+                                                String.Join(", ", invalidReactionPointNames) & ".")
+        End If
 
     End Sub
 

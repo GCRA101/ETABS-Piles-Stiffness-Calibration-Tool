@@ -35,6 +35,7 @@ Public Class PSC_Controller
 	Private missingInputsHandler As MissingInputsHandler
 	Private excessiveΔHandler As ExcessiveΔHandler
 	Private excelComInteropHandler As ExcelComInteropHandler
+	Private invalidFEAOutputsHandler As InvalidFEAOutputsHandler
 	'EventListeners
 	Private eventsListener As EventsListener
 	'AudioManagers
@@ -80,6 +81,7 @@ Public Class PSC_Controller
 		Me.excessiveΔHandler = New ExcessiveΔHandler(Me)
 		Me.invalidInputsHandler = New InvalidInputsHandler(Me)
 		Me.excelComInteropHandler = New ExcelComInteropHandler(Me)
+		Me.invalidFEAOutputsHandler = New InvalidFEAOutputsHandler(Me)
 	End Sub
 
 
@@ -244,6 +246,9 @@ Public Class PSC_Controller
 	End Function
 	Public Function getInvalidInputsHandler() As InvalidInputsHandler
 		Return Me.invalidInputsHandler
+	End Function
+	Public Function getInvalidFEAOutputsHandler() As InvalidFEAOutputsHandler
+		Return Me.invalidFEAOutputsHandler
 	End Function
 	Public Function getMissingInputsHandler() As MissingInputsHandler
 		Return Me.missingInputsHandler

@@ -80,6 +80,8 @@ Public Class PSC_Model
     Private Const kmin As Double = 1
     Private Const fixity As Double = 100000000
     Private Const nonConvergingGroupName = "PSCT - NON CONVERGING"
+    Private etabsModelChecker As EtabsModelChecker
+    Private pdispModelChecker As PDispModelChecker
 
     Private Const MODEL_NAME = "Piles Stiffness Calibration Tool"
     Private Const MODEL_VERSION = "Version: " + "2.0.0"
@@ -136,6 +138,9 @@ Public Class PSC_Model
         Me.percentile = percentile
         Me.sapModelInitialPath = Me.sapModel.GetModelFilename(True)
         Me.pDispInitialPath = pDispFilePath
+        'Create FEA Model Checkers
+        Me.etabsModelChecker = New EtabsModelChecker(Me.sapModel)
+        Me.pdispModelChecker = New PDispModelChecker(Me.pDispModel)
         'Create PDisp Push/Pull Utility Classes
         Me.rectLoadsPuller = New LoadsPuller(Of PDispRectLoad)(pDispModel)
         Me.circLoadsPuller = New LoadsPuller(Of PDispCircLoad)(pDispModel)
@@ -1031,6 +1036,12 @@ Public Class PSC_Model
     End Function
     Public Function getPileObjsList() As List(Of PileObject)
         Return Me.pileObjs
+    End Function
+    Public Function getEtabsModelChecker() As EtabsModelChecker
+        Return Me.etabsModelChecker
+    End Function
+    Public Function getPDispModelChecker() As PDispModelChecker
+        Return Me.pdispModelChecker
     End Function
 
     Public Function getModelName() As String

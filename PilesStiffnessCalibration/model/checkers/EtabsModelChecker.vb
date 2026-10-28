@@ -58,7 +58,7 @@ Public Class EtabsModelChecker
         Dim ret As Integer = Me.etabsModel.GroupDef.GetAssignments(selEtabsGroupName, itemsNum, objTypes, objNames)
         ' If something goes wrong return False + Error Object
         If ret <> 0 OrElse objNames Is Nothing OrElse pointNames Is Nothing Then
-            Return (False, New CheckError("Impossible to extract object names from the ETABS model for the given ETABS group."))
+            Return (False, New CheckError(ErrorSeverity.FATAL, "Impossible to extract object names from the ETABS model for the given ETABS group."))
         End If
         'Object Type 1 = Point Object
         Dim etabsGroupPointNames As New List(Of String)
@@ -78,7 +78,7 @@ Public Class EtabsModelChecker
         Else
             '...If mismatching names have been found...return false flag and error object...
             namesOnlyInPointNames.ForEach(Sub(name) errorMessage &= name + ", ")
-            Dim err = New CheckError(errorMessage.TrimEnd(","))
+            Dim err = New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(","))
             Return (False, err)
         End If
 
@@ -131,7 +131,7 @@ Public Class EtabsModelChecker
         ' 4. RETURN RESULTS
         If errorsCount > 0 Then                                                                                             'Θ(1)
             '...If errors have been encountered...return false flag and error object...
-            Return (False, New CheckError(errorMessage.TrimEnd(", ")))                                                      'Θ(1)
+            Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(", ")))                                 'Θ(1)
         Else                                                                                                                'Θ(1)
             '...If no error has been encountered...return true flag and null error object
             Return (True, Nothing)                                                                                          'Θ(1)
@@ -163,7 +163,7 @@ Public Class EtabsModelChecker
 
         '2. RETURN RESULTS
         If errorsCount > 0 Then                                                                                               'Θ(1)
-            Return (False, New CheckError(errorMessage))                                                                      'Θ(1)
+            Return (False, New CheckError(ErrorSeverity.WARNING, errorMessage))                                               'Θ(1)
         End If                                                                                                                'Θ(1)
         '...If no error has been encountered...return true flag and null error object
         Return (True, Nothing)                                                                                                'Θ(1)

@@ -39,7 +39,7 @@ Public Class PDispModelChecker
         Dim ret As Short = Me.pDispModel.getPDispApp().NumDisplacementGrids(gridsNum)
         ' If something goes wrong return False + Error Object
         If ret <> 0 Then
-            Return (False, New CheckError("Impossible to extract the Displacement Grids from the PDisp model."))
+            Return (False, New CheckError(ErrorSeverity.WARNING, "Impossible to extract the Displacement Grids from the PDisp model."))
         End If
 
         '2. CHECK THAT CALCULATE OPTION IS NOT ACTIVE AT ANY DISPLACEMENT GRID
@@ -48,10 +48,10 @@ Public Class PDispModelChecker
             Dim dispGrid As DisplacementGrid
             ret = Me.pDispModel.getPDispApp().GetDisplacementGrid(i, dispGrid)
             If ret <> 0 Then
-                Return (False, New CheckError("Impossible to extract Displacement Grid " & i & " from the PDisp model."))
+                Return (False, New CheckError(ErrorSeverity.WARNING, "Impossible to extract Displacement Grid " & i & " from the PDisp model."))
             End If
             If dispGrid.Calculate Then
-                Return (False, New CheckError("Displacement Grid '" & dispGrid.Name & "' in the PDisp model has the Calculate option ticked."))
+                Return (False, New CheckError(ErrorSeverity.WARNING, "Displacement Grid '" & dispGrid.Name & "' in the PDisp model has the Calculate option ticked."))
             End If
         Next
 
@@ -103,7 +103,7 @@ Public Class PDispModelChecker
         '...if errors have been encountered, return false bool flag and error object with built error message...
         If errorsCount > 0 Then
             errorMessage = errorMessage.TrimEnd(", ")
-            Return (False, New CheckError(errorMessage))
+            Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage))
         End If
         '...if no errors have been encountered, return true bool flag and null error object...
         Return (True, Nothing)

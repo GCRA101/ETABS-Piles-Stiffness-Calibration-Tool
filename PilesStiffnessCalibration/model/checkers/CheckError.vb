@@ -1,18 +1,21 @@
 ﻿Public Class CheckError
 
     'ATTRIBUTES
+    Private severity As ErrorSeverity
     Private message As String
     Private metadata As Object
 
 
     'CONSTRUCTOR
     ' Overloaded v1
-    Public Sub New(message As String)
+    Public Sub New(severity As ErrorSeverity, message As String)
+        Me.severity = severity
         Me.message = message
         Me.metadata = Nothing
     End Sub
     ' Overloaded v2
-    Public Sub New(message As String, metadata As Object)
+    Public Sub New(severity As ErrorSeverity, message As String, metadata As Object)
+        Me.severity = severity
         Me.message = message
         Me.metadata = metadata
     End Sub

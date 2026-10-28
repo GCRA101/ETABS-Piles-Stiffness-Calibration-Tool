@@ -102,6 +102,7 @@
     <Compile Include="controller\MissingInputsHandler.vb" />
     <Compile Include="controller\VisualEffects.vb" />
     <Compile Include="model\checkers\CheckError.vb" />
+    <Compile Include="model\checkers\ErrorSeverity.vb" />
     <Compile Include="model\checkers\EtabsModelChecker.vb" />
     <Compile Include="model\checkers\FEAModelCheckerInterface.vb" />
     <Compile Include="model\checkers\PDispModelChecker.vb" />

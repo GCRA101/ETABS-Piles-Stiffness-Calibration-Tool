@@ -77,7 +77,7 @@ Public Class EtabsModelChecker
             Return (True, Nothing)
         Else
             '...If mismatching names have been found...return false flag and error object...
-            namesOnlyInPointNames.ForEach(Sub(name) errorMessage += name + ", ")
+            namesOnlyInPointNames.ForEach(Sub(name) errorMessage &= name + ", ")
             Dim err = New CheckError(errorMessage.TrimEnd(","))
             Return (False, err)
         End If
@@ -116,17 +116,22 @@ Public Class EtabsModelChecker
         '3. CHECK STIFFNESS ARRAYS
         ' Variables Declaration
         Dim errorPointSpringProps As Dictionary(Of String, Double())                                                        'Θ(1)
+        'Errors Count + Message
+        Dim errorsCount As Integer = 0                                                                                      'Θ(1)
+        Dim errorMessage As String = "Computed point spring properties contain " +
+                                        "NaN Or Infinity Values at following locations: "                                   'Θ(1)
         ' Check errors in each stiffness array
         For Each kvp In pointSpringProps                                                                                    'O(n)/Ω(1) +Θ(1)
             If kvp.Value.ToList().Any(Function(ki) Double.IsNaN(ki) Or Double.IsInfinity(ki)) Then                          'Θ(1)
-                errorPointSpringProps.Add(kvp.Key, kvp.Value)                                                               'Θ(1)
+                errorsCount += 1                                                                                            'Θ(1)
+                errorMessage &= kvp.Key & ", "                                                                              'Θ(1)
             End If                                                                                                          'Θ(1)
         Next                                                                                                                'Θ(1)
 
         ' 4. RETURN RESULTS
-        If errorPointSpringProps.Count > 0 Then                                                                             'Θ(1)
+        If errorsCount > 0 Then                                                                                             'Θ(1)
             '...If errors have been encountered...return false flag and error object...
-            Return (False, New CheckError("Computed point spring properties contain NaN or Infinity Values. "))             'Θ(1)
+            Return (False, New CheckError(errorMessage.TrimEnd(", ")))                                                      'Θ(1)
         Else                                                                                                                'Θ(1)
             '...If no error has been encountered...return true flag and null error object
             Return (True, Nothing)                                                                                          'Θ(1)
@@ -144,14 +149,22 @@ Public Class EtabsModelChecker
         Dim cSys, soilProfile, footing, notes, iGuid As String                                                                'Θ(1)
         Dim period As Double                                                                                                  'Θ(1)
         Dim pointSpringPropNames As List(Of String)                                                                           'Θ(1)
+        Dim errorsCount As Integer = 0                                                                                        'Θ(1)
+        Dim errorMessage As String = "ETABS Point Spring Properties do not match computed values at following locations: "    'Θ(1)
         ' Check pileobjs stiffness arrays against ETABS model spring stiffness arrays
         For Each pileObj In pileObjs                                                                                          'O(n)/Ω(1) +Θ(1)
             ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pileObj.getStiffness().getName(),
                         springOption, stiffnessArray, cSys, soilProfile, footing, period, color, notes, iGuid)                'Θ(1)
             If pileObj.getStiffness().getValues().Equals(stiffnessArray) = False Then                                         'Θ(1)
-                Return (False, New CheckError("ETABS Point Spring Properties do not match computed values."))                 'Θ(1)
+                errorsCount += 1                                                                                              'Θ(1)
+                errorMessage &= pileObj.getStiffness().getName() & ", "                                                      'Θ(1)
             End If                                                                                                            'Θ(1)
         Next                                                                                                                  'Θ(1)
+
+        '2. RETURN RESULTS
+        If errorsCount > 0 Then                                                                                               'Θ(1)
+            Return (False, New CheckError(errorMessage))                                                                      'Θ(1)
+        End If                                                                                                                'Θ(1)
         '...If no error has been encountered...return true flag and null error object
         Return (True, Nothing)                                                                                                'Θ(1)
     End Function                                                                                                              'Θ(1)

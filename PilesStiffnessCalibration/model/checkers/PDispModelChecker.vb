@@ -73,7 +73,7 @@ Public Class PDispModelChecker
         Dim errorPDispRectLoads As List(Of PDispRectLoad) = New List(Of PDispRectLoad)()
         Dim errorPDispCircLoads As List(Of PDispCircLoad) = New List(Of PDispCircLoad)()
         'Errors Count + Message
-        Dim errorCount As Integer = 0
+        Dim errorsCount As Integer = 0
         Dim errorMessage As String = "Invalid area load dimensions have been found in the PDisp Model. See Loads "
 
         '2. CHECK AREA LOAD DIMENSIONS
@@ -84,8 +84,8 @@ Public Class PDispModelChecker
             w = pDispRectLoad.getLoad().Width
             l = pDispRectLoad.getLoad().Length
             If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Or l = 0 Or Double.IsNaN(l) Or Double.IsInfinity(l) Then
-                errorMessage += pDispRectLoad.getLoad().Name + ", "
-                errorCount += 1
+                errorMessage &= pDispRectLoad.getLoad().Name & ", "
+                errorsCount += 1
             End If
         Next
         'Check area load dimensions for PDispCirc Loads
@@ -94,14 +94,14 @@ Public Class PDispModelChecker
             Dim w, l As Double
             w = pDispCircLoad.getLoad().Width
             If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Then
-                errorMessage += pDispCircLoad.getLoad().Name + ", "
-                errorCount += 1
+                errorMessage &= pDispCircLoad.getLoad().Name & ", "
+                errorsCount += 1
             End If
         Next
 
         '3. RETURN RESULTS
         '...if errors have been encountered, return false bool flag and error object with built error message...
-        If errorCount > 0 Then
+        If errorsCount > 0 Then
             errorMessage = errorMessage.TrimEnd(", ")
             Return (False, New CheckError(errorMessage))
         End If

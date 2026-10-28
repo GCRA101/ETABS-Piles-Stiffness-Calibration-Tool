@@ -902,6 +902,16 @@ Public Class PSC_Model
 
         Me.sapModel.View.RefreshView()
 
+
+        ' RUN CHECKS ON ASSIGNED SPRING PROPERTIES
+        Dim checkResult As (success As Boolean, err As CheckError)
+        checkResult = Me.etabsModelChecker.checkPointSpringProperties(pileObjs)
+
+        If Not checkResult.success Then
+            MessageBox.Show(checkResult.err.getMessage(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Environment.Exit(1)
+        End If
+
     End Sub
 
 

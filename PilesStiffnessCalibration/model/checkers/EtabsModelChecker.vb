@@ -70,11 +70,15 @@ Public Class EtabsModelChecker
         Dim namesOnlyInEtabsGroup As List(Of String) = etabsGroupPointNames.Except(pointNames).ToList()
         Dim namesOnlyInPointNames As List(Of String) = pointNames.Except(etabsGroupPointNames).ToList()
 
+
         '3. Return True if no mismatching names were found
+        Dim errorMessage As String = "Following Point Names are missing in Etabs Group " & selEtabsGroupName & ": "
         If namesOnlyInEtabsGroup.Count = 0 And namesOnlyInPointNames.Count = 0 Then
             Return (True, Nothing)
         Else
-            Dim err = New CheckError("Point Names do not match")
+            '...If mismatching names have been found...return false flag and error object...
+            namesOnlyInPointNames.ForEach(Sub(name) errorMessage += name + ", ")
+            Dim err = New CheckError(errorMessage.TrimEnd(","))
             Return (False, err)
         End If
 

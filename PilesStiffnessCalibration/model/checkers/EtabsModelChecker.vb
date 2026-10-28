@@ -80,68 +80,78 @@ Public Class EtabsModelChecker
 
     End Function
 
-    Public Function checkPointSpringProperties(pointNames As List(Of String)) As (success As Boolean, err As CheckError)
+    Public Function checkPointSpringProperties(pointNames As List(Of String)) As (success As Boolean, err As CheckError)    'T(n)
 
         ' 1. COLLECT UNIQUE NAMES OF POINTSPRINGPROPERTY ASSIGNED TO INPUT POINTNAMES
         ' Variables Declaration
-        Dim ret As Integer                                                                                      'Θ(1)
-        Dim pointName, pointSpringPropName As String                                                            'Θ(1)
-        Dim pointSpringPropNames As HashSet(Of String)                                                          'Θ(1)
+        Dim ret As Integer                                                                                                  'Θ(1)
+        Dim pointName, pointSpringPropName As String                                                                        'Θ(1)
+        Dim pointSpringPropNames As HashSet(Of String)                                                                      'Θ(1)
         ' Looping through input pointNames
-        For Each pointName In pointNames                                                                        'n*Θ(1)+Θ(1)
+        For Each pointName In pointNames                                                                                    'n*Θ(1)+Θ(1)
             ' Extract name of PointSpringProperty from current pointName
-            ret = Me.etabsModel.PointObj.GetSpringAssignment(pointName, pointSpringPropName)                    'Θ(1)
+            ret = Me.etabsModel.PointObj.GetSpringAssignment(pointName, pointSpringPropName)                                'Θ(1)
             ' Add to HashSet DataStructure
-            pointSpringPropNames.Add(pointSpringPropName)                                                       'Θ(1)
+            pointSpringPropNames.Add(pointSpringPropName)                                                                   'Θ(1)
         Next
 
         '2. EXTRACT STIFFNESS ARRAYS FROM COLLECTED POINTSPRINGPROPERTIES
         ' Variables Declaration
-        Dim springOption, color As Integer                                                                      'Θ(1)
-        Dim stiffnessArray As Double()                                                                          'Θ(1)
-        Dim cSys, soilProfile, footing, notes, iGuid As String                                                  'Θ(1)
-        Dim period As Double                                                                                    'Θ(1)
-        Dim pointSpringProps As Dictionary(Of String, Double())                                                 'Θ(1)
+        Dim springOption, color As Integer                                                                                  'Θ(1)
+        Dim stiffnessArray As Double()                                                                                      'Θ(1)
+        Dim cSys, soilProfile, footing, notes, iGuid As String                                                              'Θ(1)
+        Dim period As Double                                                                                                'Θ(1)
+        Dim pointSpringProps As Dictionary(Of String, Double())                                                             'Θ(1)
         ' Extract Arrays and assign them to dictionary
-        For Each pointSpringPropName In pointSpringPropNames                                                    'Θ(n)+Θ(1)
+        For Each pointSpringPropName In pointSpringPropNames                                                                'Θ(n)+Θ(1)
             ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pointSpringPropName, springOption, stiffnessArray, cSys,
-                                                             soilProfile, footing, period, color, notes, iGuid) 'Θ(1)
-            pointSpringProps.Add(pointSpringPropName, stiffnessArray)                                           'Θ(1)
+                                                             soilProfile, footing, period, color, notes, iGuid)             'Θ(1)
+            pointSpringProps.Add(pointSpringPropName, stiffnessArray)                                                       'Θ(1)
         Next
 
         '3. CHECK STIFFNESS ARRAYS
-        For Each kvp In pointSpringProps                                                                        'O(n)/Ω(1) +Θ(1)
-            If kvp.Value.ToList().Any(Function(ki) Double.IsNaN(ki)) Then                                       'Θ(1) (O(6))
-                Return (False, New CheckError("Computed point spring properties contain NaN Values. "))         'Θ(1)
-            End If                                                                                              'Θ(1)
-        Next                                                                                                    'Θ(1)
+        ' Variables Declaration
+        Dim errorPointSpringProps As Dictionary(Of String, Double())                                                        'Θ(1)
+        ' Check errors in each stiffness array
+        For Each kvp In pointSpringProps                                                                                    'O(n)/Ω(1) +Θ(1)
+            If kvp.Value.ToList().Any(Function(ki) Double.IsNaN(ki) Or Double.IsInfinity(ki)) Then                          'Θ(1)
+                errorPointSpringProps.Add(kvp.Key, kvp.Value)                                                               'Θ(1)
+            End If                                                                                                          'Θ(1)
+        Next                                                                                                                'Θ(1)
 
-        '...If no error has been encountered...return true flag and null error object
-        Return (True, Nothing)                                                                                  'Θ(1)
-
-
+        ' 4. RETURN RESULTS
+        If errorPointSpringProps.Count > 0 Then                                                                             'Θ(1)
+            '...If errors have been encountered...return false flag and error object...
+            Return (False, New CheckError("Computed point spring properties contain NaN or Infinity Values. "))             'Θ(1)
+        Else                                                                                                                'Θ(1)
+            '...If no error has been encountered...return true flag and null error object
+            Return (True, Nothing)                                                                                          'Θ(1)
+        End If                                                                                                              'Θ(1)
     End Function
+    ' Time Complexity: T(n) = Θ(n)
 
-    Public Function checkPointSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)
+
+    Public Function checkPointSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)    'T(n)
 
         '1. CHECK MATCHING OF STIFFNESS ARRAYS BETWEEN PILEOBJS AND ETABS MODEL POINTSPRINGPROPERTIES
         ' Variables Declaration
-        Dim ret, springOption, color As Integer                                                                 'Θ(1)
-        Dim stiffnessArray As Double()                                                                          'Θ(1)
-        Dim cSys, soilProfile, footing, notes, iGuid As String                                                  'Θ(1)
-        Dim period As Double                                                                                    'Θ(1)
-        Dim pointSpringPropNames As List(Of String)                                                             'Θ(1)
+        Dim ret, springOption, color As Integer                                                                               'Θ(1)
+        Dim stiffnessArray As Double()                                                                                        'Θ(1)
+        Dim cSys, soilProfile, footing, notes, iGuid As String                                                                'Θ(1)
+        Dim period As Double                                                                                                  'Θ(1)
+        Dim pointSpringPropNames As List(Of String)                                                                           'Θ(1)
         ' Check pileobjs stiffness arrays against ETABS model spring stiffness arrays
-        For Each pileObj In pileObjs                                                                            'O(n)/Ω(1) +Θ(1)
+        For Each pileObj In pileObjs                                                                                          'O(n)/Ω(1) +Θ(1)
             ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(pileObj.getStiffness().getName(),
-                        springOption, stiffnessArray, cSys, soilProfile, footing, period, color, notes, iGuid)  'Θ(1)
-            If pileObj.getStiffness().getValues().Equals(stiffnessArray) = False Then                           'Θ(1)
-                Return (False, New CheckError("ETABS Point Spring Properties do not match computed values."))   'Θ(1)
-            End If                                                                                              'Θ(1)
-        Next                                                                                                    'Θ(1)
+                        springOption, stiffnessArray, cSys, soilProfile, footing, period, color, notes, iGuid)                'Θ(1)
+            If pileObj.getStiffness().getValues().Equals(stiffnessArray) = False Then                                         'Θ(1)
+                Return (False, New CheckError("ETABS Point Spring Properties do not match computed values."))                 'Θ(1)
+            End If                                                                                                            'Θ(1)
+        Next                                                                                                                  'Θ(1)
         '...If no error has been encountered...return true flag and null error object
-        Return (True, Nothing)                                                                                  'Θ(1)
-    End Function                                                                                                'Θ(1)
+        Return (True, Nothing)                                                                                                'Θ(1)
+    End Function                                                                                                              'Θ(1)
+    ' Time Complexity: T(n) = O(n) / Ω(1)
 
     Public Sub runAllChecks() Implements FEAModelCheckerInterface.runAllChecks
         Throw New NotImplementedException()

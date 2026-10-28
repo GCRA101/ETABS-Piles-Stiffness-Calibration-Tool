@@ -156,10 +156,11 @@ Public Class EtabsModelChecker
 
         '1. CHECK MATCHING OF STIFFNESS ARRAYS BETWEEN PILEOBJS AND ETABS MODEL POINTSPRINGPROPERTIES                         'T(n)
         ' Variables Declaration
-        Dim ret, springOption, color As Integer                                                                               'Θ(1)
+        Dim ret, springOption, color, i As Integer                                                                            'Θ(1)
         Dim stiffnessArray As Double()                                                                                        'Θ(1)
         Dim cSys, soilProfile, footing, notes, iGuid As String                                                                'Θ(1)
         Dim period As Double                                                                                                  'Θ(1)
+        Dim match As Boolean                                                                                                  'Θ(1)
         Dim errorsCount As Integer = 0                                                                                        'Θ(1)
         Dim errorMessage As String = "ETABS Point Spring Properties do not match computed values at following locations: "    'Θ(1)
         ' Check pileobjs stiffness arrays against ETABS model spring stiffness arrays
@@ -173,12 +174,20 @@ Public Class EtabsModelChecker
                         "Impossible to read ETABS Point Spring Property '" & propName & "'."))                                'Θ(1)
             End If                                                                                                            'Θ(1)
             ' Expected array as assigned in ETABS: U1, U2, U3 + zero rotational stiffnesses
-            Dim expected As Double() = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(),
+            Dim expectedStiffnessArray As Double() = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(),
                                         pileObj.getStiffness().getU3(), 0, 0, 0}                                              'Θ(1)
-            Dim matches As Boolean = stiffnessArray.Length = expected.Length AndAlso
-                Enumerable.Range(0, expected.Length).All(
-                    Function(i) Math.Abs(expected(i) - stiffnessArray(i)) <= 0.000001 * Math.Max(1.0, Math.Abs(expected(i))))  'Θ(1)
-            If Not matches Then                                                                                               'Θ(1)
+            ' Compare arrays length
+            If stiffnessArray.Length <> expectedStiffnessArray.Length Then                                                    'Θ(1)
+                match = False                                                                                                 'Θ(1)
+            End If                                                                                                            'Θ(1)
+            ' Compare arrays values with tolerance of 0.1 N/mm
+            For i = 0 To stiffnessArray.Length - 1
+                Dim tolerance As Double = 0.1                                                                                 'Θ(1)
+                If Math.Abs(expectedStiffnessArray(i) - stiffnessArray(i)) > tolerance Then                                   'Θ(1)
+                    match = False                                                                                             'Θ(1)
+                End If                                                                                                        'Θ(1)
+            Next                                                                                                              'Θ(1)
+            If Not match Then                                                                                                 'Θ(1)
                 errorsCount += 1                                                                                              'Θ(1)
                 errorMessage &= propName & ", "                                                                               'Θ(1)
             End If                                                                                                            'Θ(1)
@@ -186,7 +195,7 @@ Public Class EtabsModelChecker
 
         '2. RETURN RESULTS
         If errorsCount > 0 Then                                                                                               'Θ(1)
-            Return (False, New CheckError(ErrorSeverity.WARNING, errorMessage.TrimEnd(","c, " "c)))                           'Θ(1)
+            Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(","c, " "c)))                             'Θ(1)
         End If                                                                                                                'Θ(1)
         '...If no error has been encountered...return true flag and null error object
         Return (True, Nothing)                                                                                                'Θ(1)

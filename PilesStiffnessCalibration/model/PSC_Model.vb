@@ -905,11 +905,17 @@ Public Class PSC_Model
 
         ' RUN CHECKS ON ASSIGNED SPRING PROPERTIES
         Dim checkResult As (success As Boolean, err As CheckError)
-        checkResult = Me.etabsModelChecker.checkPointSpringProperties(pileObjs)
 
-        If Not checkResult.success Then
-            MessageBox.Show(checkResult.err.getMessage(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Environment.Exit(1)
+        If Me.selNonLinearOption = "None (Linear)" Then
+            checkResult = Me.etabsModelChecker.checkPointSpringProperties(pileObjs)
+            If Not checkResult.success Then
+                If checkResult.err.getSeverity() = ErrorSeverity.FATAL Then
+                    MessageBox.Show(checkResult.err.getMessage(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Environment.Exit(1)
+                ElseIf checkResult.err.getSeverity() = ErrorSeverity.WARNING Then
+                    MessageBox.Show(checkResult.err.getMessage(), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End If
         End If
 
     End Sub

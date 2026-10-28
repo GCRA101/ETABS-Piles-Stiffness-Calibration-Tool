@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -123,6 +123,7 @@
     <Compile Include="model\InvalidFilePathException.vb" />
     <Compile Include="model\JSONSerializer.vb" />
     <Compile Include="model\InvalidInputsException.vb" />
+    <Compile Include="model\InvalidFEAOutputsException.vb" />
     <Compile Include="model\pdisp\InvalidPDispFilePathException.vb" />
     <Compile Include="model\pdisp\LoadsPuller.vb" />
     <Compile Include="model\pdisp\LoadsPusher.vb" />

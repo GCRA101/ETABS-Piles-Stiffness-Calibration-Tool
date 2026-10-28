@@ -176,6 +176,8 @@ Public Class EtabsModelChecker
             ' Expected array as assigned in ETABS: U1, U2, U3 + zero rotational stiffnesses
             Dim expectedStiffnessArray As Double() = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(),
                                         pileObj.getStiffness().getU3(), 0, 0, 0}                                              'Θ(1)
+            ' Reset bool control parameter
+            match = True                                                                                                      'Θ(1)
             ' Compare arrays length
             If stiffnessArray.Length <> expectedStiffnessArray.Length Then                                                    'Θ(1)
                 match = False                                                                                                 'Θ(1)

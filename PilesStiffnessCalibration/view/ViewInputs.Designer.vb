@@ -294,7 +294,7 @@ Partial Class ViewInputs
         Me.lblInitialStiffness.Name = "lblInitialStiffness"
         Me.lblInitialStiffness.Size = New System.Drawing.Size(213, 13)
         Me.lblInitialStiffness.TabIndex = 42
-        Me.lblInitialStiffness.Text = "PILES STIFFNESS BOUNDARY CONDITION"
+        Me.lblInitialStiffness.Text = "PILE/SOIL SPRING STIFFNESS BOUNDARY CONDITION"
         '
         'rbImportFromFile
         '
@@ -501,7 +501,7 @@ Partial Class ViewInputs
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "ViewInputs"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Piles Stiffness Calibration"
+        Me.Text = "Pile/Soil Spring Stiffness Calibration"
         CType(Me.pbETABSInputs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbPDispInputs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbPDispInputs.ResumeLayout(False)

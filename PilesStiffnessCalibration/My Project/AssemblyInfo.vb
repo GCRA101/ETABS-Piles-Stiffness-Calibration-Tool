@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Piles Stiffness Iteration")>
-<Assembly: AssemblyDescription("ETABS Plugin Application automating iterative analysis and calibration of piles stiffness in conjunction with PDisp")>
+<Assembly: AssemblyTitle("Pile/Soil Spring Stiffness Iteration")>
+<Assembly: AssemblyDescription("ETABS Plugin Application automating iterative analysis and calibration of pile/soil spring stiffness in conjunction with PDisp")>
 <Assembly: AssemblyCompany("Buro Happold")>
-<Assembly: AssemblyProduct("Piles Stiffness Iteration")>
+<Assembly: AssemblyProduct("Pile/Soil Spring Stiffness Iteration")>
 <Assembly: AssemblyCopyright("Copyright ©  2024")>
 <Assembly: AssemblyTrademark("")>
 

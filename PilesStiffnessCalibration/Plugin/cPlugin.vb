@@ -28,7 +28,7 @@ Public Class cPlugin
     End Sub
 
     Public Function Info(ByRef Text As String) As Integer Implements cPluginContract.Info
-        Text = "Plugin carrying out the iterative analysis of piles stiffnesses"
+        Text = "Plugin carrying out the iterative analysis of pile/soil spring stiffnesses"
         Return 0
     End Function
 

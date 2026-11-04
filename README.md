@@ -1,11 +1,11 @@
-# 📐 Piles Stiffness Calibration Tool
+# 📐 Pile/Soil Spring Stiffness Calibration Tool
 
 ## 📖 Description
 
-The **Piles Stiffness Calibration Tool** is a CSI ETABS Plugin developed by **Buro Happold** to assist structural and geotechnical engineers in automating the calibration of pile stiffnesses under existing and proposed loads.  
+The **Pile/Soil Spring Stiffness Calibration Tool** is a CSI ETABS Plugin developed by **Buro Happold** to assist structural and geotechnical engineers in automating the calibration of pile stiffnesses under existing and proposed loads.  
 
 It runs **parallel analyses** in:  
-- **ETABS** → computes structural loads applied onto piles  
+- **ETABS** → computes structural loads applied onto pile/soil springs  
 - **Oasys PDisp** → determines pile stiffness  
 
 The process continues until convergence criteria are met, and outputs are automatically documented for engineers.
@@ -78,7 +78,7 @@ Main interface for selecting inputs, running iterations, and monitoring progress
 ### ETABS Inputs
 - **Groups** – pile nodes grouped in ETABS  
 - **Load Combinations** – single selection required  
-- **Piles Stiffness Boundary Condition**:  
+- **Pile/Soil Spring Stiffness Boundary Condition**:  
   - All Rigid Supports  
   - All Same Stiffness [kN/mm]  
   - Import from Serialized File  

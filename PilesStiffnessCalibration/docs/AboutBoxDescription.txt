@@ -5,7 +5,7 @@ DESCRIPTION:
   data between the two until convergence is reached based on user's input criteria.
   
 ALGORITHM:
-- Base point reactions at piles locations are extracted from the ETABS model 
+- Base point reactions at pile/soil spring locations are extracted from the ETABS model
   and transferred to the PDisp Model converting them in corresponding soil pressures
 - PDisp Model analysis is run and updated vertical displacements at pile locations
   are extracted and used to compute the corresponding pile stiffnesses

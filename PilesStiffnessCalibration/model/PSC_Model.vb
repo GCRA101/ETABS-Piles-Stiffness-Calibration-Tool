@@ -83,7 +83,7 @@ Public Class PSC_Model
     Private etabsModelChecker As EtabsModelChecker
     Private pdispModelChecker As PDispModelChecker
 
-    Private Const MODEL_NAME = "Piles Stiffness Calibration Tool"
+    Private Const MODEL_NAME = "Pile/Soil Spring Stiffness Calibration Tool"
     Private Const MODEL_VERSION = "Version: " + "2.0.0"
     Private Const MODEL_COPYRIGHT = "Copyright @ Buro Happold Ltd Inc.2024"
     Private Const MODEL_AUTHOR = "Giorgio Carlo Roberto Albieri"
@@ -240,8 +240,8 @@ Public Class PSC_Model
     End Sub
 
     Public Sub setPointRestraints(restraintBools As Boolean())
-        'Throw exception if piles restraints are missing
-        If restraintBools Is Nothing Then Throw New MissingInputsException("Piles Restraint Boolean Arrays missing")
+        'Throw exception if pile/soil spring restraints are missing
+        If restraintBools Is Nothing Then Throw New MissingInputsException("Pile/Soil Spring Restraint Boolean Arrays missing")
         'Unlock Etabs Model
         Me.sapModel.SetModelIsLocked(False)
         'Set Point Restraints via Streams...
@@ -251,8 +251,8 @@ Public Class PSC_Model
     End Sub
 
     Public Sub setPointStiffnessesFromValues(stiffnessValues As Double())
-        'Throw exception if piles stiffnesses are missing
-        If stiffnessValues Is Nothing Then Throw New MissingInputsException("Piles Stiffness Value missing")
+        'Throw exception if pile/soil spring stiffnesses are missing
+        If stiffnessValues Is Nothing Then Throw New MissingInputsException("Pile/Soil Spring Stiffness Value missing")
         'Unlock Etabs Model
         Me.sapModel.SetModelIsLocked(False)
         'Set Point Springs via Streams...
@@ -263,7 +263,7 @@ Public Class PSC_Model
 
     Public Sub setPointStiffnessesFromJson(jsonFilePath As String)
 
-        If jsonFilePath = "" Then Throw New MissingInputsException("FilePath to Piles Stiffness JsonFile missing")
+        If jsonFilePath = "" Then Throw New MissingInputsException("FilePath to Pile/Soil Spring Stiffness JsonFile missing")
 
         'Unlock Etabs Model
         Me.sapModel.SetModelIsLocked(False)
@@ -324,7 +324,7 @@ Public Class PSC_Model
             jsonFilePaths.ToList().Sort()
             jsonFilePaths.ToList().ToDictionary(Function(filePath) filePath.Substring(filePath.IndexOf("Iteration")).Replace(".json", ""),
                                                 Function(filePath) jsonSerializer.deserialize(filePath)).ToList().
-                                   ForEach(Sub(kvpair) excelDataManager.write("Piles Stiffness Calibration", kvpair.Value, kvpair.Key))
+                                   ForEach(Sub(kvpair) excelDataManager.write("Pile/Soil Spring Stiffness Calibration", kvpair.Value, kvpair.Key))
             'Create Charts in Excel SpreadSheet
             excelDataManager.createChart()
             'Destroy the Excel Data Manager object
@@ -363,7 +363,7 @@ Public Class PSC_Model
             'UNLOCK THE ETABS MODEL
             sapModel.SetModelIsLocked(False)
 
-            'INITIALIZE PILES SPRINGS
+            'INITIALIZE PILE/SOIL SPRINGS
             If iter = 0 Then
                 initializeEtabsPointSprings()
                 initializePDispLoads()
@@ -391,7 +391,7 @@ Public Class PSC_Model
             'pDispModel.save(FileManager.setNewFilePath(Me.pDispInitialPath, Me.pDispModelsFolderPath, Me.iterNum))
             '5. Read Point Displacements from PDisp and assign them to PileObjects
             readPileObjsDisplacements(Me.pileObjs)
-            '6 Update the Piles Status based on the 
+            '6 Update the Pile/Soil Spring Status based on the
             updatePileObjsStatus(Me.pileObjs, Me.pileObjsInit)
             '7. Compute Point Stiffnesses and assign them to PileObjects
             computePileObjsStiffness(Me.pileObjs)
@@ -479,9 +479,9 @@ Public Class PSC_Model
             '    Throw New ExcessiveΔException(message, errorPilesList)
             'End If
 
-            '6. COLLECT/IDENTIFY CONVERGING PILES
-            ' Collect only piles which corresponding delta is smaller than the input convergenceFactor.
-            ' These piles are the ones for which convergence is achieved.
+            '6. COLLECT/IDENTIFY CONVERGING PILE/SOIL SPRINGS
+            ' Collect only pile/soil springs which corresponding delta is smaller than the input convergenceFactor.
+            ' These pile/soil springs are the ones for which convergence is achieved.
             Me.convergingPiles = New List(Of PileObject)
             Me.nonConvergingPiles = New List(Of PileObject)
             For i As Integer = 0 To plΔIList.Count - 1
@@ -492,8 +492,8 @@ Public Class PSC_Model
                 End If
             Next
 
-            '7. MARK NON CONVERGING PILES IN THE ETABS MODEL
-            ' Group all piles that are not converging at this iteration within a corresponding ETABS Group
+            '7. MARK NON CONVERGING PILE/SOIL SPRINGS IN THE ETABS MODEL
+            ' Group all pile/soil springs that are not converging at this iteration within a corresponding ETABS Group
             markNonConvergingPiles(Me.nonConvergingPiles.Select(Function(pile) pile.getName()).ToList())
             ' Save the ETABS Model in order not to loose the created groups
             Me.sapModel.File.Save()

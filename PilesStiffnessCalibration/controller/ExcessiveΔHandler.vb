@@ -4,7 +4,7 @@
 '''     <remarks>
 '''         Concrete class inheriting from the ExceptionHandler class and specialized in creating
 '''         and displaying a Warning message when Δ is found to be excessive between two consecutive
-'''         iterations of the piles stiffnesses calibration.
+'''         iterations of the pile/soil spring stiffnesses calibration.
 '''     </remarks>
 ''' </summary>
 
@@ -37,7 +37,7 @@ Public Class ExcessiveΔHandler
         If ex.GetType() Is GetType(ExcessiveΔException) Then
             'Downcast the Exception
             Dim exΔ As ExcessiveΔException = DirectCast(ex, ExcessiveΔException)
-            'Extract the Error message and add further text at the end to anticipate list of piles affected by the issue
+            'Extract the Error message and add further text at the end to anticipate list of pile/soil springs affected by the issue
             Me.message = ex.Message + vbNewLine + "Affected Pile Objects are the following ones: " + vbNewLine
             'Add the list of Pile Objects affected by the issue
             exΔ.getPileObjs().Select(Function(po) po.getName()).ToList().ForEach(Function(poName) Me.message + poName + ", ")

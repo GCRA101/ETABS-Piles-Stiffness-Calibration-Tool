@@ -64,7 +64,7 @@ Public Class ViewInputs
         Me.cklbLoadCombos.Items.Clear()
         'Set Linear Option as the default one
         Me.cbNonLinearOptions.SelectedIndex = 0
-        'Set Rigid Piles Option as the default one
+        'Set Rigid Pile/Soil Spring Option as the default one
         Me.rbRigid.Checked = True
         'Set Override Area Loads
         Me.cbOverridePDispAreaLoads.Checked = False
@@ -140,11 +140,11 @@ Public Class ViewInputs
             model.getSapModel().View.RefreshWindow()
             model.getSapModel().View.RefreshView()
             Dim Message As String
-            Message = "NUMBER OF CONVERGING PILES: " & Me.model.getConvergingPiles().Count & vbNewLine &
-                      "NUMBER OF NON CONVERGING PILES: " & Me.model.getNonConvergingPiles().Count & vbNewLine &
+            Message = "NUMBER OF CONVERGING PILE/SOIL SPRINGS: " & Me.model.getConvergingPiles().Count & vbNewLine &
+                      "NUMBER OF NON CONVERGING PILE/SOIL SPRINGS: " & Me.model.getNonConvergingPiles().Count & vbNewLine &
                       "See Group PSCT - NON CONVERGING defined in saved ETABS Models to inspect non converged" &
-                      " piles at each iteration."
-            TopMostMsgBox.Show(Message, "CONVERGING PILES SUMMARY", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                      " pile/soil springs at each iteration."
+            TopMostMsgBox.Show(Message, "CONVERGING PILE/SOIL SPRINGS SUMMARY", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
         Me.Refresh()

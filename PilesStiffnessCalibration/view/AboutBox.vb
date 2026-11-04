@@ -39,7 +39,7 @@ Public NotInheritable Class AboutBox
     Private Sub aboutBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Set the title of the form.
         Dim ApplicationTitle As String
-        ApplicationTitle = "Piles Stiffness Calibration Tool"
+        ApplicationTitle = "Pile/Soil Spring Stiffness Calibration Tool"
         Me.Text = String.Format("About {0}", ApplicationTitle)
         ' Initialize all of the text displayed on the About Box.
         Me.update()

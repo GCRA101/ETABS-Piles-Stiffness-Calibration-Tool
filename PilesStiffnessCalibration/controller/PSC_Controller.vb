@@ -151,17 +151,17 @@ Public Class PSC_Controller
 		'3. Set Up the pile objects restraints/stiffnesses based on input criteria
 
 		If Me.view.getViewInputs().rbRigid.Checked = True Then
-			' Rigid Piles
+			' Rigid Pile/Soil Spring
 			Dim restraintBools As Boolean() = {True, True, True, False, False, False}
 			Me.model.setPointRestraints(restraintBools)
 		ElseIf Me.view.getViewInputs().rbSpring.Checked = True Then
-			' Constant Stiffness Piles
-			If Me.view.getViewInputs().tbStiffness.Text() = "" Then Throw New MissingInputsException("Piles Stiffness Missing")
+			' Constant Stiffness Pile/Soil Spring
+			If Me.view.getViewInputs().tbStiffness.Text() = "" Then Throw New MissingInputsException("Pile/Soil Spring Stiffness Missing")
 			Dim stiffness_Nmm As Double = CDbl(Me.view.getViewInputs().tbStiffness.Text()) * 1000
 			Dim stiffnessValues As Double() = {0.0, 0.0, stiffness_Nmm, 0.0, 0.0, 0.0}
 			Me.model.setPointStiffnessesFromValues(stiffnessValues)
 		ElseIf Me.view.getViewInputs().rbImportFromFile.Checked = True Then
-			' Input Json Stiffness Piles
+			' Input Json Stiffness Pile/Soil Spring
 			Me.model.setPointStiffnessesFromJson(Me.getJsonFilePath())
 			Me.model.setPileObjsInit(Me.model.deserialize(Me.getJsonFilePath))
 		End If

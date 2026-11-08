@@ -279,9 +279,23 @@ Public Class PSC_Model
     End Sub
 
     Public Sub runFEAModelsQAChecks()
+
+        Dim errorMessages As String
+
         ' Checks on ETABS Model
+        Dim etabsCheckResults As List(Of (Boolean, CheckError)) = New List(Of (Boolean, CheckError))
+        Dim etabsCheckErrors As List(Of CheckError) = New List(Of CheckError)
         With Me.etabsModelChecker
+            etabsCheckResults.Add(.checkPointsExist(Me.selEtabsGroupName))
         End With
+
+        etabsCheckErrors = etabsCheckResults.Where(Function(pdckr) pdckr.Item1 = False).Select(Function(pdckr) pdckr.Item2).ToList()
+        If etabsCheckErrors.Count > 0 Then
+            errorMessages += "ETABS MODEL QA CHECKS ---------------------" + vbNewLine + vbNewLine
+            etabsCheckErrors.ForEach(Sub(err) If err.getSeverity() = ErrorSeverity.FATAL Then errorMessages += "ERROR: " + err.getMessage() + vbNewLine)
+            etabsCheckErrors.ForEach(Sub(err) If err.getSeverity() = ErrorSeverity.WARNING Then errorMessages += "WARNING: " + err.getMessage() + vbNewLine)
+        End If
+
         ' Checks on PDisp Model
         Dim pdispCheckResults As List(Of (Boolean, CheckError)) = New List(Of (Boolean, CheckError))
         Dim pdispCheckErrors As List(Of CheckError) = New List(Of CheckError)
@@ -293,18 +307,21 @@ Public Class PSC_Model
 
         pdispCheckErrors = pdispCheckResults.Where(Function(pdckr) pdckr.Item1 = False).Select(Function(pdckr) pdckr.Item2).ToList()
         If pdispCheckErrors.Count > 0 Then
-            Dim errorMessages As String = ""
+            If errorMessages.Count <> 0 Then errorMessages += vbNewLine
+            errorMessages += "PDISP MODEL QA CHECKS ---------------------" + vbNewLine + vbNewLine
             pdispCheckErrors.ForEach(Sub(err) If err.getSeverity() = ErrorSeverity.FATAL Then errorMessages += "ERROR: " + err.getMessage() + vbNewLine)
             pdispCheckErrors.ForEach(Sub(err) If err.getSeverity() = ErrorSeverity.WARNING Then errorMessages += "WARNING: " + err.getMessage() + vbNewLine)
-            Dim hasFatalError As Boolean = pdispCheckErrors.Any(Function(err) err.getSeverity() = ErrorSeverity.FATAL)
-            If hasFatalError Then
-                TopMostMsgBox.Show(errorMessages, "ERROR - PDISP MODEL QA CHECKS", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Environment.Exit(1)
-            Else
-                TopMostMsgBox.Show(errorMessages, "WARNING - PDISP MODEL QA CHECKS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
         End If
 
+        ' Build the Error/Warning Message for the user and if any FATAL ERROR is found, terminate the application.
+        Dim hasFatalError As Boolean = etabsCheckErrors.Any(Function(err) err.getSeverity() = ErrorSeverity.FATAL) Or
+            pdispCheckErrors.Any(Function(err) err.getSeverity() = ErrorSeverity.FATAL)
+        If hasFatalError Then
+            TopMostMsgBox.Show(errorMessages, "ERROR - FEA MODEL QA CHECKS", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Environment.Exit(1)
+        Else
+            TopMostMsgBox.Show(errorMessages, "WARNING - FEA MODEL QA CHECKS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
 
     End Sub
 

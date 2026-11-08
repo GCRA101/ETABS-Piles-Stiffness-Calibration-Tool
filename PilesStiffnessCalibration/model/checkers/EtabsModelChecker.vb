@@ -94,7 +94,7 @@ Public Class EtabsModelChecker
 
     End Function
 
-    Public Function checkPointSpringProperties(pointNames As List(Of String)) As (success As Boolean, err As CheckError)    'T(n)
+    Public Function checkPointSpringAssignments(pointNames As List(Of String)) As (success As Boolean, err As CheckError)    'T(n)
 
         ' 1. COLLECT UNIQUE NAMES OF POINTSPRINGPROPERTY ASSIGNED TO INPUT POINTNAMES
         ' Variables Declaration

@@ -125,7 +125,22 @@ Public Class PDispModelChecker
     End Function
 
     Public Function checkLoadTypes() As (success As Boolean, err As CheckError)
-        Throw New NotImplementedException()
+        '1. Get number of results for the 3 different load types (Rect, Circ, Poly)
+        Dim ret01, ret02, ret03, numRectLoads, numCircLoads, numPolyLoads As Short
+        ret01 = Me.pDispModel.getPDispApp().NumRectLoads(numRectLoads)
+        ret02 = Me.pDispModel.getPDispApp().NumCircLoads(numCircLoads)
+        ret03 = Me.pDispModel.getPDispApp().NumPolyLoads(numPolyLoads)
+        '2. Check that extraction of number of results was successful, otherwise return False + Error Object
+        If ret01 <> 0 OrElse ret02 <> 0 OrElse ret03 <> 0 Then
+            Return (False, New CheckError(ErrorSeverity.WARNING, "Impossible to extract the number of loads from the PDisp model."))
+        End If
+        '3. Check for unsupported load types (polyloads)
+        If numPolyLoads > 0 Then
+            Return (False, New CheckError(ErrorSeverity.FATAL, "The PDisp Model contains Polygonal Loads, which are not supported."))
+        End If
+
+        '...if no errors have been encountered, return true bool flag and null error object...
+        Return (True, Nothing)
     End Function
 
     Public Function checkLoadValues() As (success As Boolean, err As CheckError)

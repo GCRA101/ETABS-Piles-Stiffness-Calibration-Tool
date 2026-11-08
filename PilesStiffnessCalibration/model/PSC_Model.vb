@@ -294,7 +294,8 @@ Public Class PSC_Model
         pdispCheckErrors = pdispCheckResults.Where(Function(pdckr) pdckr.Item1 = False).Select(Function(pdckr) pdckr.Item2).ToList()
         If pdispCheckErrors.Count > 0 Then
             Dim errorMessages As String = ""
-            pdispCheckErrors.ForEach(Sub(err) errorMessages += err.getMessage() + vbNewLine)
+            pdispCheckErrors.ForEach(Sub(err) If err.getSeverity() = ErrorSeverity.FATAL Then errorMessages += "ERROR: " + err.getMessage() + vbNewLine)
+            pdispCheckErrors.ForEach(Sub(err) If err.getSeverity() = ErrorSeverity.WARNING Then errorMessages += "WARNING: " + err.getMessage() + vbNewLine)
             Dim hasFatalError As Boolean = pdispCheckErrors.Any(Function(err) err.getSeverity() = ErrorSeverity.FATAL)
             If hasFatalError Then
                 TopMostMsgBox.Show(errorMessages, "ERROR - PDISP MODEL QA CHECKS", MessageBoxButtons.OK, MessageBoxIcon.Error)

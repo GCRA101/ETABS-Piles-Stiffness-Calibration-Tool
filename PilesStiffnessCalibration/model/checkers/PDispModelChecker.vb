@@ -5,6 +5,13 @@ Imports pdispauto_20_1
 '''     <remarks>
 '''         Concrete class implementing the FEAModelCheckerInterface and specialized in
 '''         running checks on the PDisp model to make sure that the inputs are correct.
+'''         All the methods return as ouput both a success boolean parameter and a CheckError object.
+'''         This approach follows the "Fail Fast" principle, which allows to stop the execution of the program as soon as an error is found and is
+'''         inspired by the Error Handling strategy used by the Golang programming language.
+'''         When an error is found, the ouptut boolean is set to False and the CheckError object is instantiated with error message and severity.
+'''         When no error is found, the ouptut boolean is set to True and the CheckError object is set to Nothing.
+'''     </remarks>
+''' </summary>
 '''     </remarks>
 ''' </summary>
 

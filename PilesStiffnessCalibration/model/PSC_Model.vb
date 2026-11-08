@@ -564,6 +564,8 @@ Public Class PSC_Model
         Dim pMethod As PDispAnalysisMethod
         pDispModel.getPDispApp().AnalysisMethod(pMethod)
 
+        Dim dispX_mm, dispY_mm, dispZ_mm As Double
+
         Select Case pMethod
             Case PDispAnalysisMethod.MINDLIN
                 Dim MLDispPoints As List(Of PDispMLDispResult) = New ResultsPuller(Of PDispMLDispResult)(pDispModel).pull()
@@ -571,10 +573,13 @@ Public Class PSC_Model
                 pileObjs.ForEach(Function(plObj)
                                      If (mldpNames.Contains(plObj.getLocation().getName())) Then
                                          Dim nameIndex As Integer = mldpNames.IndexOf(plObj.getLocation().getName())
+                                         dispX_mm = CDbl(MLDispPoints(nameIndex).getResult().DispX) * 1000
+                                         dispY_mm = CDbl(MLDispPoints(nameIndex).getResult().DispY) * 1000
+                                         dispZ_mm = CDbl(MLDispPoints(nameIndex).getResult().DispZ) * 1000
                                          plObj.setDisplacements(New PointDisplacements(New Double() {
-                                            Math.Round(CDbl(MLDispPoints(nameIndex).getResult().DispX) * 1000, 1),
-                                            Math.Round(CDbl(MLDispPoints(nameIndex).getResult().DispY) * 1000, 1),
-                                            Math.Round(CDbl(MLDispPoints(nameIndex).getResult().DispZ) * 1000, 1)}))
+                                            Math.Sign(dispX_mm) * Math.Ceiling(Math.Abs(dispX_mm) * 100) / 100,
+                                            Math.Sign(dispY_mm) * Math.Ceiling(Math.Abs(dispY_mm) * 100) / 100,
+                                            Math.Sign(dispZ_mm) * Math.Ceiling(Math.Abs(dispZ_mm) * 100) / 100}))
                                      End If
                                  End Function)
             Case PDispAnalysisMethod.BOUSSINESQ
@@ -583,8 +588,9 @@ Public Class PSC_Model
                 pileObjs.ForEach(Function(plObj)
                                      If (bsqdpNames.Contains(plObj.getLocation().getName())) Then
                                          Dim nameIndex As Integer = bsqdpNames.IndexOf(plObj.getLocation().getName())
+                                         dispZ_mm = CDbl(BSQDispPoints(nameIndex).getResult().DispZ) * 1000
                                          plObj.setDisplacements(New PointDisplacements(New Double() {0, 0,
-                                            Math.Round(CDbl(BSQDispPoints(nameIndex).getResult().DispZ) * 1000, 1)}))
+                                         Math.Sign(dispZ_mm) * Math.Ceiling(Math.Abs(dispZ_mm) * 100) / 100}))
                                      End If
                                  End Function)
         End Select

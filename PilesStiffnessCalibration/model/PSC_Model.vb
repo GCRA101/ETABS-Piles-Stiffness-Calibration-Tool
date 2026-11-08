@@ -882,7 +882,7 @@ Public Class PSC_Model
         Dim checkResult As (success As Boolean, err As CheckError)
 
         If Me.selNonLinearOption = "None (Linear)" Then
-            checkResult = Me.etabsModelChecker.checkPointLinearSpringProperties(pileObjs)
+            checkResult = Me.etabsModelChecker.checkPointSpringProperties(pileObjs)
             If Not checkResult.success Then
                 If checkResult.err.getSeverity() = ErrorSeverity.FATAL Then
                     MessageBox.Show(checkResult.err.getMessage(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

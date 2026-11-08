@@ -197,7 +197,7 @@ Public Class EtabsModelChecker
     ' Time Complexity: T(n) = O(n) / Ω(1)
 
 
-    Public Function checkPointLinearSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)
+    Public Function checkPointSpringProperties(pileObjs As List(Of PileObject)) As (success As Boolean, err As CheckError)
 
         '1. CHECK MATCHING OF STIFFNESS ARRAYS BETWEEN PILEOBJS AND ETABS MODEL POINTSPRINGPROPERTIES                         'T(n)
         ' Variables Declaration

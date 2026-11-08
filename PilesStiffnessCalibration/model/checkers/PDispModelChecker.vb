@@ -97,7 +97,8 @@ Public Class PDispModelChecker
             Dim w, l As Double
             w = pDispRectLoad.getLoad().Width
             l = pDispRectLoad.getLoad().Length
-            If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Or l = 0 Or Double.IsNaN(l) Or Double.IsInfinity(l) Then
+            If w = 0 OrElse Double.IsNaN(w) OrElse Double.IsInfinity(w) OrElse
+               l = 0 OrElse Double.IsNaN(l) OrElse Double.IsInfinity(l) Then
                 errorMessage &= pDispRectLoad.getLoad().Name & ", "
                 errorsCount += 1
             End If
@@ -105,9 +106,9 @@ Public Class PDispModelChecker
         'Check area load dimensions for PDispCirc Loads
         For i As Integer = 0 To pDispCircLoads.Count - 1
             Dim pDispCircLoad As PDispCircLoad = pDispCircLoads(i)
-            Dim w, l As Double
+            Dim w As Double
             w = pDispCircLoad.getLoad().Width
-            If w = 0 Or Double.IsNaN(w) Or Double.IsInfinity(w) Then
+            If w = 0 OrElse Double.IsNaN(w) OrElse Double.IsInfinity(w) Then
                 errorMessage &= pDispCircLoad.getLoad().Name & ", "
                 errorsCount += 1
             End If

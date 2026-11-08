@@ -54,8 +54,6 @@ Public Class PushPolyLoads
             End Try
         End With
 
-        ' Via Streams
-        ' Me.polyLoads.ForEach(Sub(polyLd) pdispApp.AddPolyLoad(polyLd.getLoad()))
     End Sub
 
 

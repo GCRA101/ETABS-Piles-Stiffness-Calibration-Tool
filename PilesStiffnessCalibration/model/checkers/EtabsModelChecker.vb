@@ -52,6 +52,33 @@ Public Class EtabsModelChecker
         Throw New NotImplementedException()
     End Function
 
+    Public Function checkPointsExist(selEtabsGroupName As String) As (success As Boolean, err As CheckError)
+
+        '1. EXTRACT OBJECTS ASSIGNED TO THE ETABS GROUP
+        'Extract the names of the Point Objects assigned to the Etabs Group
+        Dim itemsNum As Integer, objTypes As Integer(), objNames As String()
+        Dim ret As Integer = Me.etabsModel.GroupDef.GetAssignments(selEtabsGroupName, itemsNum, objTypes, objNames)
+        ' If something goes wrong return False + Error Object
+        If ret <> 0 OrElse objNames Is Nothing Then
+            Return (False, New CheckError(ErrorSeverity.FATAL, "Impossible to extract object names from the ETABS model for the given ETABS group."))
+        End If
+
+        '2. RETAIN ONLY THE POINT OBJECTS ASSIGNED TO THE ETABS GROUP
+        'Object Type 1 = Point Object
+        Dim etabsGroupPointNames As New List(Of String)
+        For i As Integer = 0 To itemsNum - 1
+            If objTypes(i) = 1 Then etabsGroupPointNames.Add(objNames(i))
+        Next
+
+        '3. CHECK QUANTITY OF POINT OBJECTS IS GREATER THAN ZERO
+        If etabsGroupPointNames.Count = 0 Then
+            Return (False, New CheckError(ErrorSeverity.FATAL, "No Point Objects are assigned to the ETABS group '" & selEtabsGroupName & "'."))
+        Else
+            Return (True, Nothing)
+        End If
+
+    End Function
+
     Public Function checkPointsCount(selEtabsGroupName As String, pointsCount As Integer) As (success As Boolean, err As CheckError) Implements FEAModelCheckerInterface.checkPointsCount
         Throw New NotImplementedException()
     End Function

@@ -278,6 +278,36 @@ Public Class PSC_Model
                                             End Function)
     End Sub
 
+    Public Sub runFEAModelsQAChecks()
+        ' Checks on ETABS Model
+        With Me.etabsModelChecker
+        End With
+        ' Checks on PDisp Model
+        Dim pdispCheckResults As List(Of (Boolean, CheckError)) = New List(Of (Boolean, CheckError))
+        Dim pdispCheckErrors As List(Of CheckError) = New List(Of CheckError)
+        With Me.pdispModelChecker
+            pdispCheckResults.Add(.checkLoadTypes())
+            pdispCheckResults.Add(.checkAreaValues())
+            pdispCheckResults.Add(.checkGridsCalculation())
+        End With
+
+        pdispCheckErrors = pdispCheckResults.Where(Function(pdckr) pdckr.Item1 = False).Select(Function(pdckr) pdckr.Item2).ToList()
+        If pdispCheckErrors.Count > 0 Then
+            Dim errorMessages As String = ""
+            pdispCheckErrors.ForEach(Sub(err) errorMessages += err.getMessage() + vbNewLine)
+            Dim hasFatalError As Boolean = pdispCheckErrors.Any(Function(err) err.getSeverity() = ErrorSeverity.FATAL)
+            If hasFatalError Then
+                TopMostMsgBox.Show(errorMessages, "ERROR - PDISP MODEL QA CHECKS", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Environment.Exit(1)
+            Else
+                TopMostMsgBox.Show(errorMessages, "WARNING - PDISP MODEL QA CHECKS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        End If
+
+
+    End Sub
+
+
 
     Public Sub runIteration()
 

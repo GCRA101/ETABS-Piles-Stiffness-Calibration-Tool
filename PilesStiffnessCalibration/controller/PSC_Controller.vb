@@ -168,6 +168,8 @@ Public Class PSC_Controller
 
 	End Sub
 	Public Sub runIteration() Implements ControllerInterface.runIteration
+		'Call the Model's method running QA checks on the FEA Models
+		Me.model.runFEAModelsQAChecks()
 		'Call the Model's Iteration method
 		Me.model.runIteration()
 		'Call the Model's method generating the Outputs Excel Summary based on user input selection

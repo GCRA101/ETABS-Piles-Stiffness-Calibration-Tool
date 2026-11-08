@@ -112,6 +112,7 @@
     <Compile Include="model\ExcelChartFactoryInterface.vb" />
     <Compile Include="model\ExcelChartFactory.vb" />
     <Compile Include="model\ExcelDataManager.vb" />
+    <Compile Include="model\LinkPropertyType.vb" />
     <Compile Include="model\ExcelRangeType.vb" />
     <Compile Include="model\ExcessiveΔException.vb" />
     <Compile Include="model\FileManager.vb" />

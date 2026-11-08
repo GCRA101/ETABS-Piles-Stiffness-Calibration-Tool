@@ -249,6 +249,118 @@ Public Class EtabsModelChecker
     End Function                                                                                                              'Θ(1)
     ' Time Complexity: T(n) = O(n) / Ω(1)
 
+    Public Function checkPointLinkProperties(pileObjs As List(Of PileObject), linkPropType As LinkPropertyType) _
+                                                                    As (success As Boolean, err As CheckError)                'T(n)
+        '1. VARIABLES DECLARATION                       
+        ' Variables Declaration - Springs
+        Dim ret, springOption, color, i As Integer                                                                            'Θ(1)
+        Dim stiffnessArray As Double()                                                                                        'Θ(1)
+        Dim cSys, soilProfile, footing, notes, iGuid As String                                                                'Θ(1)
+        Dim period As Double                                                                                                  'Θ(1)
+        Dim match As Boolean                                                                                                  'Θ(1)
+        ' Variables Declaration - Links
+        Dim retLink As Integer                                                                                        'Θ(1)
+        Dim linkPropName As String                                                                                            'Θ(1)
+        Dim numLinks As Integer                                                                                               'Θ(1)
+        Dim linkNames As String()                                                                                             'Θ(1)
+        Dim linkAxialDirs As Integer()                                                                                        'Θ(1)
+        Dim linkAngles As Double()                                                                                            'Θ(1)
+        Dim dof, fixed, nonLinear As Boolean()                                                                                'Θ(1)
+        Dim ke, ce, k, dis As Double()                                                                                        'Θ(1)
+        Dim dj2, dj3 As Double                                                                                                'Θ(1)
+        ' Variables Declaration - Error Handling
+        Dim errorsCount As Integer = 0                                                                                        'Θ(1)
+        Dim errorMessage As String = "ETABS Hook Spring Properties do not match computed values at following locations: "     'Θ(1)
+
+        '2. EXCLUTE UNSUPPORTED LINK PROPERTY TYPES
+        If linkPropType = LinkPropertyType.DAMPER OrElse linkPropType = LinkPropertyType.DAMPERBILINEAR OrElse
+           linkPropType = LinkPropertyType.DAMPERFRICTIONSPRING OrElse linkPropType = LinkPropertyType.FRICTIONISOLATOR OrElse
+           linkPropType = LinkPropertyType.LINEAR OrElse linkPropType = LinkPropertyType.MULTILINEARELASTIC OrElse
+           linkPropType = LinkPropertyType.MULTILINEARPLASTIC OrElse linkPropType = LinkPropertyType.RUBBERISOLATOR Then      'Θ(1)
+            Return (False, New CheckError(ErrorSeverity.WARNING, "Invalid Link Property Type specified for the check."))      'Θ(1)
+        End If                                                                                                                'Θ(1)
+
+        '3. CHECK MATCHING OF STIFFNESS ARRAYS BETWEEN PILEOBJS AND ETABS MODEL HOOK LINK PROPERTIES   
+        For Each pileObj In pileObjs                                                                                          'O(n)/Ω(1)+Θ(1)
+
+            ' 3.1 GET ETABS POINT SPRING PROPERTY ASSIGNED TO CURRENT PILEOBJ
+            ' ETABS point spring property is named after the point (see PSC_Model.updatePointSprings)
+            Dim springPropName As String = pileObj.getLocation().getName()                                                    'Θ(1)
+            ' Get Point Spring Property
+            ret = Me.etabsModel.PropPointSpring.GetPointSpringProp(springPropName,
+                        springOption, stiffnessArray, cSys, soilProfile, footing, period, color, notes, iGuid)                'Θ(1)
+            ' If something goes wrong return False + Error Object
+            If ret <> 0 Then                                                                                                  'Θ(1)
+                Return (False, New CheckError(ErrorSeverity.FATAL,
+                        "Impossible to read ETABS Point Spring Property '" & springPropName & "'."))                          'Θ(1)
+            End If                                                                                                            'Θ(1)
+
+            ' 3.2 GET LINK ASSIGNED TO POINT SPRING PROPERTY
+            ' Get Links assigned to Point Spring Property
+            ret = Me.etabsModel.PropPointSpring.GetLinks(springPropName, numLinks, linkNames, linkAxialDirs, linkAngles)      'Θ(1)
+            ' If the Point Spring Property is not assigned with any link, skip it and move to the next
+            If ret = 0 Or numLinks = 0 Then                                                                                   'Θ(1)
+                Continue For                                                                                                  'Θ(1)
+            End If                                                                                                            'Θ(1)
+            ' If the Point Spring Property is assigned with more than one link, return False + Error Object
+            If numLinks > 1 Then                                                                                              'Θ(1)
+                Return (False, New CheckError(ErrorSeverity.FATAL,
+                        "The ETABS Point Spring Property '" & springPropName & " is assigned with more than one link."))      'Θ(1)
+            End If                                                                                                            'Θ(1)
+
+            ' 3.3 GET STIFFNESS PROPERTY ASSIGNED TO LINK
+            ' Try to get the Gap/Hook Link Property corresponding to the extract link name
+            linkPropName = linkNames(0)                                                                                       'Θ(1)
+            Select Case linkPropType                                                                                          'Θ(1)
+                Case LinkPropertyType.GAP 'Θ(1)
+                    retLink = Me.etabsModel.PropLink.GetGap(linkPropName, dof, fixed, nonLinear, ke,
+                                                         ce, k, dis, dj2, dj3, notes, iGuid)                                  'Θ(1)
+                Case LinkPropertyType.HOOK 'Θ(1)
+                    retLink = Me.etabsModel.PropLink.GetHook(linkPropName, dof, fixed, nonLinear, ke,
+                                                         ce, k, dis, dj2, dj3, notes, iGuid)                                  'Θ(1)
+            End Select 'Θ(1)
+            ' If the link is not a Hook, skip it and move to the next
+            If retLink <> 0 Then                                                                                              'Θ(1)
+                Continue For                                                                                                  'Θ(1)
+            End If                                                                                                            'Θ(1)
+            ' Otherwise, if the link is a Hook, store its stiffness array in the stiffnessArray variable
+            stiffnessArray = k                                                                                                'Θ(1)
+
+            ' 3.4 COMPARE STIFFNESS ARRAYS
+            ' Expected array as assigned in ETABS: U1, U2, U3 + zero rotational stiffnesses
+            Dim expectedStiffnessArray As Double() = {pileObj.getStiffness().getU1(), pileObj.getStiffness().getU2(),
+                                        pileObj.getStiffness().getU3(), 0, 0, 0}                                              'Θ(1)
+            ' Reset bool control parameter
+            match = True                                                                                                      'Θ(1)
+            ' Compare arrays length
+            If stiffnessArray.Length <> expectedStiffnessArray.Length Then                                                    'Θ(1)
+                match = False                                                                                                 'Θ(1)
+            End If                                                                                                            'Θ(1)
+            ' Compare arrays values with tolerance of 0.1 N/mm
+            For i = 0 To stiffnessArray.Length - 1                                                                            '6*Θ(1)+Θ(1)
+                Dim tolerance As Double = 0.1                                                                                 'Θ(1)
+                If Math.Abs(expectedStiffnessArray(i) - stiffnessArray(i)) > tolerance Then                                   'Θ(1)
+                    match = False                                                                                             'Θ(1)
+                End If                                                                                                        'Θ(1)
+            Next                                                                                                              'Θ(1)
+            If Not match Then                                                                                                 'Θ(1)
+                errorsCount += 1                                                                                              'Θ(1)
+                errorMessage &= linkPropName & ", "                                                                               'Θ(1)
+            End If                                                                                                            'Θ(1)
+        Next                                                                                                                  'Θ(1)
+
+        '4. RETURN RESULTS
+        If errorsCount > 0 Then                                                                                               'Θ(1)
+            Return (False, New CheckError(ErrorSeverity.FATAL, errorMessage.TrimEnd(","c, " "c)))                             'Θ(1)
+        End If                                                                                                                'Θ(1)
+
+        '...If no error has been encountered...return true flag and null error object
+        Return (True, Nothing)                                                                                                'Θ(1)
+    End Function                                                                                                              'Θ(1)
+    ' Time Complexity: T(n) = O(n) / Ω(1)
+
+
+
     Public Sub runAllChecks() Implements FEAModelCheckerInterface.runAllChecks
         Throw New NotImplementedException()
     End Sub

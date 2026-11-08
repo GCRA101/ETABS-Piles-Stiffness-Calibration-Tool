@@ -634,10 +634,11 @@ Public Class PSC_Model
 
         For Each plObj In pileObjs
             Dim springName = "Spring_" + plObj.getLocation().getName()
-            Dim zStiffness As Double
-            If plObj.getStatus = PileStatus.LOADED Then
-                zStiffness = Math.Round(CDbl(plObj.getLoads().getF3()) /
-                                        CDbl(plObj.getDisplacements().getU3()), 1)
+            Dim zForce, zDisp, zStiffness As Double
+            zForce = CDbl(plObj.getLoads().getF3())
+            zDisp = CDbl(plObj.getDisplacements().getU3())
+            If plObj.getStatus = PileStatus.LOADED And zDisp <> 0 Then
+                zStiffness = Math.Round(zForce / zDisp, 2)
             Else
                 zStiffness = fixity
             End If

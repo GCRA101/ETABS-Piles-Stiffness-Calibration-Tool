@@ -540,9 +540,9 @@ Public Class PSC_Model
                 Continue For
             End If
             'Format reactions
-            f_1 = f1.Select(Of Double)(Function(force) (Math.Round(force, 0))).First()
-            f_2 = f2.Select(Of Double)(Function(force) (Math.Round(force, 0))).First()
-            f_3 = f3.Select(Of Double)(Function(force) (Math.Round(force, 0))).First()
+            f_1 = f1.Select(Of Double)(Function(force) (Math.Round(force, 2))).First()
+            f_2 = f2.Select(Of Double)(Function(force) (Math.Round(force, 2))).First()
+            f_3 = f3.Select(Of Double)(Function(force) (Math.Round(force, 2))).First()
             'Assign reactions and coordinates to PileObjects
             pileObjs.Add(New PileObject(etabsPointNames(i), New PointObject(etabsPointNames(i), ppX, ppY, ppZ),,
                          New PointLoads(New Double() {f_1, f_2, f_3})))

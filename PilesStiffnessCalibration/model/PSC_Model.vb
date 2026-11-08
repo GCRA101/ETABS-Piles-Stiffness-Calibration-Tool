@@ -879,17 +879,27 @@ Public Class PSC_Model
 
 
         ' RUN CHECKS ON ASSIGNED SPRING PROPERTIES
+
+        ' Variable storing outputs of ETABS Model Checker's methods
         Dim checkResult As (success As Boolean, err As CheckError)
 
-        If Me.selNonLinearOption = "None (Linear)" Then
-            checkResult = Me.etabsModelChecker.checkPointSpringProperties(pileObjs)
-            If Not checkResult.success Then
-                If checkResult.err.getSeverity() = ErrorSeverity.FATAL Then
-                    MessageBox.Show(checkResult.err.getMessage(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Environment.Exit(1)
-                ElseIf checkResult.err.getSeverity() = ErrorSeverity.WARNING Then
-                    MessageBox.Show(checkResult.err.getMessage(), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End If
+        ' Run different checks depending on chosen NonLinear option
+        Select Case Me.selNonLinearOption
+            Case "None (Linear)"
+                checkResult = Me.etabsModelChecker.checkPointSpringProperties(pileObjs)
+            Case "Tension Only"
+                checkResult = Me.etabsModelChecker.checkLinkProperties(pileObjs, LinkPropertyType.HOOK)
+            Case "Compression Only"
+                checkResult = Me.etabsModelChecker.checkLinkProperties(pileObjs, LinkPropertyType.GAP)
+        End Select
+
+        ' Return Error/Warning Message to user depending on error severity
+        If Not checkResult.success Then
+            If checkResult.err.getSeverity() = ErrorSeverity.FATAL Then
+                MessageBox.Show(checkResult.err.getMessage(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Environment.Exit(1)
+            ElseIf checkResult.err.getSeverity() = ErrorSeverity.WARNING Then
+                MessageBox.Show(checkResult.err.getMessage(), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
         End If
 

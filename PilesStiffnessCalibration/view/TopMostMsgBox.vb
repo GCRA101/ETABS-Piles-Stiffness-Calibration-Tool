@@ -36,6 +36,16 @@ Public NotInheritable Class TopMostMsgBox
                                 Optional buttons As MessageBoxButtons = MessageBoxButtons.OK,
                                 Optional icon As MessageBoxIcon = MessageBoxIcon.None) As DialogResult
 
+        ' Suspend TopMost on any other open TopMost forms (e.g. ViewInputs) so they can't be
+        ' reactivated above this dialog while it is shown
+        Dim suspendedTopMostForms As New List(Of Form)
+        For Each openForm As Form In Application.OpenForms
+            If openForm.TopMost Then
+                openForm.TopMost = False
+                suspendedTopMostForms.Add(openForm)
+            End If
+        Next
+
         ' Create invisible top-most owner form to ensure the MessageBox appears above all other windows
         Dim topMostForm As New Form() With {
             .TopMost = True,
@@ -43,14 +53,19 @@ Public NotInheritable Class TopMostMsgBox
             .Location = New Point(-2000, -2000),
             .ShowInTaskbar = False
         }
-        ' Show the top-most form
-        topMostForm.Show()
-        ' Display the MessageBox with the top-most form as its owner
-        Dim result As DialogResult = MessageBox.Show(topMostForm, text, caption, buttons, icon)
-        ' Close the top-most form after the MessageBox is dismissed
-        topMostForm.Close()
+        Try
+            ' Show the top-most form
+            topMostForm.Show()
+            ' Display the MessageBox with the top-most form as its owner
+            Dim result As DialogResult = MessageBox.Show(topMostForm, text, caption, buttons, icon)
+            ' Close the top-most form after the MessageBox is dismissed
+            topMostForm.Close()
 
-        Return result
+            Return result
+        Finally
+            ' Restore TopMost on the forms that had it suspended
+            suspendedTopMostForms.ForEach(Sub(f) f.TopMost = True)
+        End Try
     End Function
 
 End Class

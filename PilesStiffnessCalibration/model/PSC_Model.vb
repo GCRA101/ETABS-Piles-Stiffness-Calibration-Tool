@@ -918,9 +918,9 @@ Public Class PSC_Model
             Case "None (Linear)"
                 checkResult = Me.etabsModelChecker.checkPointSpringProperties(pileObjs)
             Case "Tension Only"
-                checkResult = Me.etabsModelChecker.checkLinkProperties(pileObjs, LinkPropertyType.HOOK)
+                checkResult = Me.etabsModelChecker.checkPointLinkProperties(pileObjs, LinkPropertyType.HOOK)
             Case "Compression Only"
-                checkResult = Me.etabsModelChecker.checkLinkProperties(pileObjs, LinkPropertyType.GAP)
+                checkResult = Me.etabsModelChecker.checkPointLinkProperties(pileObjs, LinkPropertyType.GAP)
         End Select
 
         ' Return Error/Warning Message to user depending on error severity

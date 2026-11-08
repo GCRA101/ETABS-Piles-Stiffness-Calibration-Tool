@@ -50,7 +50,7 @@ Public Class PDispModelChecker
         End If
 
         '2. CHECK THAT CALCULATE OPTION IS NOT ACTIVE AT ANY DISPLACEMENT GRID
-        ' Return False + Error Object if any Displacement Grid has the Calculate option ticked
+        Dim computedDispGridNames As List(Of String) = New List(Of String)()
         For i As Short = 1 To gridsNum
             Dim dispGrid As DisplacementGrid
             ret = Me.pDispModel.getPDispApp().GetDisplacementGrid(i, dispGrid)
@@ -58,9 +58,16 @@ Public Class PDispModelChecker
                 Return (False, New CheckError(ErrorSeverity.WARNING, "Impossible to extract Displacement Grid " & i & " from the PDisp model."))
             End If
             If dispGrid.Calculate Then
-                Return (False, New CheckError(ErrorSeverity.WARNING, "Displacement Grid '" & dispGrid.Name & "' in the PDisp model has the Calculate option ticked."))
+                computedDispGridNames.Add(dispGrid.Name)
             End If
         Next
+
+        '3. RETURN ERROR MESSAGE IF ANY DISPLACEMENT GRID IS SET TO BE CALCULATED
+        If computedDispGridNames.Count > 0 Then
+            Dim errorMessage As String
+            errorMessage = "Displacement Grid(s) '" & String.Join(", ", computedDispGridNames) & "' in the PDisp model have the Calculate option ticked."
+            Return (False, New CheckError(ErrorSeverity.WARNING, errorMessage))
+        End If
 
         '...If no Displacement Grid is set to be calculated, return true bool flag and null checkError object
         Return (True, Nothing)

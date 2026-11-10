@@ -686,7 +686,7 @@ Public Class PSC_Model
             zForce = CDbl(plObj.getLoads().getF3())
             zDisp = CDbl(plObj.getDisplacements().getU3())
             If plObj.getStatus = PileStatus.LOADED And zDisp <> 0 Then
-                zStiffness = Math.Round(zForce / zDisp, 2)
+                zStiffness = Math.Round(Math.Abs(zForce / zDisp), 2)
             Else
                 zStiffness = fixity
             End If
